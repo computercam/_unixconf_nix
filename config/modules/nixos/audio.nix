@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
-let Packages = with pkgs; [ alsaUtils pavucontrol playerctl ];
+let 
+  Packages = with pkgs; [ alsaUtils pavucontrol playerctl ];
 in {
   config = {
     environment.systemPackages = Packages;
