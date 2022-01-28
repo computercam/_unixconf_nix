@@ -1,6 +1,8 @@
 { config, lib, pkgs, options, ... }:
 {
   config = {
+    users.users."${cfg.username}".extraGroups = [ "sshusers" ];
+
     programs.gnupg = {
       agent = {
         enable = true;
@@ -28,6 +30,8 @@
       ports = [ 22 ];
       startWhenNeeded = true;
 
+      # TODO: consider remove uneeded options here
+      # TODO: consider making these values configurable
       extraConfig = ''
         AllowGroups sshusers
         ClientAliveCountMax 2
@@ -39,8 +43,6 @@
         TCPKeepAlive yes
       '';
     };
-
-    users.users."${cfg.username}".extraGroups = [ "sshusers" ];
 
     # # PAM 2 FACTOR AUTH
     # # Users with enabled Google Authenticator (created ~/.google_authenticator) will be required to provide Google Authenticator token to log in via sshd.
