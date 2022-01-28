@@ -1,20 +1,27 @@
 { config, lib, pkgs, options, ... }:
-
-let
-  PrinterDrivers = with pkgs; [
-    epson-escpr
-    epson-escpr2
-    gutenprint
-    hplip
-    splix
+{
+  imports = [
+    ../service-avahi/service-avahi.nix
   ];
-in {
+
   config = {
     programs.system-config-printer.enable = true;
+    services.system-config-printer.enable = true;
 
     services.printing = {
       enable = true;
-      drivers = PrinterDrivers;
+      
+      drivers =  with pkgs; [
+        canon-cups-ufr2
+        carps-cups
+        epson-escpr
+        epson-escpr2
+        gutenprint
+        hplip
+        splix
+      ];
     };
+
+    users.users."${cfg.username}".extraGroups = [ "lp" "printadmin" "scanner" ];
   };
 }

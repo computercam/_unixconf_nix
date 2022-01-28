@@ -1,10 +1,8 @@
 { config, lib, pkgs, ... }:
 
-let 
-  Packages = with pkgs; [ alsaUtils pavucontrol playerctl ];
-in {
+{
   config = {
-    environment.systemPackages = Packages;
+    environment.systemPackages = with pkgs; [ alsaUtils pavucontrol playerctl ];;
     sound.enable = true;
 
     hardware.pulseaudio = {

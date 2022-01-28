@@ -1,9 +1,6 @@
 { config, lib, pkgs, options, ... }:
-
 {
   config = {
-    environment.systemPackages = with pkgs; [ sshfs google-authenticator ];
-
     programs.gnupg = {
       agent = {
         enable = true;
@@ -45,9 +42,9 @@
 
     users.users."${cfg.username}".extraGroups = [ "sshusers" ];
 
-    # PAM 2 FACTOR AUTH
-    # Users with enabled Google Authenticator (created ~/.google_authenticator) will be required to provide Google Authenticator token to log in via sshd.
-    # https://wiki.archlinux.org/index.php/Google_Authenticator
-    security.pam.services.sshd.googleAuthenticator.enable = true;
+    # # PAM 2 FACTOR AUTH
+    # # Users with enabled Google Authenticator (created ~/.google_authenticator) will be required to provide Google Authenticator token to log in via sshd.
+    # # https://wiki.archlinux.org/index.php/Google_Authenticator
+    # security.pam.services.sshd.googleAuthenticator.enable = true;
   };
 }

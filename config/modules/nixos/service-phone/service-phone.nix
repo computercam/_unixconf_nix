@@ -1,15 +1,13 @@
 { config, lib, pkgs, ... }:
 
-let
-  Packages = with pkgs; [
-    libimobiledevice
-    ifuse
-    gvfs
-  ];
-in 
 {
   config = {
+    environment.systemPackages = with pkgs; [
+      libimobiledevice
+      ifuse
+      gvfs
+    ];
+    
     services.gvfs.enable = true;
-    environment.systemPackages = Packages;
   };
 }

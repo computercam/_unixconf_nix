@@ -1,38 +1,28 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with builtins;
-let
-  JackConfig = {
-    device = "none";
-    capture = "none";
-    playback = "none";
-    rate = 44100;
-    periods = 2;
-    frames = 1024;
-  };
-
-  Packages = with pkgs; [
-    a2jmidid
-    alsaLib
-    # airwave
-    bitwig-studio
-    musescore
-    patchage
-    qjackctl
-  ];
-in {
+{
   config = {
-    environment.systemPackages = Packages;
+    environment.systemPackages = with pkgs; [
+      a2jmidid
+      alsaLib
+      bitwig-studio
+      musescore
+      patchage
+      qjackctl
+    ];
+
     security.rtkit.enable = true;
 
     boot = {
       kernelModules = [ "snd-seq" "snd-rawmidi" ];
+      
       kernel.sysctl = {
         "vm.swappiness" = 10;
         "fs.inotify.max_user_watches" = 524288;
       };
+
       kernelParams = [ "threadirq" ];
+
       postBootCommands = ''
         echo 2048 > /sys/class/rtc/rtc0/max_user_freq
         echo 2048 > /proc/sys/dev/hpet/max-user-freq
@@ -43,7 +33,7 @@ in {
 
     powerManagement.cpuFreqGovernor = "performance";
 
-    fileSystems."/" = { options = [ "noatime" ]; };
+    fileSystems."/".options = [ "noatime" ];
 
     security.pam.loginLimits = [
       {
@@ -73,7 +63,6 @@ in {
     ];
 
     services = {
-      # thermald.enable = true;
       udev = {
         extraRules = ''
           KERNEL=="rtc0", GROUP="audio"
@@ -107,17 +96,18 @@ in {
       script = ''
         sleep 5
         jack_control ds alsa
-        jack_control dps device '${JackConfig.device}'
-        jack_control dps capture '${JackConfig.capture}'
-        jack_control dps playback '${JackConfig.playback}'
-        jack_control dps rate ${toString JackConfig.rate}
-        jack_control dps nperiods ${toString JackConfig.periods}
-        jack_control dps period ${toString JackConfig.frames}
+        jack_control dps device 'none'
+        jack_control dps capture 'none'
+        jack_control dps playback 'none'
+        jack_control dps rate 44100
+        jack_control dps nperiods 2
+        jack_control dps period 1024
         jack_control start
         a2j_control ehw
         a2j_control start
         sleep infinity
       '';
+
       preStop = ''
         a2j_control exit
         jack_control exit
