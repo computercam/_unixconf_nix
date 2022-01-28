@@ -9,10 +9,7 @@
       enable = true;
       
       syncPasswordsByPam = true;
-      # You will still need to set up the user accounts to begin with:
-      # $ sudo smbpasswd -a yourusername
 
-      # This adds to the [global] section:
       extraConfig = ''
         aio read size = 16384
         aio write size = 16384
@@ -44,27 +41,19 @@
         write list = ${cfg.username}
         
         
-        # OSX Specific Configurations
-        min protocol = SMB2
-        vfs objects = catia fruit streams_xattr
-        fruit:delete_empty_adfiles = yes
-        fruit:metadata = stream
-        fruit:model = MacSamba
-        fruit:posix_rename = yes
-        fruit:veto_appledouble = no
-        fruit:wipe_intentionally_left_blank_rfork = yes
+        # # OSX Specific Configurations
+        # min protocol = SMB2
+        # vfs objects = catia fruit streams_xattr
+        # fruit:delete_empty_adfiles = yes
+        # fruit:metadata = stream
+        # fruit:model = MacSamba
+        # fruit:posix_rename = yes
+        # fruit:veto_appledouble = no
+        # fruit:wipe_intentionally_left_blank_rfork = yes
       '';
     };
 
-     users.users."${cfg.username}".name = mkMerge [
-      { 
-        name = "${cfg.username}";
-        shell = pkgs.zsh;
-        home = homeDir;
-      }
-    ];
-
-    networking.firewall.allowedTCPPorts = [ 445 139 ];
+    networking.firewall.allowedTCPPorts = [ 445 ];
     
     environment.systemPackages = with pkgs; [ cifs-utils ];
     
