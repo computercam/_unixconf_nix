@@ -1,17 +1,11 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  
 in
 {
-  imports = [
-    ../common/__base.nix
-    ./yabai.nix
-  ];
+  imports = [];
   
   config = {
-    cfg.yabai.enable = false;
-
     system.defaults = {
       LaunchServices.LSQuarantine = false;
 

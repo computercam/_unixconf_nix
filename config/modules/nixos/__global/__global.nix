@@ -4,14 +4,7 @@ let
   cfg = config.cfg;
 in
 {
-  imports = [
-    ../common/__base.nix
-    ./filesystems.nix
-    ./network.nix
-    ./sshd.nix
-    ./syncthing.nix
-    ./sudoers.nix
-  ];
+  imports = [];
 
   config = {
     security.allowUserNamespaces = true;
