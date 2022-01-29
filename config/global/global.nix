@@ -18,7 +18,7 @@ in
 
       family = mkOption {
         type = types.str;
-        default = "linux";
+        default = "generic";
         description = "Operating System Unix Family";
       };
 
