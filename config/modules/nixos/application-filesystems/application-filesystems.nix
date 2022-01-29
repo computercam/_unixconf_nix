@@ -1,7 +1,5 @@
 { config, lib, pkgs, options, ... }:
-
-let
-  Packages = with pkgs; [
+{ config.environment.systemPackages = with pkgs; [
     apfs-fuse
     ddrescue
     exfat
@@ -12,11 +10,4 @@ let
     mergerfs-tools
     ntfs3g
   ];
-in { 
-  config = { 
-    environment.systemPackages = Packages; 
-    
-    boot.cleanTmpDir = true;
-    boot.tmpOnTmpfs = true;
-  }; 
 }

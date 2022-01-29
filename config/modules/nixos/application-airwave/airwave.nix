@@ -2,7 +2,6 @@
 , makeWrapper, qt5, requireFile, unzip, wine }:
 
 let
-
   version = "1.3.3";
 
   airwave-src = fetchFromGitHub {

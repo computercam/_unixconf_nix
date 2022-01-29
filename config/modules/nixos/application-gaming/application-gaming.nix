@@ -1,8 +1,5 @@
 { config, lib, pkgs, options, ... }:
-with lib;
-let
-  
-in {
+{
   config = {
     environment.systemPackages = with pkgs; [
       lutris

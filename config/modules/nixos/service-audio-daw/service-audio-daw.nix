@@ -6,7 +6,6 @@
   ];
 
   config = {
-    
     environment.systemPackages = with pkgs; [
       a2jmidid
       alsaLib
