@@ -1,7 +1,12 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ../service-audio/service-audio.nix
+  ];
+
   config = {
+    
     environment.systemPackages = with pkgs; [
       a2jmidid
       alsaLib
@@ -30,7 +35,7 @@
         setpci -v -s $(lspci | grep -i audio | awk '{print $1}') latency_timer=ff
       '';
     };
-
+    
     powerManagement.cpuFreqGovernor = "performance";
 
     fileSystems."/".options = [ "noatime" ];

@@ -1,19 +1,18 @@
 { config, lib, pkgs, options, ... }:
 with lib;
 let
-  Packages = with pkgs; [
-    # retroarch # can be downloaded with lutris
-    lutris
-    steam
-    steam-run-native
-    protontricks
-    winetricks
-    wineWowPackages.full
-    vulkan-tools
-  ];
+  
 in {
   config = {
-    environment.systemPackages = Packages;
+    environment.systemPackages = with pkgs; [
+      lutris
+      steam
+      steam-run-native
+      protontricks
+      winetricks
+      wine-staging
+      vulkan-tools
+    ];
 
     # 32 bit support for Lutris
     hardware = {

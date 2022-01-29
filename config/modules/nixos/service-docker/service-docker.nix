@@ -2,7 +2,7 @@
 
 {
   config = {
-    users.users."${cfg.username}".extraGroups = [ "docker" ];
+    users.users.main.extraGroups = [ "docker" ];
 
     environment.systemPackages = with pkgs; [
       docker-compose_2

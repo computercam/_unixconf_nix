@@ -9,9 +9,24 @@ let
 in
 {
   options = {
-    cfg.systemname= mkOption {
-      type = types.str;
-      description = "Target system to build.";
+    cfg.os = {
+      arch = mkOption {
+        type = types.str;
+        default = "x86-64";
+        description = "System Architecture";
+      };
+
+      family = mkOption {
+        type = types.str;
+        default = "linux";
+        description = "Operating System Unix Family";
+      };
+
+      version = mkOption {
+        type = types.str;
+        default = "latest";
+        description = "Operating System Type";
+      };
     };
 
     cfg.lang = mkOption {
@@ -22,26 +37,36 @@ in
 
     cfg.timezone = mkOption {
       type = types.str;
-      default = "en_US.UTF-8";
-      description = ""America/Chicago"";
+      default = "America/Chicago";
+      description = "System Default Timezone";
+    };
+
+    cfg.keymap = mkOption {
+      type = types.str;
+      default = "us";
+      description = "Console Keymap";
+    };
+
+    cfg.longitude = mkOption {
+      type = types.flt;
+      default = 32.0;
+      description = "Location Long";
+    };
+    
+    cfg.latitude = mkOption {
+      type = types.flt;
+      default = -96.0;
+      description = "Location Lat";
     };
   };
 
   config = {
-    ## Nix Settings
-    nix = {
-      allowedUsers = [
-        "@wheel" 
-      ];
-      
-      buildCores = 0;
-    };
-
-    nixpkgs.config.allowUnfree = true;
-    networking.hostName = cfg.systemname;
-
-    ## Localization
     environment.variables.LANG = cfg.lang;
+    i18n.defaultLocale = cfg.lang;
+    location.latitude = cfg.latitude;
+    location.longitude = cfg.longitude;
+    nix.allowedUsers = [ "@wheel" "@staff" ];
+    nixpkgs.config.allowUnfree = true;
     time.timeZone = cfg.timezone;
   };
 }

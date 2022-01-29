@@ -1,6 +1,4 @@
 { config, lib, pkgs, options, ... }:
-
-with lib; 
 {
   config = {
     services.xserver.videoDrivers = [ "nvidia" ]; # nvidia gtx 1060

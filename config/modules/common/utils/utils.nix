@@ -9,7 +9,6 @@ with pkgs.stdenv; with lib;
         killall
         lshw
         lsof
-        protonvpn-cli
       ];
     })
 
@@ -17,11 +16,10 @@ with pkgs.stdenv; with lib;
       systemPackages = with pkgs; [ 
         # generic
         coreutils-full
+        uutils-coreutils
         parallel
         stow
         nixfmt
-        nix-prefetch-git
-        lazygit
         # files
         findutils
         lsof
@@ -36,10 +34,8 @@ with pkgs.stdenv; with lib;
         curl
         lftp
         wget
-        youtube-dl
         # archives
         p7zip
-        par2cmdline
         unrar
         unzip
         zip

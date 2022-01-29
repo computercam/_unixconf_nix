@@ -2,7 +2,8 @@
 
 {
   config = {
-    environment.systemPackages = with pkgs; [ alsaUtils pavucontrol playerctl ];;
+    environment.systemPackages = with pkgs; [ alsaUtils pavucontrol playerctl ];
+    users.users.main.extraGroups = [ "audio" ];
     sound.enable = true;
 
     hardware.bluetooth.enable = true;

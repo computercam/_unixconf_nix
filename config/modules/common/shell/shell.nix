@@ -1,40 +1,22 @@
 { config, lib, pkgs, options, ... }:
 with pkgs.stdenv; with lib; 
 let
-  cfg = config.cfg;
-  
-  Packages = with pkgs; [
-    cmatrix
-    cowsay
-    exa
-    figlet
-    glances
-    htop
-    jp2a
-    kitty
-    lolcat
-    neofetch
-    pywal
-    pipes
-    ranger
-    starship
-    toilet
-    w3m
-  ];
-
   zshCompletions = "${pkgs.zsh-completions}/share/zsh/site-functions/";
   zshYouShouldUse = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use/";
   zshSyntaxHighlighting = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/";
   zshAutoSuggestions = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/";
   zshHistorySearch = "${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/";
-  
 in {
   config = {
-    environment.systemPackages = Packages;
+    users.users.main.shell = pkgs.zsh;
+    
+    environment.systemPackages = with pkgs; [
+      exa
+      starship
+    ];
 
     programs.zsh = {
       enable = true;
-      
       interactiveShellInit =
       ''
         fpath+="${zshCompletions}"
@@ -44,7 +26,6 @@ in {
         source ${zshAutoSuggestions}/zsh-autosuggestions.zsh
         source ${zshHistorySearch}/zsh-history-substring-search.zsh
       '';
-
     };
   };
 }

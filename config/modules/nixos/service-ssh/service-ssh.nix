@@ -1,7 +1,7 @@
 { config, lib, pkgs, options, ... }:
 {
   config = {
-    users.users."${cfg.username}".extraGroups = [ "sshusers" ];
+    users.users.main.extraGroups = [ "sshusers" ];
 
     programs.gnupg = {
       agent = {

@@ -22,6 +22,6 @@
       ];
     };
 
-    users.users."${cfg.username}".extraGroups = [ "lp" "printadmin" "scanner" ];
+    users.users.main.extraGroups = [ "lp" "printadmin" "scanner" ];
   };
 }
