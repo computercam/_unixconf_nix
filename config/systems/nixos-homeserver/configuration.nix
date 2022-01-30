@@ -2,28 +2,20 @@
 
 {
   imports = [
+    ../../modules/darwin/__nixos/__nixos.nix
+    ./hardware-configuration.nix
     ./modules/cron.nix
     ./modules/docker.nix
     ./modules/filesystems.nix
-    ./modules/hardware-configuration.nix
     ./modules/samba.nix
     ./modules/users.nix
-    ../../modules/__base.nix
-    ../../modules/audio.nix
-    ../../modules/desktop-applications.nix
-    ../../modules/desktop.nix
-    ../../modules/flatpak.nix
-    ../../modules/gaming.nix
-    ../../modules/multimedia.nix
-    ../../modules/printer.nix
-    ../../modules/nvidia.nix
-    ../../modules/printer.nix
+
   ];
 
   system.stateVersion = "20.09";
   system.autoUpgrade.channel = "https://channels.nixos.org/nixos-unstable";
 
-  networking.hostName = "microstation";
+  networking.hostName = "homeserver";
   
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

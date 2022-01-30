@@ -2,11 +2,11 @@
 
 {
   imports = [
-    ../../modules/darwin/__base.nix
+    ../../modules/darwin/__darwin/__darwin.nix
   ];
 
   config = {
-    cfg.systemname = "darwin-desktop";
+    cfg.networking.hostname = "darwin-desktop";
     nix.maxJobs = 16;
   };
 }

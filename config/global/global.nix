@@ -5,55 +5,54 @@ with lib;
 
 let
   cfg = config.cfg;
-  homeDir = builtins.getEnv("HOME");
 in
 {
-  options = {
-    cfg.os = {
-      arch = mkOption {
-        type = types.str;
-        default = "x86-64";
-        description = "System Architecture";
-      };
-
-      family = mkOption {
-        type = types.str;
-        default = "generic";
-        description = "Operating System Unix Family";
-      };
-
-      version = mkOption {
-        type = types.str;
-        default = "latest";
-        description = "Operating System Type";
-      };
+  options.cfg.os = {
+    arch = mkOption {
+      type = types.str;
+      default = "x86-64";
+      description = "System Architecture";
     };
 
-    cfg.lang = mkOption {
+    family = mkOption {
+      type = types.str;
+      default = "generic";
+      description = "Operating System Unix Family";
+    };
+
+    version = mkOption {
+      type = types.str;
+      default = "latest";
+      description = "Operating System Type";
+    };
+  };
+
+  options.cfg.localization = {
+    lang = mkOption {
       type = types.str;
       default = "en_US.UTF-8";
       description = "System Language";
     };
 
-    cfg.timezone = mkOption {
+    timezone = mkOption {
       type = types.str;
       default = "America/Chicago";
       description = "System Default Timezone";
     };
 
-    cfg.keymap = mkOption {
+    keymap = mkOption {
       type = types.str;
       default = "us";
       description = "Console Keymap";
     };
 
-    cfg.longitude = mkOption {
+    longitude = mkOption {
       type = types.flt;
       default = 32.0;
       description = "Location Long";
     };
     
-    cfg.latitude = mkOption {
+    latitude = mkOption {
       type = types.flt;
       default = -96.0;
       description = "Location Lat";
@@ -65,6 +64,7 @@ in
     i18n.defaultLocale = cfg.lang;
     location.latitude = cfg.latitude;
     location.longitude = cfg.longitude;
+    # TODO: mkIf for if Linux or Darwin
     nix.allowedUsers = [ "@wheel" "@staff" ];
     nixpkgs.config.allowUnfree = true;
     time.timeZone = cfg.timezone;

@@ -1,4 +1,7 @@
 { config, lib, pkgs, options, ... }:
+let
+  cfg = config.cfg;
+in
 {
   imports = [
     ../service-avahi/service-avahi.nix
@@ -32,14 +35,13 @@
         preserve case = yes
         read only = no
         server role = standalone server
-        server string = ${config.networking.hostName} Samba Server
+        server string = ${cfg.networking.hostname} Samba Server
         short preserve case = yes
         socket options = TCP_NODELAY IPTOS_LOWDELAY
         store dos attributes = yes
         unix extensions = yes
         use sendfile = yes
         wide links = yes
-        write list = ${cfg.username}
         
         # # OSX Specific Configurations
         # min protocol = SMB2

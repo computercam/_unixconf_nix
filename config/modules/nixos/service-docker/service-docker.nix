@@ -1,39 +1,40 @@
 { config, lib, pkgs, options, ... }:
 
+let 
+  cfg = config.cfg;
+in
 {
-  options = {
-    cfg.docker = {
-      storage_root = mkOption {
+  options.cfg.docker = {
+    storage_root = mkOption {
+      type = types.str;
+      default = "/var/lib/docker";
+      description = "Docker Storage Root";
+    };
+
+    iptables = mkOption {
+      type = types.str;
+      default = "false";
+      description = "Docker IPTables Control";
+    };
+
+    networking = {
+      bip = mkOption {
         type = types.str;
-        default = "/var/lib/docker";
-        description = "Docker Storage Root";
+        default = "172.17.0.1/24";
+        description = "Docker BIP";
       };
 
-      iptables = mkOption {
-        type = types.str;
-        default = "false";
-        description = "Docker IPTables Control";
-      };
-
-      networking = {
-        bip = mkOption {
+      dns = { 
+        primary = mkOption {
           type = types.str;
-          default = "172.17.0.1/24";
-          description = "Docker BIP";
+          default = cfg.networking.domain_name_servers.primary;
+          description = "Docker Primary DNS";
         };
 
-        dns = { 
-          primary = mkOption {
-            type = types.str;
-            default = cfg.networking.domain_name_servers.primary;
-            description = "Docker Primary DNS";
-          };
-
-          secondary = mkOption {
-            type = types.str;
-            default = cfg.networking.domain_name_servers.secondary;
-            description = "Docker Secondary DNS";
-          };
+        secondary = mkOption {
+          type = types.str;
+          default = cfg.networking.domain_name_servers.secondary;
+          description = "Docker Secondary DNS";
         };
       };
     };
@@ -59,6 +60,5 @@
         --iptables=${cfg.docker.networking.iptables}
       ''
     };
-
   };
 }
