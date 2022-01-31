@@ -7,7 +7,7 @@
     sound.enable = true;
 
     hardware.bluetooth.enable = true;
-    
+
     hardware.pulseaudio = {
       enable = true;
       package = pkgs.pulseaudioFull;

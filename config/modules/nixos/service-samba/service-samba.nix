@@ -1,15 +1,11 @@
 { config, lib, pkgs, options, ... }:
-let
-  cfg = config.cfg;
-in
-{
-  imports = [
-    ../service-avahi/service-avahi.nix
-  ];
+let cfg = config.cfg;
+in {
+  imports = [ ../service-avahi/service-avahi.nix ];
 
   config = {
     environment.systemPackages = with pkgs; [ cifs-utils ];
-    
+
     services.samba = {
       enable = true;
       openFirewall = true;
@@ -42,7 +38,7 @@ in
         unix extensions = yes
         use sendfile = yes
         wide links = yes
-        
+
         # # OSX Specific Configurations
         # min protocol = SMB2
         # vfs objects = catia fruit streams_xattr
@@ -54,7 +50,7 @@ in
         # fruit:wipe_intentionally_left_blank_rfork = yes
       '';
     };
-    
+
     # services.avahi = {
     #   extraServiceFiles = {
     #     smb = ''

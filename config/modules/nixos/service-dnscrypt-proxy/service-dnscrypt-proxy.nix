@@ -7,7 +7,7 @@ let
   cfg = config.cfg;
 
   dnscrypt-proxy = pkgs.dnscrypt-proxy2;
-  
+
   dnscrypt-config = pkgs.runCommand "dnscrypt-proxy-config.toml" { } ''
     substitute ${./dnscrypt-proxy-config.toml.in} $out \
     --subst-var-by PORT '${toString cfg.dnscrpyt-proxy.port}' \
@@ -29,7 +29,8 @@ let
       ProtectControlGroups = true;
       ProtectKernelModules = true;
 
-      ExecStart = "${dnscrypt-proxy}/bin/dnscrypt-proxy -config ${dnscrypt-config}";
+      ExecStart =
+        "${dnscrypt-proxy}/bin/dnscrypt-proxy -config ${dnscrypt-config}";
       ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
       Restart = "on-failure";
     };

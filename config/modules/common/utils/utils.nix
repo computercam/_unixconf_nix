@@ -1,19 +1,13 @@
-{ config, pkgs, lib, ... }: 
-with pkgs.stdenv; with lib; 
-{ 
-  config.environment = mkMerge 
-  [
+{ config, pkgs, lib, ... }:
+with pkgs.stdenv;
+with lib; {
+  config.environment = mkMerge [
     (mkIf isLinux {
-      systemPackages = with pkgs; [
-        dateutils
-        killall
-        lshw
-        lsof
-      ];
+      systemPackages = with pkgs; [ dateutils killall lshw lsof ];
     })
 
     {
-      systemPackages = with pkgs; [ 
+      systemPackages = with pkgs; [
         # generic
         coreutils-full
         uutils-coreutils

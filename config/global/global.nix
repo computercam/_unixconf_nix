@@ -1,12 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with pkgs.stdenv; 
+with pkgs.stdenv;
 with lib;
 
-let
-  cfg = config.cfg;
-in
-{
+let cfg = config.cfg;
+in {
   options.cfg.os = {
     arch = mkOption {
       type = types.str;
@@ -51,7 +49,7 @@ in
       default = 32.0;
       description = "Location Long";
     };
-    
+
     latitude = mkOption {
       type = types.flt;
       default = -96.0;

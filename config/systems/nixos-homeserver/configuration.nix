@@ -16,7 +16,7 @@
   system.autoUpgrade.channel = "https://channels.nixos.org/nixos-unstable";
 
   networking.hostName = "homeserver";
-  
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 

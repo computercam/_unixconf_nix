@@ -29,14 +29,14 @@ let
        
       %${group} ALL=(ALL) ALL
          
-      ${concatStringsSep "\n" (map (cmd: "%" + group + " ALL=(ALL) NOPASSWD:" + cmd) commands)}
+      ${concatStringsSep "\n"
+      (map (cmd: "%" + group + " ALL=(ALL) NOPASSWD:" + cmd) commands)}
     ''));
-in 
-{ 
+in {
   config = {
     boot.cleanTmpDir = true;
     boot.tmpOnTmpfs = true;
-    
+
     security.allowUserNamespaces = true;
     system.autoUpgrade.enable = true;
 

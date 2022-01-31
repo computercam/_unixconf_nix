@@ -1,5 +1,4 @@
-{ config, lib, pkgs, options, ... }:
-{
+{ config, lib, pkgs, options, ... }: {
   config = {
     users.users.main.extraGroups = [ "sshusers" ];
 
@@ -13,9 +12,7 @@
       dirmngr.enable = true;
     };
 
-    programs.ssh = {
-      startAgent = true;
-    };
+    programs.ssh = { startAgent = true; };
 
     networking.firewall.allowedTCPPorts = [ 22 ];
 

@@ -1,9 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ../service-audio/service-audio.nix
-  ];
+  imports = [ ../service-audio/service-audio.nix ];
 
   config = {
     environment.systemPackages = with pkgs; [
@@ -19,7 +17,7 @@
 
     boot = {
       kernelModules = [ "snd-seq" "snd-rawmidi" ];
-      
+
       kernel.sysctl = {
         "vm.swappiness" = 10;
         "fs.inotify.max_user_watches" = 524288;
@@ -34,7 +32,7 @@
         setpci -v -s $(lspci | grep -i audio | awk '{print $1}') latency_timer=ff
       '';
     };
-    
+
     powerManagement.cpuFreqGovernor = "performance";
 
     fileSystems."/".options = [ "noatime" ];

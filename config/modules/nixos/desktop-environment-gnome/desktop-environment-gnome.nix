@@ -1,8 +1,5 @@
-{ config, lib, pkgs, options, ... }:
-{
-  imports = [
-    ../desktop-environment/desktop-environment.nix
-  ];
+{ config, lib, pkgs, options, ... }: {
+  imports = [ ../desktop-environment/desktop-environment.nix ];
 
   config = {
     environment.systemPackages = with pkgs; [

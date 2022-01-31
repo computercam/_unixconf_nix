@@ -1,5 +1,4 @@
-{ config, lib, pkgs, options, ... }:
-{
+{ config, lib, pkgs, options, ... }: {
   config = {
     users.users.main.extraGroups = [ "vboxusers" ];
     boot.kernelModules = [ "vboxdrv" ];

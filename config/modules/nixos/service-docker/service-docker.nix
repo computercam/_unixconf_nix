@@ -1,9 +1,7 @@
 { config, lib, pkgs, options, ... }:
 
-let 
-  cfg = config.cfg;
-in
-{
+let cfg = config.cfg;
+in {
   options.cfg.docker = {
     storage_root = mkOption {
       type = types.str;
@@ -24,7 +22,7 @@ in
         description = "Docker BIP";
       };
 
-      dns = { 
+      dns = {
         primary = mkOption {
           type = types.str;
           default = cfg.networking.domain_name_servers.primary;
@@ -58,7 +56,7 @@ in
         --data-root="${cfg.docker.storage_root}"
         --dns="${cfg.docker.networking.dns.primary},${cfg.docker.networking.dns.secondary}"
         --iptables=${cfg.docker.networking.iptables}
-      ''
+      '';
     };
   };
 }

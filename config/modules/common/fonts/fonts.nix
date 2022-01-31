@@ -1,5 +1,5 @@
-{ config, lib, pkgs, options, ... }:
-{ config.fonts = {
+{ config, lib, pkgs, options, ... }: {
+  config.fonts = {
     fonts = with pkgs; [
       corefonts
       dejavu_fonts
@@ -16,7 +16,7 @@
       unifont
       victor-mono
     ];
-    
+
     enableFontDir = true;
   };
 }

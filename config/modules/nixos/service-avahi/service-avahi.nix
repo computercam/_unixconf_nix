@@ -1,5 +1,5 @@
-{ config, lib, pkgs, options, ... }:
-{ config.services.avahi = {
+{ config, lib, pkgs, options, ... }: {
+  config.services.avahi = {
     enable = true;
     nssmdns = true;
 

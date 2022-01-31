@@ -1,13 +1,12 @@
 { config, lib, pkgs, ... }:
 
-with pkgs.stdenv; 
+with pkgs.stdenv;
 with lib;
 
 let
   cfg = config.cfg;
-  homeDir = builtins.getEnv("HOME");
-in
-{
+  homeDir = builtins.getEnv ("HOME");
+in {
   options = {
     cfg.user = {
       name = mkOption {
@@ -32,7 +31,7 @@ in
         type = types.str;
         default = "git@github.com:computercam/_unixconf_dotfiles.git";
         description = "dotfiles repo for the main user on the system";
-      }; 
+      };
     };
   };
 
@@ -41,25 +40,23 @@ in
 
     environment.systemPackages = with pkgs; [ vim ];
 
-    environment.variables = { 
+    environment.variables = {
       TERMINAL = "kitty";
       EDITOR = "vim";
       VISUAL = "code";
     };
 
-    users.users.main = mkMerge [
-      { 
-        initialPassword = cfg.user.name; 
-        name = cfg.user.name;
-        home = homeDir;
-        uid = 1000;
-        gid = 1000;
-        group = cfg.user.name;
-        createHome = true;
-        extraGroups = [ "wheel" ];
-        isNormalUser = true;
-      }
-    ];
+    users.users.main = mkMerge [{
+      initialPassword = cfg.user.name;
+      name = cfg.user.name;
+      home = homeDir;
+      uid = 1000;
+      gid = 1000;
+      group = cfg.user.name;
+      createHome = true;
+      extraGroups = [ "wheel" ];
+      isNormalUser = true;
+    }];
 
     # home-manager.users.main = mkMerge [
     #   {

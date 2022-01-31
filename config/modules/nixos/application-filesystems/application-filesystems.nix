@@ -1,5 +1,5 @@
-{ config, lib, pkgs, options, ... }:
-{ config.environment.systemPackages = with pkgs; [
+{ config, lib, pkgs, options, ... }: {
+  config.environment.systemPackages = with pkgs; [
     apfs-fuse
     ddrescue
     exfat

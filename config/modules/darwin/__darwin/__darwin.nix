@@ -1,10 +1,9 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-in
-{
-  imports = [];
-  
+in {
+  imports = [ ];
+
   config = {
     system.defaults = {
       LaunchServices.LSQuarantine = false;
@@ -13,12 +12,12 @@ in
         AppleMeasurementUnits = "Inches";
         AppleTemperatureUnit = "Fahrenheit";
       };
-      
+
       alf = {
         stealthenabled = 1;
         loggingenabled = 1;
       };
-      
+
       dock = {
         autohide = true;
         autohide-delay = "0.00";
@@ -39,8 +38,6 @@ in
       spaces.spans-displays = false;
     };
 
-    system.keyboard = {
-      enableKeyMapping = true;
-    };
+    system.keyboard = { enableKeyMapping = true; };
   };
 }
