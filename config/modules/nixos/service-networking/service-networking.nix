@@ -1,8 +1,8 @@
 { config, lib, pkgs, options, ... }:
-let
-  cfg = config.cfg;
-in
-{
+with pkgs.stdenv;
+with lib;
+let cfg = config.cfg;
+in {
   options.cfg.networking = {
     domain_name_servers = {
       primary = mkOption {
@@ -57,9 +57,9 @@ in
     };
   };
 
-  config.networking = {
-    hostname = cfg.networking.hostname;
-    
+  config.networking = mkMerge [
+    { hostname = cfg.networking.hostname; }
+
     (mkIf (cfg.networking.static.enable == true) {
       dhcpcd = {
         enable = true;
@@ -70,7 +70,7 @@ in
           static domain_name_servers=${cfg.networking.domain_name_servers.primary} ${cfg.networking.domain_name_servers.secondary}
         '';
       };
-    });
+    })
 
     (mkIf (cfg.networking.static.enable != true) {
       networkmanager = {
@@ -82,6 +82,6 @@ in
           cfg.networking.domain_name_servers.secondary
         ];
       };
-    });
-  };
+    })
+  ];
 }
