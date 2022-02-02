@@ -1,5 +1,6 @@
 { config, lib, pkgs, options, ... }:
-
+with pkgs.stdenv;
+with lib;
 let cfg = config.cfg;
 in {
   options.cfg.docker = {

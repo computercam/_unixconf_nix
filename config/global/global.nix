@@ -58,13 +58,17 @@ in {
   };
 
   config = {
-    environment.variables.LANG = cfg.lang;
-    i18n.defaultLocale = cfg.lang;
-    location.latitude = cfg.latitude;
-    location.longitude = cfg.longitude;
+    environment.variables.LANG = cfg.localization.lang;
+    i18n.defaultLocale = cfg.localization.lang;
+    location.latitude = cfg.localization.latitude;
+    location.longitude = cfg.localization.longitude;
     # TODO: mkIf for if Linux or Darwin
-    nix.allowedUsers = [ "@wheel" "@staff" ];
+    
+    nix.allowedUsers = if isLinux then [ "@wheel" ] 
+      else if isDarwin then [ "@staff" ]
+      else [];
+
     nixpkgs.config.allowUnfree = true;
-    time.timeZone = cfg.timezone;
+    time.timeZone = cfg.localization.timezone;
   };
 }

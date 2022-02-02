@@ -5,7 +5,6 @@ with lib;
 
 let
   cfg = config.cfg;
-  homeDir = builtins.getEnv ("HOME");
 in {
   options = {
     cfg.user = {
@@ -46,17 +45,21 @@ in {
       VISUAL = "code";
     };
 
-    users.users.main = mkMerge [{
+    users.users.main = {
       initialPassword = cfg.user.name;
       name = cfg.user.name;
-      home = homeDir;
-      uid = 1000;
-      gid = 1000;
+      home = "/home/${cfg.user.name}";
       group = cfg.user.name;
       createHome = true;
       extraGroups = [ "wheel" ];
       isNormalUser = true;
-    }];
+      shell = pkgs.zsh;
+    };
+
+    users.groups.main = {
+      name = cfg.user.name;
+    };
+
 
     # home-manager.users.main = mkMerge [
     #   {
