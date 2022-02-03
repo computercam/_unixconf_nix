@@ -3,8 +3,7 @@
 with pkgs.stdenv;
 with lib;
 
-let
-  cfg = config.cfg;
+let cfg = config.cfg;
 in {
   options = {
     cfg.user = {
@@ -37,10 +36,10 @@ in {
   config = {
     nix.allowedUsers = [ cfg.user.name ];
 
-    environment.systemPackages = with pkgs; [ vim ];
+    environment.systemPackages = with pkgs; [ vim alacritty vscode ];
 
     environment.variables = {
-      TERMINAL = "kitty";
+      TERMINAL = "alacritty";
       EDITOR = "vim";
       VISUAL = "code";
     };
@@ -48,18 +47,21 @@ in {
     users.users.main = {
       initialPassword = cfg.user.name;
       name = cfg.user.name;
-      home = "/home/${cfg.user.name}";
+      home = 
+        if isLinux then "/home/${cfg.user.name}" 
+        else if isDarwin then "/Users/${cfg.user.name}" 
+        else "/home/${cfg.user.name}";
       group = cfg.user.name;
       createHome = true;
-      extraGroups = [ "wheel" ];
+      extraGroups =
+        if isLinux then [ "wheel" ] 
+        else if isDarwin then [ "staff" ] 
+        else "/home/${cfg.user.name}";
       isNormalUser = true;
       shell = pkgs.zsh;
     };
 
-    users.groups.main = {
-      name = cfg.user.name;
-    };
-
+    users.groups.main = { name = cfg.user.name; };
 
     # home-manager.users.main = mkMerge [
     #   {

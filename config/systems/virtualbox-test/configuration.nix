@@ -3,8 +3,12 @@
 {
   imports = [ <nixpkgs/nixos/modules/installer/virtualbox-demo.nix>
   ../../global/global.nix
-  ../../modules/common/user-main/user-main.nix
   ../../modules/common/shell/shell.nix
+  ../../modules/common/user-main/user-main.nix
+  ../../modules/common/utils/utils-downloads.nix
+  ../../modules/common/utils/utils-filesystems.nix
+  ../../modules/common/utils/utils-multimedia.nix
+  ../../modules/common/utils/utils-networking.nix
   ../../modules/nixos/__nixos/__nixos.nix
   ./hardware-configuration.nix ];
   

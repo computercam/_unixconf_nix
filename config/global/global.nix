@@ -62,7 +62,6 @@ in {
     i18n.defaultLocale = cfg.localization.lang;
     location.latitude = cfg.localization.latitude;
     location.longitude = cfg.localization.longitude;
-    # TODO: mkIf for if Linux or Darwin
     
     nix.allowedUsers = if isLinux then [ "@wheel" ] 
       else if isDarwin then [ "@staff" ]

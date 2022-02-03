@@ -11,14 +11,56 @@ in {
   config = {
     users.defaultUserShell = pkgs.zsh;
 
-    environment.systemPackages = with pkgs; [ 
-      exa 
-      starship 
-      neofetch
-      less
+    environment.systemPackages = with pkgs; [
+      # coreutils-full
+      # findutils
+      # less
+      # neofetch
+      # parallel
+      # dust # rust alt - du # https://github.com/bootandy/dust
+      bandwhich # rust alt - iftop # https://github.com/imsnif/bandwhich
+      bat # rust alt - cat # https://github.com/sharkdp/bat
+      bzip2 # archives
+      curl # file transfer
+      exa # rust alt - ls # https://github.com/ogham/exa
+      fd # rust alt - find # https://github.com/sharkdp/fd
+      fzf
       git
+      gzip # archives
+      nettools # networking
+      joshuto # rust alt - ranger # https://github.com/kamiyaa/joshuto
+      lsof
+      macchina # rust alt - neofetch # https://github.com/Macchina-CLI/macchina
+      nixfmt # nix language formattter
+      openvpn # networking
+      p7zip # archives
+      pandoc # markdown conversion
+      parted # filesystems
+      procs # rust alt - ps # https://github.com/dalance/procs
+      ripgrep # rust alt - grep # https://github.com/BurntSushi/ripgrep
+      rsync # file transfer and sync
+      rustscan # rust alt - nmap # https://github.com/RustScan/RustScan
+      sd # rust alt - sed # https://github.com/chmln/sd
+      skim # rust alt - grep # https://github.com/lotabout/skim
+      starship # rust alt - prompt # https://github.com/starship/starship
+      stow
+      unrar # archives
+      unzip # archives
+      uutils-coreutils # rust alt - coreutils # https://github.com/uutils/coreutils
+      wget # file transfer
+      zenith # rust alt - htop # https://github.com/bvaisvil/zenith
+      zip # archives
+      zoxide # rust alt - cd # https://github.com/ajeetdsouza/zoxide
     ];
-    
+
+    environment.shellAliases = {
+      ranger = "${pkgs.joshuto}/bin/joshuto"; # joshuto
+      neofetch = "${pkgs.macchina}/bin/macchina"; # maccina
+      htop = "${pkgs.zenith}/bin/zenith"; # zenith
+      ls = "${pkgs.exa}/bin/exa"; # exa
+      cd = "z"; # zoxide
+    };
+
     environment.variables = {
       LESS_TERMCAP_mb = "$(tput bold; tput setaf 2)";
       LESS_TERMCAP_md = "$(tput bold; tput setaf 6)";
@@ -94,6 +136,8 @@ in {
         bindkey "^[[F"         end-of-line                    # [End] - Go to end of line
       '';
 
+      # TODO: consider removing duplicated behavior from setOptions
+
       setOptions = [
         "AUTOCD"
         "AUTOPUSHD"
@@ -119,12 +163,9 @@ in {
         plugins = [ "git" ];
       };
 
-      shellAliases = {
-        ls = "${pkgs.exa}/bin/exa";
-      };
-
       promptInit = ''
-        eval $(${pkgs.starship}/bin/starship init zsh)
+        eval "$(${pkgs.starship}/bin/starship init zsh)"
+        eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
       '';
     };
   };

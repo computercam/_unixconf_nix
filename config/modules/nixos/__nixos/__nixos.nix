@@ -40,6 +40,8 @@ in {
     security.allowUserNamespaces = true;
     system.autoUpgrade.enable = true;
 
+    environment.systemPackages = with pkgs; [ killall lshw lsof ];
+
     users = {
       mutableUsers = true;
       defaultUserShell = pkgs.zsh;
