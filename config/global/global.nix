@@ -69,5 +69,11 @@ in {
 
     nixpkgs.config.allowUnfree = true;
     time.timeZone = cfg.localization.timezone;
+
+    environment.systemPackages = with pkgs; [
+      nixfmt
+      git
+      vim
+    ];
   };
 }

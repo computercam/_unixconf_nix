@@ -1,9 +1,8 @@
-{ config, lib, pkgs, ... }:
-with lib;
+{ config, pkgs, ... }:
 let cfg = config.cfg;
-in {
+in 
+{
   imports = [
-    <nixpkgs/nixos/modules/installer/virtualbox-demo.nix>
     ../../global/global.nix
     ../../modules/common/shell/shell.nix
     ../../modules/common/user-main/user-main.nix
@@ -19,21 +18,9 @@ in {
     ../../modules/nixos/service-samba/service-samba.nix
     ../../modules/nixos/service-ssh/service-ssh.nix
     ../../modules/nixos/service-sudo/service-sudo.nix
-    ./hardware-configuration.nix
+    ./modules.users.nix
+    ./modules/cron.nix
+    ./modules/docker.nix
+    ./modules/samba.nix
   ];
-
-  services.xserver.displayManager.sddm.enable = mkForce false;
-  services.xserver.desktopManager.plasma5.enable = mkForce false;
-  environment.systemPackages = with pkgs; [ vim vscode ];
-  hardware.cpu.amd.updateMicrocode = true;
-  hardware.enableRedistributableFirmware = true;
-  nix.maxJobs = 8;
-  nixpkgs.config.allowUnfree = true;
-  services.fstrim.enable = true;
-  system.autoUpgrade.channel = "https://channels.nixos.org/nixos-21.11";
-  system.stateVersion = "21.11";
-
-  cfg.networking.hostname = "nixos-virtualbox";
-  cfg.os.family = "linux";
-  cfg.os.version = "21.11";
 }

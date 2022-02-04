@@ -11,56 +11,20 @@ let
   zshYouShouldUse =
     "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use/";
 in {
+  # TODO: Consider refactoring this file and utils.nix
   config = {
     users.defaultUserShell = pkgs.zsh;
 
     environment.systemPackages = with pkgs; [
-      # coreutils-full
-      # fd # rust alt - find # https://github.com/sharkdp/fd
-      # less
-      # neofetch
-      # rustscan # rust alt - nmap # https://github.com/RustScan/RustScan
-      # sd # rust alt - sed # https://github.com/chmln/sd
-      # skim # rust alt - grep # https://github.com/lotabout/skim
-      bandwhich # rust alt - iftop # https://github.com/imsnif/bandwhich
-      bat # rust alt - cat # https://github.com/sharkdp/bat
-      bottom # rust alt - htop # https://github.com/ClementTsang/bottom
-      bzip2 # archives
-      curl # file transfer
-      dua # rust alt - du # https://github.com/Byron/dua-cli
-      exa # rust alt - ls # https://github.com/ogham/exa
-      findutils
-      fzf
-      git
-      gzip # archives
-      joshuto # rust alt - ranger # https://github.com/kamiyaa/joshuto
-      lsof
-      macchina # rust alt - neofetch # https://github.com/Macchina-CLI/macchina
-      nettools # networking
-      nixfmt # nix language formattter
-      nmap # networking
-      openvpn # networking
-      p7zip # archives
-      pandoc # markdown conversion
-      parted # filesystems
-      procs # rust alt - ps # https://github.com/dalance/procs
-      ripgrep # rust alt - find + grep # https://github.com/BurntSushi/ripgrep
-      rsync # file transfer and sync
       starship # rust alt - prompt # https://github.com/starship/starship
       stow
-      unrar # archives
-      unzip # archives
-      uutils-coreutils # rust alt - coreutils # https://github.com/uutils/coreutils
-      wget # file transfer
-      zip # archives
-      zoxide # rust alt - cd # https://github.com/ajeetdsouza/zoxide
     ];
 
     environment.shellAliases = {
       cat = "${pkgs.bat}/bin/bat"; # bat
       cd = "z"; # zoxide
       du = "${pkgs.dua}/bin/dua"; # dua
-      htop = "${pkgs.bottom}/bin/bottom"; # bottom
+      htop = "${pkgs.bottom}/bin/btm"; # bottom
       iftop = "sudo ${pkgs.bandwhich}/bin/bandwhich"; # bandwhich
       less = "${pkgs.bat}/bin/bat"; # bat
       ls = "${pkgs.exa}/bin/exa"; # exa
