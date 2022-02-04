@@ -1,4 +1,20 @@
-{ config, lib, pkgs, options, ... }: {
+{ config, lib, pkgs, options, ... }:
+with pkgs.stdenv;
+with lib;
+let cfg = config.cfg;
+in {
+  options.cfg = {
+    networking = { 
+      ssh = {
+        port = mkOption {
+          type = types.int;
+          default = 22;
+          description = "SSH Port";
+        };
+      };
+    };
+  };
+
   config = {
     users.users.main.extraGroups = [ "sshusers" ];
 
@@ -12,20 +28,16 @@
       dirmngr.enable = true;
     };
 
-    ## gnupg agent and ssh agent can't be enabled at the same time
-    # programs.ssh.startAgent = true;
-
-    networking.firewall.allowedTCPPorts = [ 22 ];
-
     services.openssh = {
       allowSFTP = true;
       challengeResponseAuthentication = true;
       enable = true;
       forwardX11 = false;
       logLevel = "VERBOSE";
+      openFirewall = true;
       passwordAuthentication = true;
       permitRootLogin = "no";
-      ports = [ 22 ];
+      ports = [ cfg.networking.ssh.port ];
       startWhenNeeded = true;
 
       # TODO: consider remove uneeded options here

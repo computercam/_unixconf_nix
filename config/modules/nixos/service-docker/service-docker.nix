@@ -3,8 +3,6 @@ with pkgs.stdenv;
 with lib;
 let cfg = config.cfg;
 in {
-  imports = [ ../service-networking/service-networking.nix ];
-
   options.cfg.docker = {
     storage_root = mkOption {
       type = types.str;

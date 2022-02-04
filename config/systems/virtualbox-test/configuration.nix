@@ -10,6 +10,7 @@ in {
     ../../modules/common/fonts/fonts.nix
     ../../modules/common/utils/utils.nix
     ../../modules/nixos/__nixos/__nixos.nix
+    ../../modules/nixos/service-networking/service-networking.nix
     ../../modules/nixos/desktop-environment-gnome/desktop-environment-gnome.nix
     ../../modules/nixos/desktop-environment/desktop-environment.nix
     ../../modules/nixos/service-avahi/service-avahi.nix
@@ -24,7 +25,6 @@ in {
 
   services.xserver.displayManager.sddm.enable = mkForce false;
   services.xserver.desktopManager.plasma5.enable = mkForce false;
-  environment.systemPackages = with pkgs; [ vim vscode ];
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
   nix.maxJobs = 8;

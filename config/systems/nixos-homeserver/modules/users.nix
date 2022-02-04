@@ -1,32 +1,11 @@
-{ config, lib, pkgs, options, ... }:
-
-with lib; {
-  config = {
+{ config, lib, pkgs, options, ... }: {
+  config.users = {
+    groups = { rae = { }; };
     users = {
-      groups = {
-        rae = { };
-        filesfull = { };
-        filesshared = { };
-      };
-      users = {
-        rae = {
-          group = "rae";
-          extraGroups = [ "filesshared" ];
-          isNormalUser = true;
-          createHome = false;
-        };
-        filesfull = {
-          group = "filesfull";
-          extraGroups = [ "filesshared" "filesfull" ];
-          isNormalUser = true;
-          createHome = false;
-        };
-        filesshared = {
-          group = "filesshared";
-          extraGroups = [ "filesshared" "filesfull" ];
-          isNormalUser = true;
-          createHome = false;
-        };
+      rae = {
+        group = "rae";
+        isNormalUser = true;
+        createHome = false;
       };
     };
   };
