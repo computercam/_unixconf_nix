@@ -4,14 +4,7 @@
   imports = [ ../service-audio/service-audio.nix ];
 
   config = {
-    environment.systemPackages = with pkgs; [
-      a2jmidid
-      alsaLib
-      bitwig-studio
-      musescore
-      patchage
-      qjackctl
-    ];
+    environment.systemPackages = with pkgs; [ bitwig-studio ];
 
     security.rtkit.enable = true;
 

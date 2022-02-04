@@ -4,61 +4,68 @@ with lib;
 let
   zshAutoSuggestions = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/";
   zshCompletions = "${pkgs.zsh-completions}/share/zsh/site-functions/";
-  zshHistorySearch = "${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/";
-  zshSyntaxHighlighting = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/";
-  zshYouShouldUse = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use/";
+  zshHistorySearch =
+    "${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/";
+  zshSyntaxHighlighting =
+    "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/";
+  zshYouShouldUse =
+    "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use/";
 in {
   config = {
     users.defaultUserShell = pkgs.zsh;
 
     environment.systemPackages = with pkgs; [
       # coreutils-full
-      # findutils
+      # fd # rust alt - find # https://github.com/sharkdp/fd
       # less
       # neofetch
-      # parallel
-      # dust # rust alt - du # https://github.com/bootandy/dust
+      # rustscan # rust alt - nmap # https://github.com/RustScan/RustScan
+      # sd # rust alt - sed # https://github.com/chmln/sd
+      # skim # rust alt - grep # https://github.com/lotabout/skim
       bandwhich # rust alt - iftop # https://github.com/imsnif/bandwhich
       bat # rust alt - cat # https://github.com/sharkdp/bat
+      bottom # rust alt - htop # https://github.com/ClementTsang/bottom
       bzip2 # archives
       curl # file transfer
+      dua # rust alt - du # https://github.com/Byron/dua-cli
       exa # rust alt - ls # https://github.com/ogham/exa
-      fd # rust alt - find # https://github.com/sharkdp/fd
+      findutils
       fzf
       git
       gzip # archives
-      nettools # networking
       joshuto # rust alt - ranger # https://github.com/kamiyaa/joshuto
       lsof
       macchina # rust alt - neofetch # https://github.com/Macchina-CLI/macchina
+      nettools # networking
       nixfmt # nix language formattter
+      nmap # networking
       openvpn # networking
       p7zip # archives
       pandoc # markdown conversion
       parted # filesystems
       procs # rust alt - ps # https://github.com/dalance/procs
-      ripgrep # rust alt - grep # https://github.com/BurntSushi/ripgrep
+      ripgrep # rust alt - find + grep # https://github.com/BurntSushi/ripgrep
       rsync # file transfer and sync
-      rustscan # rust alt - nmap # https://github.com/RustScan/RustScan
-      sd # rust alt - sed # https://github.com/chmln/sd
-      skim # rust alt - grep # https://github.com/lotabout/skim
       starship # rust alt - prompt # https://github.com/starship/starship
       stow
       unrar # archives
       unzip # archives
       uutils-coreutils # rust alt - coreutils # https://github.com/uutils/coreutils
       wget # file transfer
-      zenith # rust alt - htop # https://github.com/bvaisvil/zenith
       zip # archives
       zoxide # rust alt - cd # https://github.com/ajeetdsouza/zoxide
     ];
 
     environment.shellAliases = {
-      ranger = "${pkgs.joshuto}/bin/joshuto"; # joshuto
-      neofetch = "${pkgs.macchina}/bin/macchina"; # maccina
-      htop = "${pkgs.zenith}/bin/zenith"; # zenith
-      ls = "${pkgs.exa}/bin/exa"; # exa
+      cat = "${pkgs.bat}/bin/bat"; # bat
       cd = "z"; # zoxide
+      du = "${pkgs.dua}/bin/dua"; # dua
+      htop = "${pkgs.bottom}/bin/bottom"; # bottom
+      iftop = "sudo ${pkgs.bandwhich}/bin/bandwhich"; # bandwhich
+      less = "${pkgs.bat}/bin/bat"; # bat
+      ls = "${pkgs.exa}/bin/exa"; # exa
+      neofetch = "${pkgs.macchina}/bin/macchina"; # maccina
+      ranger = "${pkgs.joshuto}/bin/joshuto"; # joshuto
     };
 
     environment.variables = {
