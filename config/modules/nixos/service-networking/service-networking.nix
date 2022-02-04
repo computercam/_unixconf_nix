@@ -21,7 +21,7 @@ in {
     hostname = mkOption {
       type = types.str;
       default = cfg.os.family;
-      description = "Primary DNS Server";
+      description = "System Hostname";
     };
 
     static = {
@@ -58,7 +58,7 @@ in {
   };
 
   config.networking = mkMerge [
-    { hostname = cfg.networking.hostname; }
+    { hostName = cfg.networking.hostname; }
 
     (mkIf (cfg.networking.static.enable == true) {
       dhcpcd = {

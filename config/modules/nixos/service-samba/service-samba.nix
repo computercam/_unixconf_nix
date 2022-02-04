@@ -9,7 +9,6 @@ in {
     services.samba = {
       enable = true;
       openFirewall = true;
-      syncPasswordsByPam = true;
 
       extraConfig = ''
         aio read size = 16384

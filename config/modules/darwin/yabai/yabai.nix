@@ -17,8 +17,8 @@ let
   skhd = pkgs.skhd;
 
 in {
-  options = {
-    cfg.yabai.enable = mkOption {
+  options.cfg.yabai = {
+    enable = mkOption {
       type = types.bool;
       default = false;
       description = "Whether to enable the yabai window manager.";

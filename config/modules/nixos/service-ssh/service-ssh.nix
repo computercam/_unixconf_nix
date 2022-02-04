@@ -12,13 +12,14 @@
       dirmngr.enable = true;
     };
 
-    programs.ssh = { startAgent = true; };
+    ## gnupg agent and ssh agent can't be enabled at the same time
+    # programs.ssh.startAgent = true;
 
     networking.firewall.allowedTCPPorts = [ 22 ];
 
     services.openssh = {
       allowSFTP = true;
-      ChallengeResponseAuthentication = true;
+      challengeResponseAuthentication = true;
       enable = true;
       forwardX11 = false;
       logLevel = "VERBOSE";

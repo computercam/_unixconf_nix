@@ -16,6 +16,14 @@ with lib;
   ../../modules/nixos/applicaiton-desktop-gtk/applicaiton-desktop-gtk.nix
   ../../modules/nixos/service-audio/service-audio.nix
   ../../modules/nixos/service-audio-daw/service-audio-daw.nix
+  ../../modules/nixos/service-avahi/service-avahi.nix
+  ../../modules/nixos/service-cron/service-cron.nix
+  ../../modules/nixos/service-docker/service-docker.nix
+  ../../modules/nixos/service-firewall/service-firewall.nix
+  ../../modules/nixos/service-phone/service-phone.nix
+  ../../modules/nixos/service-printing/service-printing.nix
+  ../../modules/nixos/service-samba/service-samba.nix
+  ../../modules/nixos/service-ssh/service-ssh.nix
   ../../modules/nixos/service-sudo/service-sudo.nix
   ./hardware-configuration.nix ];
 
