@@ -1,7 +1,6 @@
-{ config, lib, pkgs, options, ... }: 
-let cfg = config.cfg;
-in {
-  config.services.cron = { 
-    mailto = cfg.user.email;
-    enable = true; };
+{ config, lib, pkgs, options, ... }: {
+  config.services.cron = {
+    mailto = config.cfg.user.email;
+    enable = true;
+  };
 }

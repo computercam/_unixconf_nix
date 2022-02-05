@@ -1,7 +1,5 @@
-{ config, lib, pkgs, options, ... }:
-let cfg = config.cfg;
-in {
-  imports = [ ../service-avahi/service-avahi.nix ];
+{ config, lib, pkgs, options, ... }: {
+  imports = [ ./modules.nix ./options.nix ];
 
   config = {
     environment.systemPackages = with pkgs; [ cifs-utils ];
@@ -30,7 +28,7 @@ in {
         preserve case = yes
         read only = no
         server role = standalone server
-        server string = ${cfg.networking.hostname} Samba Server
+        server string = ${config.cfg.networking.hostname} Samba Server
         short preserve case = yes
         socket options = TCP_NODELAY IPTOS_LOWDELAY
         store dos attributes = yes

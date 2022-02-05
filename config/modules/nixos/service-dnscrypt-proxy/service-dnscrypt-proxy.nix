@@ -1,16 +1,12 @@
 { config, lib, pkgs, ... }:
-
 with lib;
 with builtins;
-
 let
-  cfg = config.cfg;
-
   dnscrypt-proxy = pkgs.dnscrypt-proxy2;
 
   dnscrypt-config = pkgs.runCommand "dnscrypt-proxy-config.toml" { } ''
     substitute ${./dnscrypt-proxy-config.toml.in} $out \
-    --subst-var-by PORT '${toString cfg.dnscrpyt-proxy.port}' \
+    --subst-var-by PORT '${toString config.cfg.dnscrpyt-proxy.port}' \
   '';
 
   dnscrypt-service = {
@@ -51,11 +47,11 @@ in {
     };
   };
 
-  config = mkIf (cfg.dnscrpyt-proxy.enable == true) {
+  config = mkIf (config.cfg.dnscrpyt-proxy.enable == true) {
     systemd.services.dnscrypt-proxy = dnscrypt-service;
 
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
-    networking.firewall.allowedUDPPorts = [ cfg.port ];
+    networking.firewall.allowedTCPPorts = [ config.cfg.port ];
+    networking.firewall.allowedUDPPorts = [ config.cfg.port ];
 
     networking.nameservers = [ "127.0.0.1" "::1" ];
 

@@ -1,5 +1,5 @@
 { config, lib, pkgs, options, ... }: {
-  imports = [ ../service-avahi/service-avahi.nix ];
+  imports = [ ./modules.nix ];
 
   config = {
     programs.system-config-printer.enable = true;

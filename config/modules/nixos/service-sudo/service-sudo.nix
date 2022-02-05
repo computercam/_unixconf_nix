@@ -1,8 +1,7 @@
 { config, lib, pkgs, options, ... }:
-
 with lib;
-
 let
+  # TODO: consider making nopasswd commands authorable via cfg
   SudoersGroup = "wheel";
 
   NoPasswdCommands = [

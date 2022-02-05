@@ -1,19 +1,7 @@
 { config, lib, pkgs, options, ... }:
 with pkgs.stdenv;
-with lib;
-let cfg = config.cfg;
-in {
-  options.cfg = {
-    networking = { 
-      ssh = {
-        port = mkOption {
-          type = types.int;
-          default = 22;
-          description = "SSH Port";
-        };
-      };
-    };
-  };
+with lib; {
+  imports = [ ./options.nix ];
 
   config = {
     users.users.main.extraGroups = [ "sshusers" ];
@@ -37,7 +25,7 @@ in {
       openFirewall = true;
       passwordAuthentication = true;
       permitRootLogin = "no";
-      ports = [ cfg.networking.ssh.port ];
+      ports = [ config.cfg.networking.ssh.port ];
       startWhenNeeded = true;
 
       # TODO: consider remove uneeded options here

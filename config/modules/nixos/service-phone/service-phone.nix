@@ -1,6 +1,4 @@
-{ config, lib, pkgs, ... }:
-
-{
+{ config, lib, pkgs, ... }: {
   config = {
     environment.systemPackages = with pkgs; [ libimobiledevice ifuse gvfs ];
 

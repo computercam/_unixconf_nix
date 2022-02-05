@@ -1,7 +1,5 @@
-{ config, lib, pkgs, ... }:
-
-{
-  imports = [ ../service-audio/service-audio.nix ];
+{ config, lib, pkgs, ... }: {
+  imports = [ ./modules.nix ];
 
   config = {
     environment.systemPackages = with pkgs; [ bitwig-studio ];
