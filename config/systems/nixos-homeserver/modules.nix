@@ -18,9 +18,12 @@
     ../../modules/nixos/service-sudo/service-sudo.nix
     ../../modules/nixos/service-virtualbox/service-virtualbox.nix
     ../../modules/nixos/service-xrdp/service-xrdp.nix
-    ./modules.users.nix
+    ./modules/users.nix
     ./modules/cron.nix
     ./modules/docker.nix
+    ./modules/filesystems.nix
+    ./modules/networking.nix
     ./modules/samba.nix
+    ./modules/vscode-remote.nix
   ];
 }
