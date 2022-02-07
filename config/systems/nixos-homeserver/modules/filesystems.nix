@@ -1,11 +1,10 @@
 { config, lib, pkgs, options, ... }: {
   config.fileSystems = {
-    # fourTB1 = {
-    #   device = "/dev/disk/by-label/4TBDISK1";
-    #   mountPoint = "/srv/dev-disk-by-label-4TBDISK1";
-    #   fsType = "ext4";
-    #   options = fsOptionsExternal;
-    # };
+    Server = {
+      device = "/dev/disk/by-label/SERVER";
+      mountPoint = "/Volumes/Server";
+      fsType = "btrfs";
+    };
 
     # fourTB2 = {
     #   device = "/dev/disk/by-label/4TBDISK2";
