@@ -1,5 +1,3 @@
-
 { config, lib, pkgs, options, ... }: {
-  imports =
-    [ ../service-networking/options.nix  ];
+  imports = [ ../service-networking/options.nix ];
 }

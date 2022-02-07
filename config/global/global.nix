@@ -62,18 +62,13 @@ in {
     i18n.defaultLocale = cfg.localization.lang;
     location.latitude = cfg.localization.latitude;
     location.longitude = cfg.localization.longitude;
-    
-    nix.allowedUsers = if isLinux then [ "@wheel" ] 
-      else if isDarwin then [ "@staff" ]
-      else [];
+
+    nix.allowedUsers =
+      if isLinux then [ "@wheel" ] else if isDarwin then [ "@staff" ] else [ ];
 
     nixpkgs.config.allowUnfree = true;
     time.timeZone = cfg.localization.timezone;
 
-    environment.systemPackages = with pkgs; [
-      nixfmt
-      git
-      vim
-    ];
+    environment.systemPackages = with pkgs; [ nixfmt git vim ];
   };
 }

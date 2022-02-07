@@ -1,7 +1,6 @@
 { config, lib, pkgs, options, ... }:
 with pkgs.stdenv;
-with lib;
-{
+with lib; {
   imports = [ ./options.nix ];
 
   config.networking = mkMerge [
@@ -12,7 +11,7 @@ with lib;
       dhcpcd.enable = mkForce false;
 
       defaultGateway = config.cfg.networking.static.default_gateway;
-      
+
       interfaces."${config.cfg.networking.static.interface}".ipv4.addresses = [{
         address = config.cfg.networking.static.ip_address;
         prefixLength = config.cfg.networking.static.prefix_length;

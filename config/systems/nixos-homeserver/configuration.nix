@@ -11,6 +11,7 @@ in {
   nix.maxJobs = 16;
   nixpkgs.config.allowUnfree = true;
   services.fstrim.enable = true;
-  system.autoUpgrade.channel = "https://channels.nixos.org/nixos-${cfg.os.version}";
+  system.autoUpgrade.channel =
+    "https://channels.nixos.org/nixos-${cfg.os.version}";
   system.stateVersion = cfg.os.version;
 }

@@ -26,5 +26,6 @@
     ./modules/samba.nix
     ./modules/users.nix
     ./modules/vscode-remote.nix
+    ./modules/work.nix
   ];
 }

@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
 with pkgs.stdenv;
-with lib;
-{
+with lib; {
   options.cfg.os = {
     arch = mkOption {
       type = types.str;
@@ -12,9 +11,8 @@ with lib;
 
     family = mkOption {
       type = types.str;
-      default = if isLinux then "linux" 
-        else if isDarwin then "darwin" 
-        else "unix";
+      default =
+        if isLinux then "linux" else if isDarwin then "darwin" else "unix";
       description = "Operating System Unix Family";
     };
 

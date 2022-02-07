@@ -31,7 +31,7 @@ with lib; {
 
       # TODO: consider remove uneeded options here
       # TODO: consider making these values configurable
-      
+
       extraConfig = ''
         AllowGroups sshusers
         ClientAliveCountMax 2
