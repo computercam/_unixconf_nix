@@ -5,11 +5,6 @@
     environment.systemPackages = with pkgs; [
       gnome.gnome-terminal
       gnome.gnome-tweaks
-      gnomeExtensions.appindicator
-      gnomeExtensions.dash-to-dock
-      gnomeExtensions.just-perfection
-      gnomeExtensions.desktop-icons-neo
-      gnomeExtensions.gsconnect
     ];
 
     programs.dconf.enable = true;
