@@ -33,8 +33,8 @@ with lib; {
 
       iptables = mkOption {
         type = types.str;
-        default = "false";
-        description = "Docker IPTables Control";
+        default = "true";
+        description = "Docker IP Tables Control";
       };
     };
   };
