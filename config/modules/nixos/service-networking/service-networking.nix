@@ -8,15 +8,20 @@ with lib;
     ({ hostName = config.cfg.networking.hostname; })
 
     (mkIf (config.cfg.networking.static.enable == true) {
-      dhcpcd = {
-        enable = true;
-        persistent = true;
-        extraConfig = ''
-          static ip_address=${config.cfg.networking.static.ip_address}/24      
-          static routers=${config.cfg.networking.static.default_gateway}
-          static domain_name_servers=${config.cfg.networking.domain_name_servers.primary} ${config.cfg.networking.domain_name_servers.secondary}
-        '';
-      };
+      networkmanager.enable = mkForce false;
+      dhcpcd.enable = mkForce false;
+
+      defaultGateway = config.cfg.networking.static.default_gateway;
+      
+      interfaces."${config.cfg.networking.static.interface}".ipv4.addresses = [{
+        address = config.cfg.networking.static.ip_address;
+        prefixLength = config.cfg.networking.static.prefix_length;
+      }];
+
+      nameservers = [
+        config.cfg.networking.domain_name_servers.primary
+        config.cfg.networking.domain_name_servers.secondary
+      ];
     })
 
     (mkIf (config.cfg.networking.static.enable != true) {

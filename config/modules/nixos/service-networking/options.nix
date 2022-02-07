@@ -41,15 +41,15 @@ with lib; {
         description = "Static Networking IP Address";
       };
 
-      subnet_mask = mkOption {
-        type = types.str;
-        default = "255.255.255.0";
+      prefix_length = mkOption {
+        type = types.int;
+        default = 24;
         description = "Static Networking Subnet Mask";
       };
 
       interface = mkOption {
         type = types.str;
-        default = "eth0";
+        default = "enp3s0";
         description = "Static Networking Network Interface";
       };
     };
