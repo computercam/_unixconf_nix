@@ -4,6 +4,7 @@ with lib; {
   imports = [ ./options.nix ];
 
   config = {
+    users.groups.sshusers = { };
     users.users.main.extraGroups = [ "sshusers" ];
 
     programs.gnupg = {

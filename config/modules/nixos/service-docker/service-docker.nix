@@ -4,6 +4,7 @@ with lib; {
   imports = [ ./options.nix ];
 
   config = {
+    users.groups.docker = { };
     users.users.main.extraGroups = [ "docker" ];
 
     environment.systemPackages = with pkgs; [
