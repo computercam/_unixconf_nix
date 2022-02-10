@@ -13,8 +13,6 @@
       name = "work";
       shell = pkgs.zsh;
       packages = with pkgs; [
-          git
-          docker
           nodejs-slim-10_x
           nodejs-10_x
           maven

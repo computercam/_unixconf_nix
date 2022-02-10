@@ -1,6 +1,6 @@
 { config, lib, pkgs, options, ... }: {
   config.services.xrdp = {
-    defaultWindowManager = "gnome-sell";
+    # defaultWindowManager = "xterm";
     enable = true;
     openFirewall = true;
   };

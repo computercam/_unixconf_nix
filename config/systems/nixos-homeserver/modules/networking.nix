@@ -3,6 +3,11 @@
     cfg.networking = {
       hostname = "homeserver";
 
+      domain_name_servers = {
+        primary = config.cfg.networking.static.default_gateway;
+        secondary = config.cfg.networking.static.default_gateway;
+      };
+
       static = {
         enable = true;
         default_gateway = "192.168.0.1";

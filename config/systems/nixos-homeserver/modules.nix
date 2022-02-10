@@ -6,7 +6,9 @@
     ../../modules/common/user-main/user-main.nix
     ../../modules/common/utils/utils.nix
     ../../modules/nixos/__nixos/__nixos.nix
-    ../../modules/nixos/desktop-environment-gnome/desktop-environment-gnome.nix
+    ../../modules/nixos/application-desktop/application-desktop.nix
+    ../../modules/nixos/application-desktop-gtk/application-desktop-gtk.nix
+    ../../modules/nixos/desktop-environment-xfce/desktop-environment-xfce.nix
     ../../modules/nixos/desktop-environment/desktop-environment.nix
     ../../modules/nixos/service-avahi/service-avahi.nix
     ../../modules/nixos/service-cron/service-cron.nix

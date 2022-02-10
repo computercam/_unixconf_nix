@@ -10,7 +10,6 @@ with lib; {
     environment.systemPackages = with pkgs; [
       docker-compose
       docker-client
-      docker
     ];
 
     virtualisation.docker = {
