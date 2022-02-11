@@ -6,7 +6,7 @@ let
     isLinux isDarwin;
 
   home-manager =
-    builtins.fetchGit { url = "https://github.com/rycee/home-manager"; };
+    builtins.fetchGit { url = "https://github.com/nix-community/home-manager"; };
 
 in {
   imports = flatten [
