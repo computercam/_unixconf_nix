@@ -6,8 +6,6 @@ in {
 
   config = {
     system.defaults = {
-      LaunchServices.LSQuarantine = false;
-
       NSGlobalDomain = {
         AppleMeasurementUnits = "Inches";
         AppleTemperatureUnit = "Fahrenheit";

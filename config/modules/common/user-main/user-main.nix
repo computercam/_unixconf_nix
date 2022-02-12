@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }:
-with pkgs.stdenv; {
+with pkgs.stdenv; 
+with lib; {
   imports = [ ./options.nix ];
 
   config = {
@@ -13,28 +14,32 @@ with pkgs.stdenv; {
       VISUAL = "code";
     };
 
-    users.users.main = {
-      initialPassword = config.cfg.user.name;
-      name = config.cfg.user.name;
-      home = if isLinux then
-        "/home/${config.cfg.user.name}"
-      else if isDarwin then
-        "/Users/${config.cfg.user.name}"
-      else
-        "/home/${config.cfg.user.name}";
-      group = config.cfg.user.name;
-      createHome = true;
-      extraGroups = if isLinux then
-        [ "wheel" ]
-      else if isDarwin then
-        [ "staff" ]
-      else
-        "/home/${config.cfg.user.name}";
-      isNormalUser = true;
-      shell = pkgs.zsh;
-    };
+    users.users.main = (mkMerge [
+      (if config.cfg.os.unix == "linux" then {
+        createHome = true;
+        extraGroups = [ "wheel" ];
+        group = config.cfg.user.name;
+        home = "/home/${config.cfg.user.name}";
+        initialPassword = config.cfg.user.name;
+        isNormalUser = true;
+       } else {})
+       ( if config.cfg.os.unix == "darwin" then {
+        home = "/Users/${config.cfg.user.name}";
+       } else {})
+       ({
+         name = config.cfg.user.name;
+         shell = pkgs.zsh;
+       })
+    ]);
 
-    users.groups.main = { name = config.cfg.user.name; };
+    users.groups.main = (mkMerge [
+      (if config.cfg.os.unix == "linux" then { 
+        name = config.cfg.user.name; 
+      } else {})
+       ( if config.cfg.os.unix == "darwin" then { 
+        name = "staff"; 
+      } else {})
+    ]);
 
     # home-manager.users.main = mkMerge [
     #   {

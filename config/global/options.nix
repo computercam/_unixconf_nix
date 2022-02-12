@@ -12,7 +12,9 @@ with lib; {
     family = mkOption {
       type = types.str;
       default =
-        if isLinux then "linux" else if isDarwin then "darwin" else "unix";
+        if isLinux then "linux" 
+        else if isDarwin then "darwin" 
+        else "unix";
       description = "Operating System Unix Family";
     };
 

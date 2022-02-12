@@ -3,7 +3,16 @@
 with pkgs.stdenv;
 with lib;
 
-let cfg = config.cfg;
+let 
+  isLinux = strings.hasSuffix "linux" builtins.currentSystem;
+  isDarwin = strings.hasSuffix "darwin" builtins.currentSystem;
+
+  unix = if isLinux then "linux" 
+        else if isDarwin then "darwin" 
+        else "generic";
+  distro = if isLinux then "nixos" 
+        else if isDarwin then "macos" 
+        else "generic";
 in {
   options.cfg.os = {
     arch = mkOption {
@@ -12,9 +21,15 @@ in {
       description = "System Architecture";
     };
 
-    family = mkOption {
+    unix = mkOption {
       type = types.str;
-      default = "generic";
+      default = unix;
+      description = "Operating System Unix Family";
+    };
+
+    distro = mkOption {
+      type = types.str;
+      default = distro;
       description = "Operating System Unix Family";
     };
 
@@ -57,18 +72,22 @@ in {
     };
   };
 
-  config = {
-    environment.variables.LANG = cfg.localization.lang;
-    i18n.defaultLocale = cfg.localization.lang;
-    location.latitude = cfg.localization.latitude;
-    location.longitude = cfg.localization.longitude;
-
-    nix.allowedUsers =
-      if isLinux then [ "@wheel" ] else if isDarwin then [ "@staff" ] else [ ];
-
-    nixpkgs.config.allowUnfree = true;
-    time.timeZone = cfg.localization.timezone;
-
-    environment.systemPackages = with pkgs; [ nixfmt git vim ];
-  };
+  config = (mkMerge [ 
+    (if unix == "linux" then {
+      i18n.defaultLocale = config.cfg.localization.lang;
+      location.latitude = config.cfg.localization.latitude;
+      location.longitude = config.cfg.localization.longitude;
+      
+      nix.allowedUsers =  [ "@wheel" ] ;
+    } else {})
+    (if unix == "darwin" then {
+      nix.allowedUsers = [ "@staff" ];
+    } else {})
+    ({
+      environment.systemPackages = with pkgs; [ nixfmt git vim ];
+      environment.variables.LANG = config.cfg.localization.lang;
+      nixpkgs.config.allowUnfree = true;
+      time.timeZone = config.cfg.localization.timezone;
+    })
+  ]);
 }
