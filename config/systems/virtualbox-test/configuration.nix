@@ -34,6 +34,6 @@ in {
   system.stateVersion = "21.11";
 
   cfg.networking.hostname = "nixos-virtualbox";
-  cfg.os.family = "linux";
+  cfg.os.unix = "linux";
   cfg.os.version = "21.11";
 }

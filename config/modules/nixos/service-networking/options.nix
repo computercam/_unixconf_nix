@@ -18,7 +18,7 @@ with lib; {
 
     hostname = mkOption {
       type = types.str;
-      default = cfg.os.family;
+      default = cfg.os.unix;
       description = "System Hostname";
     };
 

@@ -25,6 +25,7 @@
     ./modules/filesystems.nix
     ./modules/desktop-environment.nix
     ./modules/docker-resiliosync.nix
+    ./modules/docker-swag.nix
     ./modules/networking.nix
     ./modules/samba.nix
     ./modules/users.nix

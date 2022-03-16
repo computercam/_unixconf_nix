@@ -1,6 +1,6 @@
 { config, lib, pkgs, options, ... }: {
   config = {
-    docker-containers = {
+    virtualisation.oci-containers.containers = {
       resiliosync = {
         image = "linuxserver/resilio-sync";
         ports = [ "8888:8888" "55555:55555" ];
@@ -14,12 +14,12 @@
           PGID = "1000";
           TZ = "America/Chicago";
         };
-        restart = "unless-stopped";
       };
-  };
+    };
 
-  networking.firewall.allowedTCPPorts = [
-    8888
-    55555
-  ];
+    networking.firewall.allowedTCPPorts = [
+      8888
+      55555
+    ];
+  };
 }

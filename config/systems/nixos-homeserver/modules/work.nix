@@ -27,6 +27,7 @@
     nixpkgs.config.permittedInsecurePackages = [
       "nodejs-10.24.1"
       "nodejs-slim-10.24.1"
+      "electron-13.6.9"
     ];
 
     networking.firewall.allowedTCPPorts = [ 4502 4503 80 ];
