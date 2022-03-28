@@ -4,12 +4,9 @@ with lib;
 let
   zshAutoSuggestions = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/";
   zshCompletions = "${pkgs.zsh-completions}/share/zsh/site-functions/";
-  zshHistorySearch =
-    "${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/";
-  zshSyntaxHighlighting =
-    "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/";
-  zshYouShouldUse =
-    "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use/";
+  zshHistorySearch = "${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/";
+  zshSyntaxHighlighting = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/";
+  zshYouShouldUse = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use/";
 in {
   # TODO: Consider refactoring this file and utils.nix
   config = {
@@ -18,17 +15,19 @@ in {
     environment.systemPackages = with pkgs; [
       starship # rust alt - prompt # https://github.com/starship/starship
       stow
+      neofetch
+      htop
     ];
 
     environment.shellAliases = {
+      # du = "${pkgs.dua}/bin/dua"; # dua
+      # htop = "${pkgs.bottom}/bin/btm"; # bottom
+      # iftop = "sudo ${pkgs.bandwhich}/bin/bandwhich"; # bandwhich
+      # neofetch = "${pkgs.macchina}/bin/macchina"; # maccina
       cat = "${pkgs.bat}/bin/bat"; # bat
       cd = "z"; # zoxide
-      du = "${pkgs.dua}/bin/dua"; # dua
-      htop = "${pkgs.bottom}/bin/btm"; # bottom
-      iftop = "sudo ${pkgs.bandwhich}/bin/bandwhich"; # bandwhich
       less = "${pkgs.bat}/bin/bat"; # bat
       ls = "${pkgs.exa}/bin/exa"; # exa
-      neofetch = "${pkgs.macchina}/bin/macchina"; # maccina
       ranger = "${pkgs.joshuto}/bin/joshuto"; # joshuto
     };
 
