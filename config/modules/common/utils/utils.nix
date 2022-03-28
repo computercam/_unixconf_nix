@@ -9,8 +9,8 @@
     ] ++ [
       # less # shell
       # sd # shell _ rust alt - sed # https://github.com/chmln/sd
+      # dua # shell _ rust alt - du # https://github.com/Byron/dua-cli
       bat # shell _ rust alt - cat & less # https://github.com/sharkdp/bat
-      dua # shell _ rust alt - du # https://github.com/Byron/dua-cli
       exa # shell _ rust alt - ls # https://github.com/ogham/exa
       zoxide # shell _ rust alt - cd # https://github.com/ajeetdsouza/zoxide
     ] ++ [
@@ -22,13 +22,13 @@
       joshuto # search _ rust alt - ranger # https://github.com/kamiyaa/joshuto
       ripgrep # search _ rust alt - find + grep # https://github.com/BurntSushi/ripgrep
     ] ++ [
-      # neofetch
-      bottom # system info _ rust alt - htop # https://github.com/ClementTsang/bottom
+      # bottom # system info _ rust alt - htop # https://github.com/ClementTsang/bottom
+      # macchina # system info _ rust alt - neofetch # https://github.com/Macchina-CLI/macchina
+      neofetch # system info
       lsof # system info
-      macchina # system info _ rust alt - neofetch # https://github.com/Macchina-CLI/macchina
       procs # system info _ rust alt - ps # https://github.com/dalance/procs
     ] ++ [
-      bandwhich # networking _ rust alt - iftop # https://github.com/imsnif/bandwhich
+      # bandwhich # networking _ rust alt - iftop # https://github.com/imsnif/bandwhich
       nettools # networking
       nmap # networking
       openvpn # networking

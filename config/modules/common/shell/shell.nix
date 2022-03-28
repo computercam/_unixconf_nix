@@ -15,15 +15,9 @@ in {
     environment.systemPackages = with pkgs; [
       starship # rust alt - prompt # https://github.com/starship/starship
       stow
-      neofetch
-      htop
     ];
 
     environment.shellAliases = {
-      # du = "${pkgs.dua}/bin/dua"; # dua
-      # htop = "${pkgs.bottom}/bin/btm"; # bottom
-      # iftop = "sudo ${pkgs.bandwhich}/bin/bandwhich"; # bandwhich
-      # neofetch = "${pkgs.macchina}/bin/macchina"; # maccina
       cat = "${pkgs.bat}/bin/bat"; # bat
       cd = "z"; # zoxide
       less = "${pkgs.bat}/bin/bat"; # bat
