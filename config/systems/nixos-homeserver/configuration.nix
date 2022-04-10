@@ -9,6 +9,7 @@ in {
   cfg.os.version = "21.11";
   hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
+  nix.autoOptimiseStore = true;
   nix.maxJobs = 16;
   nixpkgs.config.allowUnfree = true;
   services.fstrim.enable = true;
