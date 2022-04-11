@@ -8,8 +8,10 @@
     ../../modules/nixos/__nixos/__nixos.nix
     ../../modules/nixos/application-desktop/application-desktop.nix
     ../../modules/nixos/application-desktop-gtk/application-desktop-gtk.nix
-    ../../modules/nixos/desktop-environment-xfce/desktop-environment-xfce.nix
-    ../../modules/nixos/desktop-environment/desktop-environment.nix
+    ../../modules/nixos/desktop-environment-gnome/desktop-environment-gnome.nix
+    ../../modules/nixos/display-manager-lightdm/display-manager-lightdm.nix
+    ../../modules/nixos/service-nomachine/service-nomachine.nix
+    ../../modules/nixos/service-audio/service-audio.nix
     ../../modules/nixos/service-avahi/service-avahi.nix
     ../../modules/nixos/service-cron/service-cron.nix
     ../../modules/nixos/service-docker/service-docker.nix
@@ -19,11 +21,9 @@
     ../../modules/nixos/service-ssh/service-ssh.nix
     ../../modules/nixos/service-sudo/service-sudo.nix
     ../../modules/nixos/service-virtualbox/service-virtualbox.nix
-    ../../modules/nixos/service-xrdp/service-xrdp.nix
     ./modules/cron.nix
-    ./modules/docker.nix
     ./modules/filesystems.nix
-    ./modules/desktop-environment.nix
+    ./modules/docker.nix
     ./modules/docker-resiliosync.nix
     ./modules/docker-swag.nix
     ./modules/networking.nix
