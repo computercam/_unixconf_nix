@@ -46,7 +46,8 @@ with lib; let
     CUPSBackendPath ""
 
     EnableEGLCapture 0
-
+    CreateDisplay 1
+    DisplayOwner “${config.users.users.main.name}”
     DisplayServerThreads auto
     DisplayEncoderThreads auto
     EnableDirectXSupport 0
