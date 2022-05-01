@@ -4,7 +4,7 @@ let
       owner = "rytec-nl";
       repo = "nixpkgs";
       rev = "submit/add-nomachine-server";
-      sha256 = "sha256:18j9la8nqcvnikn0azvhx4nb80zyb75j8wkf7iw3fpx9ympic4xa";
+      sha256 = "sha256:02rka5nvdpay1wm8w5k0yaig509nh6apdzpj4wdvjhhdwgsv5q2d";
    };
     nomachine-server = pkgs.callPackage "${rytec-nl_nixpkgs}/pkgs/tools/admin/nomachine/default.nix" {};
 in {

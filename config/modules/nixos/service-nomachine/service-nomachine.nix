@@ -9,7 +9,6 @@ with lib;
    config = mkMerge [({
       services.nxserver = {
          enable = true;
-         enableDebug = true;
          openFirewall = true;
       }; 
    })
