@@ -23,8 +23,6 @@
     spotify
     vscode
     wireshark
-    woeusb
-    xmind
     zeal
   ];
 }
