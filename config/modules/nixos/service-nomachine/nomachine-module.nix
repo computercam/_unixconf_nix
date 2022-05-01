@@ -3,88 +3,163 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
   cfg = config.services.nxserver;
-  nxserver = pkgs.nomachine;
 
-  serverConf = ''
-    ConfigFileVersion 4.0
+  settingsFmt = rec {
+    type = with lib.types;
+      (attrsOf (nullOr (oneOf [str int bool attrs])))
+      // {
+        description = "settings option";
+      };
 
-    EnableDebug ${toString cfg.enableDebug}
-    SessionLogLevel ${toString cfg.debugLevel}
+    format = value:
+      lib.generators.toKeyValue {
+        mkKeyValue = k: v:
+          if lib.isAttrs v
+          then "Section \"${k}\"\n" + (format v) + "EndSection"
+          else if lib.isBool v
+          then
+            lib.generators.mkKeyValueDefault {} " " k (
+              if v == true
+              then 1
+              else 0
+            )
+          else if lib.isString v
+          then
+            lib.generators.mkKeyValueDefault {} " " k (
+              if k == "Name"
+              then "\"${v}\""
+              else v
+            )
+          else lib.generators.mkKeyValueDefault {} " " k v;
+      }
+      value;
 
-    AvailableSessionTypes unix-remote,unix-console,unix-default,unix-application,physical-desktop,shadow
-
-    EnablePasswordDB 0
-
-    Section "Server"
-
-    Name "Connection to localhost"
-    Host 127.0.0.1
-    Protocol NX
-    Port 4000
-    Authentication password
-
-    EndSection
-  '';
-
-  nodeConf = ''
-    ConfigFileVersion 4.0
-
-    EnableDebug ${toString cfg.enableDebug}
-    SessionLogLevel ${toString cfg.debugLevel}
-
-    AvailableSessionTypes unix-remote,unix-console,unix-default,unix-application,physical-desktop,shadow
-
-    AudioInterface pulseaudio
-
-    EnableSmartcardSharing 1
-    EnableCUPSSupport 0
-    CUPSBinPath ""
-    CUPSSbinPath ""
-    CUPSBackendPath ""
-
-    EnableEGLCapture 0
-    CreateDisplay 1
-    DisplayOwner “${config.users.users.main.name}”
-    DisplayServerThreads auto
-    DisplayEncoderThreads auto
-    EnableDirectXSupport 0
-  '';
+    generate = name: value:
+      pkgs.writeText name (
+        format value
+      );
+  };
 in {
-  options.services.nxserver = {
+  options.services.nxserver = with lib; {
     enable = mkEnableOption "the NoMachine remote desktop server";
-
-    enableDebug = mkEnableOption "debug output";
-    debugLevel = mkOption {
-      default = 6;
-      example = 6;
-      description = "Debug output level";
-      type = lib.types.int;
-    };
 
     openFirewall = mkOption {
       type = types.bool;
       default = false;
       description = ''
-        Whether to open port 4000 in the firewall.
+        Whether to open the configured port in the firewall.
       '';
+    };
+
+    package = mkOption {
+      description = ''
+        Package containing the nxserver package and configuration files.
+      '';
+      type = types.package;
+      default = pkgs.nomachine;
+      defaultText = literalExpression "pkgs.nomachine";
+    };
+
+    serverSettings = lib.mkOption {
+      description = ''
+        Settings for the NoMachine nxserver instance.
+      '';
+
+      default = {};
+      example = {
+        EnableDebug = true;
+        SessionLogLevel = 6;
+      };
+
+      type = lib.types.submodule {
+        freeformType = settingsFmt.type;
+
+        options.EnableDebug = lib.mkEnableOption "debug output";
+        options.SessionLogLevel = lib.mkOption {
+          type = lib.types.int;
+          default = 6;
+          example = 6;
+          description = "Debug output level";
+        };
+      };
+    };
+
+    nodeSettings = lib.mkOption {
+      description = ''
+        Settings for the NoMachine nxnode instance.
+      '';
+
+      default = {};
+      example = {
+        EnableDebug = true;
+        SessionLogLevel = 6;
+      };
+
+      type = lib.types.submodule {
+        freeformType = settingsFmt.type;
+
+        options.EnableDebug = lib.mkEnableOption "debug output";
+        options.SessionLogLevel = lib.mkOption {
+          type = lib.types.int;
+          default = 6;
+          example = 6;
+          description = "Debug output level";
+        };
+      };
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     users.users = {
       "nx" = {
         group = "nx";
         isSystemUser = true;
-        shell = "${nxserver}/NX/etc/nxserver";
+        shell = "${cfg.package}/NX/etc/nxserver";
         home = "/var/lib/nxserver/nx";
       };
     };
 
     users.groups = {
       "nx" = {};
+    };
+
+    services.nxserver = {
+      serverSettings = {
+        ConfigFileVersion = "4.0";
+
+        AvailableSessionTypes = lib.mkDefault "unix-remote,unix-console,unix-default,unix-application,physical-desktop,shadow";
+
+        EnablePasswordDB = lib.mkDefault false;
+
+        EnableFirewallConfiguration = lib.mkDefault false;
+
+        Server = lib.mkDefault {
+          Name = "Connection to localhost";
+          Host = "127.0.0.1";
+          Protocol = "NX";
+          Port = 4000;
+          Authentication = "password";
+        };
+      };
+
+      nodeSettings = {
+        ConfigFileVersion = "4.0";
+
+        AvailableSessionTypes = lib.mkDefault "unix-remote,unix-console,unix-default,unix-application,physical-desktop,shadow";
+
+        AudioInterface = lib.mkDefault "pulseaudio";
+
+        EnableSmartcardSharing = lib.mkDefault true;
+        EnableCUPSSupport = lib.mkDefault false;
+
+        EnableEGLCapture = lib.mkDefault false;
+
+        DisplayServerThreads = lib.mkDefault "auto";
+        DisplayEncoderThreads = lib.mkDefault "auto";
+        EnableDirectXSupport = lib.mkDefault false;
+      };
     };
 
     security.pam.services.nx.text = ''
@@ -107,37 +182,41 @@ in {
 
     environment.etc = {
       "NX/server/localhost/server.cfg" = {
-        text = ''ServerRoot = "${nxserver}/NX"'';
+        text = ''ServerRoot = "${cfg.package}/NX"'';
         mode = "644";
       };
 
       "NX/server/localhost/node.cfg" = {
-        text = ''NodeRoot = "${nxserver}/NX"'';
+        text = ''NodeRoot = "${cfg.package}/NX"'';
         mode = "644";
       };
 
       "NX/server/localhost/client.cfg" = {
-        text = ''ClientRoot = "${nxserver}/NX"'';
+        text = ''ClientRoot = "${cfg.package}/NX"'';
         mode = "644";
       };
 
-      "NX/nxserver".source = "${nxserver}/bin/nxserver";
-      "NX/nxnode".source = "${nxserver}/bin/nxnode";
+      "NX/nxserver" = {
+        source = "${cfg.package}/bin/nxserver";
+        mode = "0755";
+      };
 
-      "NX/server.cfg".text = serverConf;
-      "NX/node.cfg".text = nodeConf;
+      "NX/nxnode".source = "${cfg.package}/bin/nxnode";
+
+      "NX/server.cfg".source = settingsFmt.generate "server.cfg" cfg.serverSettings;
+      "NX/node.cfg".source = settingsFmt.generate "node.cfg" cfg.nodeSettings;
     };
 
     security.wrappers = {
       nxexec = {
-        source = "${nxserver}/NX/bin/nxexec.orig";
+        source = "${cfg.package}/NX/bin/nxexec.orig";
         owner = "root";
         group = "root";
         setuid = true;
       };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [4000];
+    networking.firewall.allowedTCPPorts = lib.mkIf (cfg.openFirewall) [cfg.serverSettings.Server.Port];
 
     systemd.services.nxserver = {
       description = "NoMachine Server daemon";
@@ -171,9 +250,12 @@ in {
             set -euo pipefail
 
             # always update to current version of files
-            cp ${nxserver}/NX/etc.static/version /etc/NX/
-            cp ${nxserver}/NX/etc.static/update.cfg /etc/NX/
-            cp ${nxserver}/NX/etc.static/usb.db /etc/NX/
+            cp ${cfg.package}/NX/etc.static/version /etc/NX/
+            cp ${cfg.package}/NX/etc.static/update.cfg /etc/NX/
+
+            if [ ! -f /etc/NX/usb.db ]; then
+              cp ${cfg.package}/NX/etc.static/usb.db /etc/NX/
+            fi
 
             # nx processes run as user "nx" need to write state and lock files to /etc/NX
             chown nx:nx /etc/NX
@@ -181,7 +263,7 @@ in {
             # Almost all shell scripts in scripts/restriced need u+s and to be owned by root
             # Only symlinking the restricted folder does not work because of checks done by
             # nxexec (symlink is not a folder)
-            cp -r ${nxserver}/NX/scripts.static/* /run/nxserver/scripts/
+            cp -r ${cfg.package}/NX/scripts.static/* /run/nxserver/scripts/
             for i in /run/nxserver/scripts/restricted/*.sh; do
               file=$(basename "$i")
               if [ "$file" != "nxfunct.sh" ] && [ "$file" != "nxlogrotate.sh" ]; then
@@ -193,11 +275,11 @@ in {
             # nxserver can only run after the previous commands
 
             if [ ! -f /etc/NX/uuid ]; then
-              ${nxserver}/NX/bin/nxkeygen -u > /etc/NX/uuid
+              ${cfg.package}/NX/bin/nxkeygen -u > /etc/NX/uuid
             fi
 
             if [ ! -f /etc/NX/server.lic ]; then
-              cp ${nxserver}/NX/etc.static/server.lic.sample /etc/NX/
+              cp ${cfg.package}/NX/etc.static/server.lic.sample /etc/NX/
               /etc/NX/nxserver --validate
               mv /etc/NX/server.lic.sample /etc/NX/server.lic
               chown nx:root /etc/NX/server.lic
@@ -205,7 +287,7 @@ in {
             fi
 
             if [ ! -f /etc/NX/node.lic ]; then
-              cp ${nxserver}/NX/etc.static/node.lic.sample /etc/NX/
+              cp ${cfg.package}/NX/etc.static/node.lic.sample /etc/NX/
               /etc/NX/nxnode --validate
               mv /etc/NX/node.lic.sample /etc/NX/node.lic
               chown nx:root /etc/NX/node.lic
@@ -218,13 +300,13 @@ in {
 
             if [ ! -f /etc/NX/keys/host/nx_host_rsa_key ]; then
               mkdir -p /etc/NX/keys/host
-              ${nxserver}/NX/bin/nxkeygen -k /etc/NX/keys/host/nx_host_rsa_key -c /etc/NX/keys/host/nx_host_rsa_key.crt
+              ${cfg.package}/NX/bin/nxkeygen -k /etc/NX/keys/host/nx_host_rsa_key -c /etc/NX/keys/host/nx_host_rsa_key.crt
               chown -R nx:root /etc/NX/keys
               chmod 0400 /etc/NX/keys/host/nx_host_rsa_key
             fi
           '';
         in "+${pkgs.writeShellScript "nxserver-prestart" preStartScript}";
-        ExecStart = "${nxserver}/bin/nxserver --daemon";
+        ExecStart = "${cfg.package}/bin/nxserver --daemon";
         KillMode = "process";
         SuccessExitStatus = "0 SIGTERM";
         Restart = "always";
