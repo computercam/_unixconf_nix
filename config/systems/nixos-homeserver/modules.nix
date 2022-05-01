@@ -1,13 +1,13 @@
 { config, pkgs, ... }: {
   imports = [
     ../../global/global.nix
+    
     ../../modules/common/fonts/fonts.nix
     ../../modules/common/shell/shell.nix
     ../../modules/common/user-main/user-main.nix
     ../../modules/common/utils/utils.nix
+
     ../../modules/nixos/__nixos/__nixos.nix
-    ../../modules/nixos/application-desktop/application-desktop.nix
-    ../../modules/nixos/application-desktop-gtk/application-desktop-gtk.nix
     ../../modules/nixos/desktop-environment-xfce/desktop-environment-xfce.nix
     ../../modules/nixos/display-manager-lightdm/display-manager-lightdm.nix
     ../../modules/nixos/service-nomachine/service-nomachine.nix
@@ -21,6 +21,7 @@
     ../../modules/nixos/service-ssh/service-ssh.nix
     ../../modules/nixos/service-sudo/service-sudo.nix
     ../../modules/nixos/service-virtualbox/service-virtualbox.nix
+
     ./modules/cron.nix
     ./modules/filesystems.nix
     ./modules/development.nix
