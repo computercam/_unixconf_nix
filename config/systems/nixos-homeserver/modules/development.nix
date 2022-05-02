@@ -8,6 +8,7 @@
         cargo
         rustc
         distrobox
+        vscode
     ];
   };
 }
