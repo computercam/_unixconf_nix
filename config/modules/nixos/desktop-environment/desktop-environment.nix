@@ -3,8 +3,6 @@
     environment.systemPackages = with pkgs; [
       xorg.xkill
       xorg.xrandr
-      bibata-cursors
-      papirus-icon-theme
     ];
 
     services.xserver = {
