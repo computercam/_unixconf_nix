@@ -34,7 +34,8 @@
       curl # file transfer
       rsync # file transfer and sync
       wget # file transfer
-      youtube-dl # downloader
+      youtube-dl # file transfer and downloader downloader
+      lftp # file transfer
     ] ++ [
       exfat # filesystems
       ntfs3g # filesystems
