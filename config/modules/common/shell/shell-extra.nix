@@ -1,5 +1,5 @@
 { config, lib, pkgs, options, ... }: {
-  config.environment.systemPackages = with pkgs; [
+  config.home-manager.users."${config.cfg.user.name}".home.packages = with pkgs; [
     cava
     cmatrix
     cowsay
