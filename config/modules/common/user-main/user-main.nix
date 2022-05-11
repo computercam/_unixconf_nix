@@ -6,14 +6,6 @@ with lib; {
   config = {
     nix.allowedUsers = [ config.cfg.user.name ];
 
-    environment.systemPackages = with pkgs; [ vim alacritty vscode ];
-
-    environment.variables = {
-      TERMINAL = "alacritty";
-      EDITOR = "vim";
-      VISUAL = "code";
-    };
-
     users.users.main = (mkMerge [
       (if config.cfg.os.unix == "linux" then {
         createHome = true;
@@ -22,14 +14,14 @@ with lib; {
         home = "/home/${config.cfg.user.name}";
         initialPassword = config.cfg.user.name;
         isNormalUser = true;
-       } else {})
-       ( if config.cfg.os.unix == "darwin" then {
+      } else {})
+      ( if config.cfg.os.unix == "darwin" then {
         home = "/Users/${config.cfg.user.name}";
-       } else {})
-       ({
-         name = config.cfg.user.name;
-         shell = pkgs.zsh;
-       })
+      } else {})
+      ({
+        name = config.cfg.user.name;
+        shell = pkgs.zsh;
+      })
     ]);
 
     users.groups.main = (mkMerge [
@@ -41,14 +33,25 @@ with lib; {
       } else {})
     ]);
 
-    # home-manager.users.main = mkMerge [
-    #   {
-    #     programs.git = {
-    #       enable = true;
-    #       userName = config.cfg.user.name;
-    #       userEmail = config.cfg.useremail;
-    #     };
-    #   }
-    # ];
+    home-manager.users."${config.cfg.user.name}" = {
+      home.packages = with pkgs; [ 
+        vim
+        alacritty
+        vscode
+      ];
+      
+      programs.zsh.localVariables = {
+        TERMINAL = "alacritty";
+        EDITOR = "vim";
+        VISUAL = "code";
+      };
+
+      programs.git = {
+        enable = true;
+        userName = config.cfg.user.name;
+        userEmail = config.cfg.user.email;
+      };
+
+    };
   };
 }
