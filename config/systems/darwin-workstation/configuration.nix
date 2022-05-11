@@ -2,18 +2,59 @@
 
 {
   imports = [
-    ../../global/global.nix
-    ../../modules/darwin/__darwin/__darwin.nix
-    ../../modules/common/user-main/user-main.nix
-    # ../../modules/common/home-manager/home-manager.nix
+    ./modules.nix
   ];
 
   config = {
-    # cfg.networking.hostname = "darwin-desktop";
-    environment.systemPackages = with pkgs; [ vim ];
     services.nix-daemon.enable = true;
-    programs.zsh.enable = true;  # default shell on catalina
     system.stateVersion = 4;
     nix.maxJobs = 10;
+
+    cfg.homebrew.casks = [        
+      "appcleaner"
+      "balenaetcher"
+      "bitwig-studio"
+      "blender"
+      "brave-browser"
+      "charles"
+      "chromium"
+      "cold-turkey-blocker"
+      "darktable"
+      "dash"
+      "disk-drill"
+      "docker"
+      "element"
+      "firefox"
+      "geekbench"
+      "gimp"
+      "grandperspective"
+      "handbrake"
+      "inkscape"
+      "iterm2"
+      "karabiner-elements"
+      "krita"
+      "launchcontrol"
+      "libreoffice"
+      "little-snitch"
+      "microsoft-teams"
+      "moom"
+      "musescore"
+      "notion"
+      "obs"
+      "obsidian"
+      "openvpn-connect"
+      "protonmail-bridge"
+      "protonvpn"
+      "resilio-sync"
+      "spotify"
+      "slack"
+      "the-unarchiver"
+      "transmission"
+      "visual-studio-code"
+      "vlc"
+      "wireshark"
+      "xquartz"
+      "zenmap"
+    ];
   };
 }

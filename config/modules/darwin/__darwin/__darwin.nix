@@ -2,8 +2,6 @@
 with lib;
 let
 in {
-  imports = [ ];
-
   config = {
     system.defaults = {
       NSGlobalDomain = {
