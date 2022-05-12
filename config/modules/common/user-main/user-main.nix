@@ -28,7 +28,7 @@ with lib; {
       (if config.cfg.os.unix == "linux" then { 
         name = config.cfg.user.name; 
       } else {})
-       ( if config.cfg.os.unix == "darwin" then { 
+      (if config.cfg.os.unix == "darwin" then { 
         name = "staff"; 
       } else {})
     ]);
