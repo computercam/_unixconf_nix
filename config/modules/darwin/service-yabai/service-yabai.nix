@@ -17,13 +17,7 @@ let
   skhd = pkgs.skhd;
 
 in {
-  options.cfg.yabai = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Whether to enable the yabai window manager.";
-    };
-  };
+  imports = [ ./options.nix ];
 
   config = mkMerge [
     (mkIf (cfg.yabai.enable) {
@@ -32,23 +26,24 @@ in {
 
       environment.systemPackages = [ yabai skhd ];
 
+      launchd.daemons.yabai-sa = {
+        script = ''
+          if [ ! $(${yabai}/bin/yabai --check-sa) ]; then
+            ${yabai}/bin/yabai --load-sa
+            ${yabai}/bin/yabai --install-sa
+          fi
+        '';
+
+        serviceConfig.RunAtLoad = true;
+        serviceConfig.KeepAlive.SuccessfulExit = false;
+      };
+
       launchd.user.agents.yabai = {
         serviceConfig.ProgramArguments =
           [ "${yabai}/bin/yabai" "-c" "${homeDir}/.config/yabai/yabairc" ];
         serviceConfig.KeepAlive = true;
         serviceConfig.ProcessType = "Interactive";
       };
-
-      # launchd.daemons.yabai-sa = {
-      #   script = ''
-      #     if [ ! $(${yabai}/bin/yabai --check-sa) ]; then
-      #       ${yabai}/bin/yabai --install-sa
-      #     fi
-      #   '';
-
-      #   serviceConfig.RunAtLoad = true;
-      #   serviceConfig.KeepAlive.SuccessfulExit = false;
-      # };
 
       launchd.user.agents.skhd = {
         serviceConfig.ProgramArguments =
@@ -57,7 +52,7 @@ in {
         serviceConfig.ProcessType = "Interactive";
       };
 
-      home-manager.users."${cfg.username}".home.file = mkMerge [
+      home-manager.users."${cfg.user.name}".home.file = mkMerge [
         {
           "yabai/yabairc" = mkMerge [{
             source = "${homeDir}/.config/yabai/yabairc";
