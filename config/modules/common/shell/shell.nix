@@ -9,9 +9,7 @@ let
   zshYouShouldUse = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
   cfg = config.cfg.shell;
 in {
-  imports = [
-    ./options.nix
-  ];
+  imports = [ ./options.nix ];
 
   config = {
     environment.systemPackages = with pkgs; [
@@ -25,8 +23,6 @@ in {
       enable = true;
 
       interactiveShellInit = ''
-        ## START CUSTOM SETUP
-
         function pathIf () {
           [ -e "$1" ] && export PATH="$PATH:$1"
         }
@@ -101,19 +97,19 @@ in {
               (lib.attrsets.mapAttrsToList 
                 (name: value: ''bindkey '${value}' ${name}'') 
                 cfg.keybindings)}
+        ''}
+
+        ${optionalString (cfg.paths != []) ''
+          ### PATHS
+
+          pathIf ${concatStringsSep "\npathIf " cfg.paths}
         ''}               
-      
-        ## END CUSTOM SETUP
       '';
 
       promptInit = ''
-        ## START PROMPTINIT
-
         (eval "nohup ${pkgs.pywal}/bin/wal -Rn" > /dev/null 2>&1 &)
         eval "$(${pkgs.starship}/bin/starship init zsh)"
         eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
-
-        ## END PROMPTINIT
       '';
     };
   };

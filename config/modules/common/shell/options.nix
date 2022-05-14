@@ -96,5 +96,19 @@ with lib; {
       description = "Attrset of zsh bindkey keybindings";
     };
 
+    paths = mkOption {
+      type = types.listOf types.str;
+      default = [
+        "$HOME/scripts"
+        "$HOME/.node_modules/bin"
+        "$HOME/.cargo/bin"
+        "$HOME/.local/bin"
+        "/usr/local/bin"
+        "/usr/libexec/java_home"
+      ];
+      description = "List of paths to add to your $PATH";
+    };
+
+
   };
 }
