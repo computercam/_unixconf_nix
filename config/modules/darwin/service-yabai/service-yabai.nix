@@ -28,8 +28,8 @@ in {
     launchd.daemons.yabai-sa = {
       script = ''
         if [ ! $(/opt/homebrew/bin/yabai --check-sa) ]; then
-          /opt/homebrew/bin/yabai --load-sa
-          /opt/homebrew/bin/yabai --install-sa
+          /usr/bin/sudo /opt/homebrew/bin/yabai --load-sa
+          /usr/bin/sudo /opt/homebrew/bin/yabai --install-sa
         fi
       '';
 
