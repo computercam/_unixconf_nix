@@ -109,6 +109,7 @@ in {
       promptInit = ''
         ## START PROMPTINIT
 
+        (eval "nohup ${pkgs.pywal}/bin/wal -Rn" > /dev/null 2>&1 &)
         eval "$(${pkgs.starship}/bin/starship init zsh)"
         eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 
