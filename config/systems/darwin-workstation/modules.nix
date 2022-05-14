@@ -9,6 +9,6 @@
     ../../modules/common/utils/utils.nix
     ../../modules/darwin/__darwin/__darwin.nix
     ../../modules/darwin/application-desktop/application-desktop.nix
-    # ../../modules/darwin/yabai/yabai.nix
+    ../../modules/darwin/service-yabai/service-yabai.nix
   ];
 }
