@@ -1,7 +1,7 @@
 { config, lib, pkgs, options, ... }: {
   config.fonts = {
     fonts = with pkgs; [
-      # nerdfonts # huge package
+      nerdfonts # huge package
       fantasque-sans-mono # included in nerdfonts
       fira-code # included in nerdfonts
       victor-mono # included in nerdfonts
