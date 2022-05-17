@@ -2,27 +2,18 @@
 with pkgs.stdenv;
 with lib;
 let
-  zshAutoSuggestions = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions";
-  zshCompletions = "${pkgs.zsh-completions}/share/zsh/site-functions";
-  zshHistorySearch = "${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search";
-  zshSyntaxHighlighting = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
-  zshYouShouldUse = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
   cfg = config.cfg.shell;
 in {
-  imports = [ ./options.nix ];
+  imports = [ 
+    ./modules.nix 
+    ./options.nix
+  ];
 
-  config = {
-    environment.systemPackages = with pkgs; [
-      zoxide
-      starship
-      bat
-      exa
-    ];
-
+  config.home-manager.users."${config.cfg.user.name}" = {
     programs.zsh = {
       enable = true;
 
-      interactiveShellInit = ''
+      initExtra = ''
         function pathIf () {
           [ -e "$1" ] && export PATH="$PATH:$1"
         }
@@ -35,21 +26,35 @@ in {
           [ -e "$1" ] && fpath=($1 $fpath)
         }
 
-        fpathIf "${zshCompletions}"
-        fpathIf "${zshSyntaxHighlighting}"
+        ${optionalString (cfg.fpaths != []) ''
+          ### FUNCTION PATHS
 
-        sourceIf ${zshAutoSuggestions}/zsh-autosuggestions.zsh
-        sourceIf ${zshHistorySearch}/zsh-history-substring-search.zsh
-        sourceIf ${zshSyntaxHighlighting}/fast-syntax-highlighting.plugin.zsh
-        sourceIf ${zshYouShouldUse}/you-should-use.plugin.zsh
-
-        ### OH-MY-ZSH
-
-        export ZSH=${pkgs.oh-my-zsh}/share/oh-my-zsh
-        ${optionalString (cfg.ohMyZshPlugins != []) ''
-          plugins=(${concatStringsSep " " cfg.ohMyZshPlugins})
+          fpathIf ${concatStringsSep "\nfpathIf " cfg.fpaths}
         ''}
-        source $ZSH/oh-my-zsh.sh
+
+        ${optionalString (cfg.sources != []) ''
+          ### SOURCES
+
+          sourceIf ${concatStringsSep "\nsourceIf " cfg.sources}
+        ''}
+
+        ${optionalString (cfg.paths != []) ''
+          ### PATHS
+
+          pathIf ${concatStringsSep "\npathIf " cfg.paths}
+        ''}  
+
+        ${optionalString (cfg.ohMyZsh.enable == true) ''
+          ### OH-MY-ZSH
+          
+          export ZSH=${pkgs.oh-my-zsh}/share/oh-my-zsh
+          
+          ${optionalString (cfg.ohMyZsh.plugins != []) ''
+            plugins=(${concatStringsSep " " cfg.ohMyZsh.plugins})
+          ''}
+
+          source $ZSH/oh-my-zsh.sh
+        ''}
         
         ${optionalString (cfg.variables != {}) ''
           ### VARIABLES
@@ -99,17 +104,11 @@ in {
                 cfg.keybindings)}
         ''}
 
-        ${optionalString (cfg.paths != []) ''
-          ### PATHS
+        ${optionalString (cfg.extras != []) ''
+          ### EXTRAS
 
-          pathIf ${concatStringsSep "\npathIf " cfg.paths}
-        ''}               
-      '';
-
-      promptInit = ''
-        (eval "nohup ${pkgs.pywal}/bin/wal -Rn" > /dev/null 2>&1 &)
-        eval "$(${pkgs.starship}/bin/starship init zsh)"
-        eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
+          ${concatStringsSep "\n" cfg.extras}
+        ''}       
       '';
     };
   };
