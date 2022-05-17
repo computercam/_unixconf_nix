@@ -9,68 +9,73 @@ let
   cfg = config.cfg;
 
   homeDir = builtins.getEnv ("HOME");
+  skhd = "/opt/homebrew/bin/skhd";
+  skhdrc = "/Users/${cfg.user.name}/.config/skhd/skhdrc";
+  yabai = "/opt/homebrew/bin/yabai";
+  yabairc = "/Users/${cfg.user.name}/.config/yabai/yabairc";
+  path = "/opt/homebrew/bin:/run/current-system/sw/bin:${config.environment.systemPath}";
 
 in {
   imports = [ ./modules.nix ];
 
   config = {
-    environment.systemPackages = with pkgs; [ nodejs ];
-    
+    environment.systemPackages = with pkgs; [ 
+      nodejs # needed for my yabai script
+    ];
+
     homebrew = {
       taps = [ "koekeishiya/formulae" ];
       brews = [ "yabai" "skhd" ];
     };
 
-    security.accessibilityPrograms =
-      [ "/opt/homebrew/bin/yabai" "/opt/homebrew/bin/skhd" ];
-
+    security.accessibilityPrograms = [ "${yabai}" "${skhd}" ];
 
     launchd.daemons.yabai-sa = {
       script = ''
-        if [ ! $(/opt/homebrew/bin/yabai --check-sa) ]; then
-          /usr/bin/sudo /opt/homebrew/bin/yabai --load-sa
-          /usr/bin/sudo /opt/homebrew/bin/yabai --install-sa
+        if [ ! $(${yabai} --check-sa) ]; then
+          ${yabai} --install-sa
         fi
+        
+        ${yabai} --load-sa
       '';
 
       serviceConfig.RunAtLoad = true;
       serviceConfig.KeepAlive.SuccessfulExit = false;
     };
 
+    environment.etc."sudoers.d/yabai" = {
+      enable = true;
+      text = ''
+        ${cfg.user.name} ALL = (root) NOPASSWD: ${yabai} --load-sa
+      '';
+    };
+
+    launchd.user.agents.yabai-sa = {
+      serviceConfig.ProgramArguments =
+        [ "/usr/bin/sudo" "${yabai}" "--load-sa" ];
+      
+      serviceConfig.RunAtLoad = true;
+      serviceConfig.KeepAlive.SuccessfulExit = false;
+    };
+
     launchd.user.agents.yabai = {
       serviceConfig.ProgramArguments =
-        [ "/opt/homebrew/bin/yabai" "-c" "${homeDir}/.config/yabai/yabairc" ];
+        [ "${yabai}" "-c" "${yabairc}" ];
       serviceConfig.KeepAlive = true;
       serviceConfig.ProcessType = "Interactive";
+      serviceConfig.EnvironmentVariables = {
+        PATH = "${path}";
+      };
     };
 
     launchd.user.agents.skhd = {
       serviceConfig.ProgramArguments =
-        [ "/opt/homebrew/bin/skhd" "-c" "${homeDir}/.config/skhd/skhdrc" ];
+        [ "${skhd}" "-c" "${skhdrc}" ];
       serviceConfig.KeepAlive = true;
       serviceConfig.ProcessType = "Interactive";
+      serviceConfig.EnvironmentVariables = {
+        PATH = "${path}";
+      };
     };
-
-    # TODO : Redo these at some point
-    home-manager.users."${cfg.user.name}".home.file = mkMerge [
-      {
-        "yabai/yabairc" = mkMerge [{
-          source = "${homeDir}/.config/yabai/yabairc";
-          onChange = ''
-            "${homeDir}/.config/yabai/yabairc"
-          '';
-        }];
-      }
-
-      {
-        "skhd/skhdrc" = mkMerge [{
-          source = "${homeDir}/.config/skhd/skhdrc";
-          onChange = ''
-            launchctl stop org.nixos.skhd
-            launchctl start org.nixos.skhd
-          '';
-        }];
-      }
-    ];
   };
 }
