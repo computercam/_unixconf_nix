@@ -19,7 +19,7 @@ in {
 
   config.home-manager.users."${config.cfg.user.name}".home.file = (mkMerge 
     (builtins.map (str: { 
-      ".dotfiles/${str}" = { 
+      "${str}" = { 
         source = (./. + "/.dotfiles/${str}");
       };
     }) (files ./.dotfiles))); 
