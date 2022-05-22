@@ -25,6 +25,27 @@
       ];
     };
 
+    home-manager.users.work = {
+      home.packages = config
+        .home-manager
+        .users
+        ."${config.cfg.user.name}"
+        .home
+        .packages;
+
+      programs.zsh = {
+        enable = true;
+
+        initExtra = config
+          .home-manager
+          .users
+          ."${config.cfg.user.name}"
+          .programs
+          .zsh
+          .initExtra;
+      };
+    };
+
     programs.java = {
       enable = true;
       package = with pkgs; jdk11;
@@ -43,6 +64,7 @@
       80 
       443
     ];
+    
     networking.hosts = { 
       "127.0.0.1" = [ 
         "devixd-aem.toyota.com"
