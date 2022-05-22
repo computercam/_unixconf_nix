@@ -5,7 +5,7 @@ with lib; {
 
   config = {
     users.groups.sshusers = { };
-    users.users.main.extraGroups = [ "sshusers" ];
+    users.users."${config.cfg.user.name}".extraGroups = [ "sshusers" ];
 
     programs.gnupg = {
       agent = {

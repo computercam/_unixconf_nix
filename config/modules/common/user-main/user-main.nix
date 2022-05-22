@@ -5,7 +5,7 @@ with lib; {
 
   nix.allowedUsers = [ config.cfg.user.name ];
 
-  users.users.main = (mkMerge [
+  users.users."${config.cfg.user.name}" = (mkMerge [
     (if config.cfg.os.unix == "linux" then {
       createHome = true;
       extraGroups = [ "wheel" ];
@@ -23,7 +23,7 @@ with lib; {
     })
   ]);
 
-  users.groups.main = (mkMerge [
+  users.groups."${config.cfg.user.name}" = (mkMerge [
     (if config.cfg.os.unix == "linux" then { 
       name = config.cfg.user.name; 
     } else {})

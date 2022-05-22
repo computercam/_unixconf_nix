@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }: {
   config = {
     environment.systemPackages = with pkgs; [ pavucontrol ];
-    users.users.main.extraGroups = [ "audio" ];
+    users.users."${config.cfg.user.name}".extraGroups = [ "audio" ];
     sound.enable = true;
 
     hardware.bluetooth.enable = true;

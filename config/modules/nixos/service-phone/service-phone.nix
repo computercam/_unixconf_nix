@@ -5,6 +5,6 @@
     programs.adb.enable = true;
     services.gvfs.enable = true;
     services.usbmuxd.enable = true;
-    users.users.main.extraGroups = [ "adbusers" ];
+    users.users."${config.cfg.user.name}".extraGroups = [ "adbusers" ];
   };
 }
