@@ -15,11 +15,11 @@
         fsType = "ext4";
       };
 
-      #Backup = {
-      #  device = "/dev/disk/by-label/BACKUP";
-      #  mountPoint = "/Volumes/Backup";
-      #  fsType = "ext4";
-      #};
+      Backup = {
+       device = "/dev/disk/by-label/BACKUP";
+       mountPoint = "/Volumes/Backup";
+       fsType = "ext4";
+      };
 
       Nix = {
         device = "/dev/disk/by-label/NIX";
