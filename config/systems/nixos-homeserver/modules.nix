@@ -15,7 +15,7 @@
     ../../modules/nixos/display-manager-lightdm/display-manager-lightdm.nix
 
     ../../modules/nixos/service-audio/service-audio.nix
-    ../../modules/nixos/service-nomachine/service-nomachine.nix
+    # ../../modules/nixos/service-nomachine/service-nomachine.nix
     ../../modules/nixos/service-avahi/service-avahi.nix
     ../../modules/nixos/service-cron/service-cron.nix
     ../../modules/nixos/service-docker/service-docker.nix
@@ -32,7 +32,7 @@
     ./modules/desktop-environment.nix
     ./modules/docker.nix
     ./modules/docker-resiliosync.nix
-    ./modules/docker-swag.nix
+    # ./modules/docker-swag.nix
     ./modules/hardware.nix
     ./modules/networking.nix
     ./modules/samba.nix
