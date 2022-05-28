@@ -14,7 +14,6 @@
       extraGroups = [ "sshusers" "docker" ];
       group = config.users.groups.work.name;
       home = "/Volumes/Storage/Work";
-      initialPassword = "work";
       isNormalUser = true;
       name = "work";
       shell = pkgs.zsh;
