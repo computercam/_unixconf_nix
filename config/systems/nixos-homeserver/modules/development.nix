@@ -1,14 +1,22 @@
 { config, lib, pkgs, options, ... }: {
   config = {
-    environment.systemPackages = with pkgs; [
-        python3Full
-        python3Packages.pip
-        nodejs
-        nodePackages.npm
-        cargo
-        rustc
-        distrobox
-        vscode
+    home-manager.users."${config.cfg.user.name}" = {
+      home.packages = with pkgs; [
+          python3Full
+          python3Packages.pip
+          nodejs
+          nodePackages.npm
+          cargo
+          rustc
+          distrobox
+          vscode
+          yarn
+        ];
+    };
+
+    networking.firewall.allowedTCPPorts = [ 
+      1234
+      3000
     ];
   };
 }
