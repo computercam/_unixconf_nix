@@ -11,7 +11,6 @@ with lib; {
       extraGroups = [ "wheel" ];
       group = config.cfg.user.name;
       home = "/home/${config.cfg.user.name}";
-      initialPassword = config.cfg.user.name;
       isNormalUser = true;
     } else {})
     ( if config.cfg.os.unix == "darwin" then {
