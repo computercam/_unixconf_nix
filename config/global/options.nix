@@ -28,7 +28,7 @@ with lib; {
   options.cfg.localization = {
     lang = mkOption {
       type = types.str;
-      default = "en_US.UTF-8";
+      default = "en_US.utf8";
       description = "System Language";
     };
 

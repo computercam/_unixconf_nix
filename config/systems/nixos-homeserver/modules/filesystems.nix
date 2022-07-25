@@ -3,31 +3,31 @@
     environment.systemPackages = with pkgs; [ btrfs-progs mergerfs ];
 
     fileSystems = {
-      # Server = {
-      #   device = "/dev/disk/by-label/SERVER";
-      #   mountPoint = "/Volumes/Server";
-      #   fsType = "btrfs";
-      # };
+      Server = {
+        device = "/dev/disk/by-label/SERVER";
+        mountPoint = "/Volumes/Server";
+        fsType = "btrfs";
+      };
 
-      # Storage = {
-      #   device = "/dev/disk/by-label/STORAGE";
-      #   mountPoint = "/Volumes/Storage";
-      #   fsType = "ext4";
-      # };
+      Storage = {
+        device = "/dev/disk/by-label/STORAGE";
+        mountPoint = "/Volumes/Storage";
+        fsType = "ext4";
+      };
 
-      # Backup = {
-      #  device = "/dev/disk/by-label/BACKUP";
-      #  mountPoint = "/Volumes/Backup";
-      #  fsType = "ext4";
-      # };
+      Backup = {
+       device = "/dev/disk/by-label/BACKUP";
+       mountPoint = "/Volumes/Backup";
+       fsType = "ext4";
+      };
 
-      # Nix = {
-      #   device = "/dev/disk/by-label/NIX";
-      #   mountPoint = "/nix";
-      #   fsType = "ext4";
-      #   neededForBoot = true;
-      #   options = [ "noatime" ];
-      # };
+      Nix = {
+        device = "/dev/disk/by-label/NIX";
+        mountPoint = "/nix";
+        fsType = "ext4";
+        neededForBoot = true;
+        options = [ "noatime" ];
+      };
 
       # Game1 = {
       #   device = "/dev/disk/by-label/GAME_1";

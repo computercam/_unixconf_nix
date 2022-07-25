@@ -19,7 +19,7 @@ with lib; {
 
     services.openssh = {
       allowSFTP = true;
-      challengeResponseAuthentication = true;
+      kbdInteractiveAuthentication = true;
       enable = true;
       forwardX11 = false;
       logLevel = "VERBOSE";

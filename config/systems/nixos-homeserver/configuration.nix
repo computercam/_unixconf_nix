@@ -3,14 +3,16 @@
 let cfg = config.cfg;
 in {
   imports = [ ./hardware-configuration.nix ./modules.nix ];
-  boot.loader.efi.canTouchEfiVariables = true;
+
   boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
   cfg.os.unix = "linux";
-  cfg.os.version = "21.11";
-  hardware.cpu.amd.updateMicrocode = true;
+  cfg.os.version = "22.05";
   hardware.enableRedistributableFirmware = true;
   nix.autoOptimiseStore = true;
-  nix.maxJobs = 16;
+  nix.maxJobs = 4;
   nixpkgs.config.allowUnfree = true;
   services.fstrim.enable = true;
   system.autoUpgrade.channel =
