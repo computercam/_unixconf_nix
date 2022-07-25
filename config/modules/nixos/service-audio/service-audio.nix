@@ -6,19 +6,36 @@
 
     hardware.bluetooth.enable = true;
 
-    hardware.pulseaudio = {
+    # hardware.pulseaudio = {
+    #   enable = true;
+    #   package = pkgs.pulseaudioFull;
+
+    #   extraConfig = ''
+    #     load-module module-switch-on-connect
+    #   '';
+
+    #   daemon.config = {
+    #     default-sample-format = "s24-32le";
+    #     default-sample-rate = "44100";
+    #   };
+    # };
+
+    hardware.pulseaudio.enable = false;
+
+    security.rtkit.enable = true;
+    
+    services.pipewire = {
       enable = true;
-      package = pkgs.pulseaudioFull;
-      extraModules = [ pkgs.pulseaudio-modules-bt ];
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      
+      # If you want to use JACK applications, uncomment this
+      #jack.enable = true;
 
-      extraConfig = ''
-        load-module module-switch-on-connect
-      '';
-
-      daemon.config = {
-        default-sample-format = "s24-32le";
-        default-sample-rate = "44100";
-      };
+      # use the example session manager (no others are packaged yet so this is enabled by default,
+      # no need to redefine it in your config for now)
+      #media-session.enable = true;
     };
   };
 }
