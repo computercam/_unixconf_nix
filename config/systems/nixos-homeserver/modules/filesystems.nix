@@ -4,9 +4,10 @@
 
     fileSystems = {
       Server = {
-        device = "/dev/disk/by-label/SERVER";
+        device = "/dev/disk/by-uuid/cff42611-1f94-48d9-b92a-8a9168eebf8a";
         mountPoint = "/Volumes/Server";
         fsType = "btrfs";
+        options = [ "subvol=Server" ];
       };
 
       Storage = {
@@ -19,14 +20,6 @@
        device = "/dev/disk/by-label/BACKUP";
        mountPoint = "/Volumes/Backup";
        fsType = "ext4";
-      };
-
-      Nix = {
-        device = "/dev/disk/by-label/NIX";
-        mountPoint = "/nix";
-        fsType = "ext4";
-        neededForBoot = true;
-        options = [ "noatime" ];
       };
 
       # Game1 = {

@@ -6,7 +6,6 @@ in {
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   cfg.os.unix = "linux";
   cfg.os.version = "22.05";
