@@ -9,6 +9,8 @@
       gnomeExtensions.gsconnect
       yaru-theme
       bibata-cursors
+      # gparted
+      # obsidian
     ];
   };
 }

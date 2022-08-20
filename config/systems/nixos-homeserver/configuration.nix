@@ -16,4 +16,5 @@ in {
   system.autoUpgrade.channel =
     "https://channels.nixos.org/nixos-${cfg.os.version}";
   system.stateVersion = cfg.os.version;
+  programs.zsh.enable = true;
 }

@@ -1,14 +1,19 @@
 { config, lib, pkgs, options, ... }: {
   config = {
+    environment.systemPackages = with pkgs; [
+      # slack
+      # teams
+      # haproxy
+      # mkcert
+    ];
+
     nix.allowedUsers = [ "work" ];
 
     users.groups.work.name = "work";
-
     users.users.work = {
-      extraGroups = [ "work" "sshusers" "docker" ];
-      group = "work";
+      extraGroups = [ "sshusers" "docker" ];
+      group = config.users.groups.work.name;
       home = "/Volumes/Storage/Work";
-      initialPassword = "work";
       isNormalUser = true;
       name = "work";
       shell = pkgs.zsh;
@@ -17,6 +22,27 @@
           nodejs-10_x
           maven
       ];
+    };
+
+    home-manager.users.work = {
+      home.packages = config
+        .home-manager
+        .users
+        ."${config.cfg.user.name}"
+        .home
+        .packages;
+
+      programs.zsh = {
+        enable = true;
+
+        initExtra = config
+          .home-manager
+          .users
+          ."${config.cfg.user.name}"
+          .programs
+          .zsh
+          .initExtra;
+      };
     };
 
     programs.java = {
@@ -31,7 +57,19 @@
       "electron-14.2.9"
     ];
 
-    networking.firewall.allowedTCPPorts = [ 4502 4503 80 ];
-    networking.hosts = { "127.0.0.1" = [ "devixd-aem.toyota.com" ]; };
+    networking.firewall.allowedTCPPorts = [ 
+      4502 
+      4503 
+      80 
+      443
+    ];
+    
+    networking.hosts = { 
+      "127.0.0.1" = [ 
+        "devixd-aem.toyota.com"
+        "devixd-aem-ssl.toyota.com"
+        "devixd-aem-author-ssl.toyota.com"
+      ]; 
+    };
   };
 }

@@ -5,7 +5,7 @@ with lib; {
 
   config = {
     users.groups.docker = { };
-    users.users.main.extraGroups = [ "docker" ];
+    users.users."${config.cfg.user.name}".extraGroups = [ "docker" ];
 
     environment.systemPackages = with pkgs; [
       docker-compose

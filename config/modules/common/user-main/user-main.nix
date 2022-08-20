@@ -5,13 +5,12 @@ with lib; {
 
   nix.allowedUsers = [ config.cfg.user.name ];
 
-  users.users.main = (mkMerge [
+  users.users."${config.cfg.user.name}" = (mkMerge [
     (if config.cfg.os.unix == "linux" then {
       createHome = true;
       extraGroups = [ "wheel" ];
       group = config.cfg.user.name;
       home = "/home/${config.cfg.user.name}";
-      initialPassword = config.cfg.user.name;
       isNormalUser = true;
     } else {})
     ( if config.cfg.os.unix == "darwin" then {
@@ -23,7 +22,7 @@ with lib; {
     })
   ]);
 
-  users.groups.main = (mkMerge [
+  users.groups."${config.cfg.user.name}" = (mkMerge [
     (if config.cfg.os.unix == "linux" then { 
       name = config.cfg.user.name; 
     } else {})
