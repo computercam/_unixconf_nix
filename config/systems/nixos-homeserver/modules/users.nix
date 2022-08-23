@@ -1,12 +1,21 @@
 { config, lib, pkgs, options, ... }: {
   config.users = {
-    groups = { rae = { }; };
+    groups = { 
+      rae = { };
+      # desmond = { }; 
+    };
     users = {
       rae = {
         group = "rae";
         isNormalUser = true;
-        createHome = false;
+        home = "/Volumes/Storage/Rae";
       };
+
+      # desmond = {
+      #   group = "rae";
+      #   isNormalUser = true;
+      #   createHome = false;
+      # };
     };
   };
 }

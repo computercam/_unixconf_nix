@@ -11,6 +11,12 @@ with lib; {
     };
 
     networking = {
+      dockernet = mkOption {
+        type = types.str;
+        default = "dockernet";
+        description = "Network for container to container networking";
+      };
+
       bip = mkOption {
         type = types.str;
         default = "172.17.0.1/24";

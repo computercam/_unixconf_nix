@@ -1,19 +1,20 @@
 { config, lib, pkgs, options, ... }: {
   config = {
     virtualisation.oci-containers.containers = {
-      resiliosync = {
+      resilio-sync = {
         image = "linuxserver/resilio-sync";
         ports = [ "8888:8888" "55555:55555" ];
         volumes = [
           "/Volumes/Server/docker/resiliosync/config:/config"
           "/Volumes/Server/docker/resiliosync/downloads:/downloads"
-          "/Volumes:/sync"
+          "/Volumes/Storage:/sync"
         ];
         environment = {
           PUID = "1000";
           PGID = "1000";
           TZ = "America/Chicago";
         };
+        extraOptions = [ "--network=${config.cfg.docker.networking.dockernet}" ];
       };
     };
 
