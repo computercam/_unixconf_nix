@@ -23,12 +23,16 @@
     ../../modules/nixos/service-sudo/service-sudo.nix
 
     ./modules/cron.nix
+
+    ./modules/docker.nix
     ./modules/docker-adguard.nix
     ./modules/docker-filebrowser.nix
-    ./modules/docker-homeassistant.nix
+    # ./modules/docker-homeassistant.nix
     ./modules/docker-resiliosync.nix
+    ./modules/docker-rss.nix
     ./modules/docker-swag.nix
-    ./modules/docker.nix
+    ./modules/docker-vscode.nix
+
     ./modules/filesystems.nix
     ./modules/networking.nix
     ./modules/samba.nix

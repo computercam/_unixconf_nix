@@ -24,7 +24,10 @@
           PGID = "1000";
           TZ = "America/Chicago";
         };
-        extraOptions = [ "--network=host" ];
+        extraOptions = [ 
+          "--network=host"
+          # "--label=swag=enable"
+        ];
       };
     };
 
