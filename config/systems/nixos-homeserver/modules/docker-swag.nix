@@ -43,13 +43,6 @@
           "--network=${config.cfg.docker.networking.dockernet}"
         ];
       };
-
-      # authelia = {
-      #   image = "ghcr.io/authelia/authelia:4.34.6";
-      #   volumes = [ "/Volumes/Server/docker/swag/authelia:/config" ];
-      #   environment = { TZ = "America/Chicago"; };
-      #   extraOptions = [ "--user=1000:1000" ];
-      # };
     };
 
     # networking.firewall.allowedTCPPorts = [ 443 ];

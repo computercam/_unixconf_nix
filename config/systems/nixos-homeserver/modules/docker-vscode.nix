@@ -11,9 +11,7 @@
           PUID = "1000";
           PGID = "1000";
           TZ = "America/Chicago";
-          # PASSWORD=password #optional
           HASHED_PASSWORD = ''$argon2i$v=19$m=4096,t=3,p=1$lQaXIFqS9MamjYqUz2pj+w$Ydr14jlx7+ljWJVc561/JxO/EjhizDZyy/jRGoyTkS4''; #optional
-          # SUDO_PASSWORD=password #optional
           # SUDO_PASSWORD_HASH= #optional
           # PROXY_DOMAIN = "code-server.cameron.computer"; #optional
           # DEFAULT_WORKSPACE=/config/workspace #optional
