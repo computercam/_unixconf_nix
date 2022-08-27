@@ -24,15 +24,17 @@
 
     ./modules/cron.nix
 
-    ./modules/docker.nix
-    ./modules/docker-adguard.nix
-    ./modules/docker-filebrowser.nix
-    ./modules/docker-gitea.nix
+    # ./modules/docker.nix
+    # ./modules/docker-adguard.nix
+    # ./modules/docker-filebrowser.nix
+    # ./modules/docker-gitea.nix
+    # ./modules/docker-grav.nix
     # ./modules/docker-homeassistant.nix
-    ./modules/docker-resiliosync.nix
-    ./modules/docker-rss.nix
-    ./modules/docker-swag.nix
-    ./modules/docker-vscode.nix
+    # ./modules/docker-resiliosync.nix
+    # ./modules/docker-rss.nix
+    # ./modules/docker-swag.nix
+    # ./modules/docker-vikunja.nix
+    # ./modules/docker-vscode.nix
 
     ./modules/filesystems.nix
     ./modules/networking.nix

@@ -18,4 +18,8 @@ in {
     "https://channels.nixos.org/nixos-${cfg.os.version}";
   system.stateVersion = cfg.os.version;
   programs.zsh.enable = true;
+
+
+
+  networking.firewall.allowedTCPPorts = [ 3000 3001 ];
 }
