@@ -7,7 +7,6 @@
     charles3
     chromium
     discord
-    element-desktop
     etcher
     evince
     filezilla
@@ -16,10 +15,8 @@
     gimp-with-plugins
     gparted
     gthumb
-    guake
     handbrake
     inkscape
-    kitty
     libreoffice
     musescore
     obs-studio
