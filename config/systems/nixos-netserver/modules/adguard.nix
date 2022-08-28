@@ -23,7 +23,7 @@ in {
   config = {
     services.adguardhome = {
       enable = true;
-      settings = readYaml (./. + "/AdGuardHome.yaml");
+      settings = readYAML (./. + "/AdGuardHome.yaml");
     };
 
     networking.firewall.allowedTCPPorts = [
