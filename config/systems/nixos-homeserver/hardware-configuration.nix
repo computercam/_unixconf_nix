@@ -8,29 +8,29 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" "wl" ];
+  boot.kernelModules = [ "kvm-amd" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/51e324bd-e8dd-4aff-9d33-32f6e4da1a38";
+    { device = "/dev/disk/by-uuid/8785fbad-3289-4fa1-ad03-f2dc13b45806";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/FA44-00D9";
+    { device = "/dev/disk/by-uuid/4CE1-70BF";
       fsType = "vfat";
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/cff42611-1f94-48d9-b92a-8a9168eebf8a";
+    { device = "/dev/disk/by-uuid/76bc5abf-0185-41d0-8658-5038177def99";
       fsType = "btrfs";
-      options = [ "subvol=nix" ];
+      options = [ "noatime" "subvol=nix" ];
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/c588f129-c7f8-47c0-bb28-6dd95f8cdf29"; }
+    [ { device = "/dev/disk/by-uuid/d0f53484-2be6-49b7-b7d9-01ac0836a270"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -38,7 +38,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp3s0.useDHCP = lib.mkDefault true;
 
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
