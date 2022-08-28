@@ -11,6 +11,11 @@ dns:
   bind_host: 0.0.0.0
   port: 53
   protection_enabled: true
+  filtering_enabled: true
+  filters_update_interval: 24
+  parental_enabled: false
+  safesearch_enabled: true
+  safebrowsing_enabled: true
   upstream_dns:
   - tls://dot.tiar.app
   - tls://dns.adguard-dns.com
@@ -20,3 +25,35 @@ dns:
   - tls://dot.ny.ahadns.net
   - tls://dot.chi.ahadns.net
   - tls://p2.freedns.controld.com
+tls:
+  enabled: false
+  server_name: "adguard.cameron.computer"
+  port_https: 443
+  port_dns_over_tls: 853
+  port_dns_over_quic: 853
+  port_dnscrypt: 0
+filters:
+- enabled: true
+  url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
+  name: AdGuard DNS filter
+  id: 1
+- enabled: true
+  url: https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt
+  name: WindowsSpyBlocker - Hosts spy rules
+  id: 1660446925
+- enabled: true
+  url: https://abp.oisd.nl/basic/
+  name: OISD Blocklist Basic
+  id: 1660446926
+- enabled: true
+  url: https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV-AGH.txt
+  name: Perflyst and Dandelion Sprout's Smart-TV Blocklist
+  id: 1660446927
+- enabled: true
+  url: https://raw.githubusercontent.com/DandelionSprout/adfilt/master/GameConsoleAdblockList.txt
+  name: Game Console Adblock List
+  id: 1660446928
+- enabled: true
+  url: http://sbc.io/hosts/hosts
+  name: steven black hosts list
+  id: 1660446929
