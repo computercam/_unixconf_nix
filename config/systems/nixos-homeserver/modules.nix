@@ -10,8 +10,6 @@
     ../../modules/common/utils/utils.nix
 
     ../../modules/nixos/__nixos/__nixos.nix
-    ../../modules/nixos/desktop-environment-gnome/desktop-environment-gnome.nix
-    ../../modules/nixos/display-manager-lightdm/display-manager-lightdm.nix
     ../../modules/nixos/service-avahi/service-avahi.nix
     ../../modules/nixos/service-cron/service-cron.nix
     ../../modules/nixos/service-docker/service-docker.nix
@@ -22,7 +20,7 @@
     ../../modules/nixos/service-sudo/service-sudo.nix
 
     ./modules/cron.nix
-    ./modules/desktop-environment.nix
+    # ./modules/desktop-environment.nix
     ./modules/development.nix
     ./modules/docker-adguard.nix
     ./modules/docker-filebrowser.nix
