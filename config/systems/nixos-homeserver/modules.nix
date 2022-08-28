@@ -6,13 +6,12 @@
     ../../modules/common/home-manager/home-manager.nix
     ../../modules/common/user-main/user-main.nix
     ../../modules/common/user-main/user-main-shell.nix
+    ../../modules/common/fonts/fonts.nix
     ../../modules/common/utils/utils.nix
 
     ../../modules/nixos/__nixos/__nixos.nix
-
-    # ../../modules/nixos/desktop-environment-mate/desktop-environment-mate.nix
-    # ../../modules/nixos/display-manager-lightdm/display-manager-lightdm.nix
-
+    ../../modules/nixos/desktop-environment-gnome/desktop-environment-gnome.nix
+    ../../modules/nixos/display-manager-lightdm/display-manager-lightdm.nix
     ../../modules/nixos/service-avahi/service-avahi.nix
     ../../modules/nixos/service-cron/service-cron.nix
     ../../modules/nixos/service-docker/service-docker.nix
@@ -23,19 +22,16 @@
     ../../modules/nixos/service-sudo/service-sudo.nix
 
     ./modules/cron.nix
-
-    # ./modules/docker.nix
-    # ./modules/docker-adguard.nix
-    # ./modules/docker-filebrowser.nix
-    # ./modules/docker-gitea.nix
-    # ./modules/docker-grav.nix
-    # ./modules/docker-homeassistant.nix
-    # ./modules/docker-resiliosync.nix
-    # ./modules/docker-rss.nix
-    # ./modules/docker-swag.nix
-    # ./modules/docker-vikunja.nix
-    # ./modules/docker-vscode.nix
-
+    ./modules/docker.nix
+    ./modules/docker-adguard.nix
+    ./modules/docker-filebrowser.nix
+    ./modules/docker-gitea.nix
+    ./modules/docker-homeassistant.nix
+    ./modules/docker-resiliosync.nix
+    ./modules/docker-rss.nix
+    ./modules/docker-swag.nix
+    ./modules/docker-vikunja.nix
+    ./modules/docker-vscode.nix
     ./modules/filesystems.nix
     ./modules/networking.nix
     ./modules/samba.nix
