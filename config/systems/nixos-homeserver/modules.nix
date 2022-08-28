@@ -22,7 +22,8 @@
     ../../modules/nixos/service-sudo/service-sudo.nix
 
     ./modules/cron.nix
-    ./modules/docker.nix
+    ./modules/desktop-environment.nix
+    ./modules/development.nix
     ./modules/docker-adguard.nix
     ./modules/docker-filebrowser.nix
     ./modules/docker-gitea.nix
@@ -32,7 +33,9 @@
     ./modules/docker-swag.nix
     ./modules/docker-vikunja.nix
     ./modules/docker-vscode.nix
+    ./modules/docker.nix
     ./modules/filesystems.nix
+    ./modules/hardware.nix
     ./modules/networking.nix
     ./modules/samba.nix
     ./modules/users.nix
