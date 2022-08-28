@@ -4,7 +4,7 @@
 
     fileSystems = {
       Server = {
-        device = "/dev/disk/by-uuid/cff42611-1f94-48d9-b92a-8a9168eebf8a";
+        device = "/dev/disk/by-uuid/76bc5abf-0185-41d0-8658-5038177def99";
         mountPoint = "/Volumes/Server";
         fsType = "btrfs";
         options = [ "subvol=Server" ];
