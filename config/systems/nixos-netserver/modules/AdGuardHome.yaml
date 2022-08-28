@@ -1,5 +1,5 @@
 bind_host: 0.0.0.0
-bind_port: 5380
+bind_port: 80
 beta_bind_port: 0
 users:
 - name: cameron
@@ -160,4 +160,3 @@ os:
   group: ""
   user: ""
   rlimit_nofile: 0
-schema_version: 14
