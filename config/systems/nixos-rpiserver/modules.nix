@@ -6,6 +6,7 @@
 
     ../../modules/nixos/__nixos/__nixos.nix
     ../../modules/nixos/service-avahi/service-avahi.nix
+    ../../modules/nixos/service-docker/service-docker.nix
     ../../modules/nixos/service-firewall/service-firewall.nix
     ../../modules/nixos/service-networking/service-networking.nix
     ../../modules/nixos/service-ssh/service-ssh.nix
