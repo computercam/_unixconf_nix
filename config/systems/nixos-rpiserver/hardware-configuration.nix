@@ -10,7 +10,6 @@
   boot.loader.raspberryPi = {
     enable = true;
     version = 4;
-    uboot.enable = true;
   };
   
   hardware.enableRedistributableFirmware = true;
