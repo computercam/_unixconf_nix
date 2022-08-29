@@ -12,6 +12,7 @@
     ../../modules/nixos/service-ssh/service-ssh.nix
     ../../modules/nixos/service-sudo/service-sudo.nix
 
+    ./modules/desktop-environment.nix
     ./modules/docker.nix
     ./modules/docker-adguard.nix
     ./modules/networking.nix

@@ -17,13 +17,5 @@ in {
   boot.cleanTmpDir = true;
 
   services.openssh.permitRootLogin = lib.mkForce "yes";
-
-  services.xserver = {
-    enable = true;
-    displayManager.lightdm.enable = true;
-    desktopManager.xfce.enable = true;
-    videoDrivers = [ "fbdev" ];
-  };
-
   programs.zsh.enable = true;
 }
