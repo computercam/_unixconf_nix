@@ -22,7 +22,7 @@
     ./modules/cron.nix
     # ./modules/desktop-environment.nix
     ./modules/development.nix
-    ./modules/docker-adguard.nix
+    # ./modules/docker-adguard.nix
     ./modules/docker-filebrowser.nix
     ./modules/docker-gitea.nix
     ./modules/docker-homeassistant.nix
@@ -38,5 +38,6 @@
     ./modules/samba.nix
     ./modules/users.nix
     ./modules/vscode-remote.nix
+    ./modules/work.nix
   ];
 }
