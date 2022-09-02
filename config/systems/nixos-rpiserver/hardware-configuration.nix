@@ -2,16 +2,17 @@
 {
   boot.loader.grub.enable = false;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
   boot.kernelParams = [ 
     "console=tty1"
     "cma=256M" 
   ];
 
-  boot.loader.raspberryPi = {
-    enable = true;
-    version = 4;
-  };
-  
+  boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ ];
+  boot.extraModulePackages = [ ];
+
   hardware.enableRedistributableFirmware = true;
 
   fileSystems = {
@@ -21,6 +22,8 @@
       options = [ "noatime" ];
     };
   };
+
+  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   
   swapDevices = [ { device = "/swapfile"; size = 8192; } ];
 }
