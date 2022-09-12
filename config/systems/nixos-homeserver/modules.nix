@@ -22,13 +22,12 @@
     ./modules/cron.nix
     # ./modules/desktop-environment.nix
     ./modules/development.nix
-    ./modules/docker-filebrowser.nix
     ./modules/docker-gitea.nix
     ./modules/docker-resiliosync.nix
     ./modules/docker-rss.nix
     ./modules/docker-swag.nix
-    ./modules/docker-vikunja.nix
     ./modules/docker-vscode.nix
+    ./modules/docker-nextcloud.nix
     ./modules/docker.nix
     ./modules/filesystems.nix
     ./modules/hardware.nix

@@ -3,13 +3,10 @@
     virtualisation.oci-containers.containers = {
       swag = {
         image = "lscr.io/linuxserver/swag";
-        ports = [ 
-          "${config.cfg.networking.static.ip_address}:443:443" 
-        ];
         volumes = [ "/Volumes/Server/docker/swag/config:/config" ];
         environment = {
           PUID = "1000";
-          PGID = "1000";
+          PGID = "992";
           TZ = "America/Chicago";
           URL = "cameron.computer";
           SUBDOMAINS = "wildcard";

@@ -14,7 +14,7 @@
         ];
         environment = {
           USER_UID = "1000";
-          USER_GID = "1000";
+          USER_GID = "992";
         };
         extraOptions = [ 
           "--network=${config.cfg.docker.networking.dockernet}"
