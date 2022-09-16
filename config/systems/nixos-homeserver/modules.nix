@@ -23,6 +23,7 @@
     # ./modules/desktop-environment.nix
     ./modules/development.nix
     ./modules/docker-gitea.nix
+    ./modules/docker-penpot.nix
     ./modules/docker-resiliosync.nix
     ./modules/docker-rss.nix
     ./modules/docker-swag.nix
