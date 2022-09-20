@@ -1,16 +1,17 @@
 { config, lib, pkgs, options, ... }: {
+  imports = [
+    ../../../modules/nixos/desktop-environment-gnome/desktop-environment-gnome.nix
+    ../../../modules/nixos/display-manager-lightdm/display-manager-lightdm.nix
+  ];
   config = {
     environment.systemPackages = with pkgs; [
-      # gnomeExtensions.just-perfection
-      # papirus-icon-theme
       gnome.gnome-tweaks
+      gnomeExtensions.just-perfection
       gnomeExtensions.appindicator
-      gnomeExtensions.dash-to-dock
       gnomeExtensions.gsconnect
-      yaru-theme
       bibata-cursors
-      # gparted
-      # obsidian
+      papirus-icon-theme
+      yaru-theme
     ];
   };
 }

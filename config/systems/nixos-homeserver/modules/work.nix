@@ -1,12 +1,5 @@
 { config, lib, pkgs, options, ... }: {
   config = {
-    environment.systemPackages = with pkgs; [
-      # slack
-      # teams
-      # haproxy
-      # mkcert
-    ];
-
     nix.allowedUsers = [ "work" ];
 
     users.groups.work.name = "work";

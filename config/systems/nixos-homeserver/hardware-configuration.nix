@@ -14,18 +14,31 @@
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-label/NIXOS";
+    { device = "/dev/disk/by-uuid/8785fbad-3289-4fa1-ad03-f2dc13b45806";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-label/BOOT";
+    { device = "/dev/disk/by-uuid/4CE1-70BF";
       fsType = "vfat";
     };
 
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/76bc5abf-0185-41d0-8658-5038177def99";
+      fsType = "btrfs";
+      options = [ "noatime" "subvol=nix" ];
+    };
+
   swapDevices =
-    [ { device = "/dev/disk/by-label/SWAP"; }
+    [ { device = "/dev/disk/by-uuid/d0f53484-2be6-49b7-b7d9-01ac0836a270"; }
     ];
+
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp3s0.useDHCP = lib.mkDefault true;
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

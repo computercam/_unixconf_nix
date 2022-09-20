@@ -4,6 +4,7 @@ with lib; {
   imports = [ ./modules.nix ./options.nix ];
   environment.systemPackages = with pkgs; [
     zoxide
+    neovim
   ];
   cfg.shell = (mkMerge [{
     ohMyZsh = {
@@ -26,7 +27,7 @@ with lib; {
       LESS_TERMCAP_ZW = "$(tput rsupm)";
       LESS = "--RAW-CONTROL-CHARS";
       TERMINAL = "${pkgs.alacritty}/bin/alacritty";
-      EDITOR = "${pkgs.vim}/bin/bin";
+      EDITOR = "${pkgs.neovim}/bin/nvim";
       VISUAL = "${pkgs.vscode}/bin/code";
       TERM = "xterm-256color";
     };
