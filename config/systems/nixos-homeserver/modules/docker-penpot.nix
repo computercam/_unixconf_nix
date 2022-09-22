@@ -60,40 +60,34 @@ let
         ports = [ 
           "${config.cfg.networking.static.ip_address}:9001:80" 
         ];
-        volumes = [
-          "/Volumes/Server/docker/penpot/penpot_assets_data:/opt/data"
-        ];
+        volumes = [ "/Volumes/Server/docker/penpot/penpot_assets_data:/opt/data" ];
         environment = mkMerge [ PENPOT_ENV {
           PUID = "1000";
           PGID = "992";
           TZ = "America/Chicago";
         }];
-        extraOptions = [ 
-          "--network=${config.cfg.docker.networking.dockernet}" 
-        ];
+        extraOptions = [ "--network=${config.cfg.docker.networking.dockernet}" ];
         dependsOn = [ 
           "penpot-backend" 
           "penpot-exporter" 
         ];
       };
+
       penpot-backend = {
         image = "penpotapp/backend:latest";
-        volumes = [
-          "/Volumes/Server/docker/penpot/penpot_assets_data:/opt/data"
-        ];
+        volumes = [ "/Volumes/Server/docker/penpot/penpot_assets_data:/opt/data" ];
         environment = mkMerge [ PENPOT_ENV {
           PUID = "1000";
           PGID = "992";
           TZ = "America/Chicago";
         }];
-        extraOptions = [ 
-          "--network=${config.cfg.docker.networking.dockernet}" 
-        ];
+        extraOptions = [ "--network=${config.cfg.docker.networking.dockernet}" ];
         dependsOn = [ 
           "penpot-postgres" 
           "penpot-redis" 
         ];
       };
+
       penpot-exporter = {
         image = "penpotapp/exporter:latest";
         environment = mkMerge [ PENPOT_ENV {
@@ -102,13 +96,12 @@ let
           TZ = "America/Chicago";
           PENPOT_PUBLIC_URI = mkForce "http://penpot-frontend";
         }];
-        extraOptions = [ 
-          "--network=${config.cfg.docker.networking.dockernet}" 
-        ];
+        extraOptions = [ "--network=${config.cfg.docker.networking.dockernet}" ];
       };
+
       penpot-postgres = {
         image = "postgres:13";
-        environment = {
+        environment = mkMerge [ PENPOT_ENV {
           PUID = "1000";
           PGID = "992";
           TZ = "America/Chicago";
@@ -116,15 +109,11 @@ let
           POSTGRES_DB = "penpot";
           POSTGRES_USER = "penpot";
           POSTGRES_PASSWORD = "penpot";
-        };
-        environmentFiles = [ ./docker-penpot.env ];
-        extraOptions = [ 
-          "--network=${config.cfg.docker.networking.dockernet}" 
-        ];
-        volumes = [
-          "/Volumes/Server/docker/penpot/penpot_postgres_data:/var/lib/postgresql/data"
-        ];
+        }];
+        extraOptions = [ "--network=${config.cfg.docker.networking.dockernet}" ];
+        volumes = [ "/Volumes/Server/docker/penpot/penpot_postgres_data:/var/lib/postgresql/data" ];
       };
+
       penpot-redis = {
         image = "redis:6";
         environment = {
@@ -132,9 +121,7 @@ let
           PGID = "992";
           TZ = "America/Chicago";
         };
-        extraOptions = [ 
-          "--network=${config.cfg.docker.networking.dockernet}" 
-        ];
+        extraOptions = [ "--network=${config.cfg.docker.networking.dockernet}" ];
       };
     };
 

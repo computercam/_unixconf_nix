@@ -3,9 +3,7 @@
     virtualisation.oci-containers.containers = {
       code-server = {
         image = "lscr.io/linuxserver/code-server:latest";
-        ports = [ 
-          "${config.cfg.networking.static.ip_address}:8443:8443" 
-        ];
+        ports = [ "${config.cfg.networking.static.ip_address}:8443:8443" ];
         volumes = [ "/Volumes/Server/docker/vscode/config:/config" ];
         environment = {
           PUID = "1000";
