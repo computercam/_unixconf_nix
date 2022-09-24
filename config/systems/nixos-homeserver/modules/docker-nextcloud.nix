@@ -5,8 +5,8 @@
         image = "lscr.io/linuxserver/nextcloud:latest";
         volumes = [
           "/Volumes/Server/docker/nextcloud/appdata:/config"
-          "/Volumes/Storage/Nextcloud:/data"
-          "/Volumes/Storage:/Volumes/Storage"
+          "/Volumes/Server/docker/nextcloud/data:/data"
+          "/Volumes/Storage:/Volumes/Storage" # external storage
         ];
         environment = {
           PUID = "1000";
