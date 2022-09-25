@@ -20,7 +20,6 @@
     ../../modules/nixos/service-sudo/service-sudo.nix
 
     ./modules/backups.nix
-    ./modules/cron.nix
     # ./modules/desktop-environment.nix
     ./modules/development.nix
     ./modules/docker-gitea.nix
@@ -34,7 +33,6 @@
     ./modules/hardware.nix
     ./modules/networking.nix
     ./modules/samba.nix
-    ./modules/users.nix
     ./modules/vscode-remote.nix
     ./modules/work.nix
   ];
