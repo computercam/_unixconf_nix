@@ -1,7 +1,7 @@
 { config, lib, pkgs, options, ... }: {
   config.services.samba.shares = {
     TimeMachine = {
-      path = "/Volumes/BulkStorage/TimeMachine";
+      path = "/Volumes/TimeMachine";
       "valid users" = ''"cameron"'';
       "force user" = ''"cameron"'';
       "force group" = ''"cameron"'';
