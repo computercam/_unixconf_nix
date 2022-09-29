@@ -84,7 +84,12 @@ in {
       nix.allowedUsers = [ "@staff" ];
     } else {})
     ({
-      environment.systemPackages = with pkgs; [ nixfmt git vim ];
+      environment.systemPackages = with pkgs; [ 
+        git 
+        git-crypt 
+        nixfmt
+        vim
+      ];
       environment.variables.LANG = config.cfg.localization.lang;
       nixpkgs.config.allowUnfree = true;
       time.timeZone = config.cfg.localization.timezone;
