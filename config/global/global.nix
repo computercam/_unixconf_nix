@@ -85,8 +85,8 @@ in {
     } else {})
     ({
       environment.systemPackages = with pkgs; [ 
+        age
         git 
-        git-crypt 
         nixfmt
         vim
       ];
