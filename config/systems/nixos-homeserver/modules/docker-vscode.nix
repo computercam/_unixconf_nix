@@ -6,12 +6,13 @@
 
     systemd.services.docker-code-server.preStart = '' 
       ENV_FILE="/Volumes/Server/docker/vscode/.env.secret"
-      chmod 600 $ENV_FILE
-      chown root.root $ENV_FILE
 
       HASHED_PASSWORD=`cat ${config.age.secrets.vscode_hashed_password.path}`
 
       echo "HASHED_PASSWORD=$HASHED_PASSWORD" > $ENV_FILE
+
+      chmod 600 $ENV_FILE
+      chown root.root $ENV_FILE
     '';
 
     virtualisation.oci-containers.containers = {

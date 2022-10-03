@@ -9,8 +9,6 @@
 
     systemd.services.docker-swag.preStart = '' 
       ENV_FILE="/Volumes/Server/docker/swag/.env.secret"
-      chmod 600 $ENV_FILE
-      chown root.root $ENV_FILE
 
       CF_ACCOUNT_ID=`cat ${config.age.secrets.cf_account_id.path}`
       CF_TUNNEL_PASSWORD=`cat ${config.age.secrets.cf_tunnel_password.path}`
@@ -21,6 +19,9 @@
       echo "CF_TUNNEL_PASSWORD=$CF_TUNNEL_PASSWORD" >> $ENV_FILE
       echo "CF_API_TOKEN=$CF_API_TOKEN" >> $ENV_FILE
       echo "CF_ZONE_ID=$CF_ZONE_ID" >> $ENV_FILE
+
+      chmod 600 $ENV_FILE
+      chown root.root $ENV_FILE
     '';
 
     virtualisation.oci-containers.containers = {

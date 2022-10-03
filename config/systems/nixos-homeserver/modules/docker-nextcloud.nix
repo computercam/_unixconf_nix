@@ -7,14 +7,15 @@
 
     systemd.services.docker-nextcloud_db.preStart = '' 
       ENV_FILE="/Volumes/Server/docker/nextcloud/.env.secret"
-      chmod 600 $ENV_FILE
-      chown root.root $ENV_FILE
 
       MYSQL_PASSWORD=`cat ${config.age.secrets.nextcloud_mysql_password.path}`
       MYSQL_ROOT_PASSWORD=`cat ${config.age.secrets.nextcloud_mysql_root_password.path}`
 
       echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" > $ENV_FILE
-      echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" > $ENV_FILE
+      echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> $ENV_FILE
+
+      chmod 600 $ENV_FILE
+      chown root.root $ENV_FILE
     '';
 
     virtualisation.oci-containers.containers = {
