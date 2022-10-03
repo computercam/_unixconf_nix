@@ -1,5 +1,22 @@
 { config, lib, pkgs, options, ... }: {
   config = {
+    age.secrets = {
+      miniflux_password.file = ../../../../secrets/miniflux_admin_password.age;
+    };
+
+    systemd.services.docker-miniflux.preStart = '' 
+      ENV_FILE="/Volumes/Server/docker/miniflux/.env.secret"
+      chmod 600 $ENV_FILE
+      chown root.root $ENV_FILE
+
+      ADMIN_PASSWORD=`cat ${config.age.secrets.miniflux_password.path}`
+      POSTGRES_PASSWORD=`cat ${config.age.secrets.miniflux_password.path}`
+
+      echo "ADMIN_PASSWORD=$ADMIN_PASSWORD" > $ENV_FILE
+      echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" > $ENV_FILE
+    '';
+
+
     virtualisation.oci-containers.containers = {
       miniflux = {
         image = "miniflux/miniflux:latest";
@@ -15,8 +32,8 @@
           RUN_MIGRATIONS= "1";
           CREATE_ADMIN= "1";
           ADMIN_USERNAME= "admin";
-          ADMIN_PASSWORD= "2kakFGKUWtTltLs";
         };
+        environmentFiles = [ /Volumes/Server/docker/miniflux/.env.secret ];
         extraOptions = [ 
           "--network=${config.cfg.docker.networking.dockernet}" 
         ];
@@ -31,10 +48,9 @@
           PUID = "1000";
           PGID = "992";
           TZ = "America/Chicago";
-
           POSTGRES_USER= "miniflux";
-          POSTGRES_PASSWORD= "2kakFGKUWtTltLs";
         };
+        environmentFiles = [ /Volumes/Server/docker/miniflux/.env.secret ];
         volumes = [
           "/Volumes/Server/docker/miniflux/db:/var/lib/postgresql/data"
         ];

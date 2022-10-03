@@ -2,6 +2,7 @@
   imports = [
     ../../global/global.nix
     
+    ../../modules/common/agenix/agenix.nix
     ../../modules/common/shell/shell.nix
     ../../modules/common/home-manager/home-manager.nix
     ../../modules/common/user-main/user-main.nix

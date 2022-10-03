@@ -7,16 +7,6 @@ with lib; {
     users.groups.sshusers = { };
     users.users."${config.cfg.user.name}".extraGroups = [ "sshusers" ];
 
-    programs.gnupg = {
-      agent = {
-        enable = true;
-        enableSSHSupport = true;
-        enableExtraSocket = true;
-      };
-
-      dirmngr.enable = true;
-    };
-
     services.openssh = {
       allowSFTP = true;
       kbdInteractiveAuthentication = true;
