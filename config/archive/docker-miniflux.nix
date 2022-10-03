@@ -11,7 +11,7 @@
       POSTGRES_PASSWORD=`cat ${config.age.secrets.miniflux_password.path}`
 
       echo "ADMIN_PASSWORD=$ADMIN_PASSWORD" > $ENV_FILE
-      echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" > $ENV_FILE
+      echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> $ENV_FILE
 
       chmod 600 $ENV_FILE
       chown root.root $ENV_FILE
