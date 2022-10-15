@@ -1,7 +1,11 @@
 { config, lib, pkgs, options, ... }: 
 with lib;
 let
-  BorgRootPath = "/Volumes/Backup/BorgBackup";
+  remoteBackupUser = "u320463";
+  remoteBackupHost = "u320463.your-storagebox.de";
+  remoteBackupPort = "23";
+  remoteBackupRoot = "ssh://${remoteBackupUser}@${remoteBackupHost}:${remoteBackupPort}/./Backup/BorgBackup";
+  localBackupRoot = "/Volumes/Backup/BorgBackup";
 
   defaults = {
     encryption.mode = "repokey";
@@ -15,7 +19,7 @@ let
   
   Server = mkMerge [ defaults {
     paths = "/Volumes/Server";
-    repo = "${BorgRootPath}/Server";
+    repo = "${localBackupRoot}/Server";
     preHook = ''
       systemctl list-units --type=service --all \
         | grep docker- \
@@ -31,32 +35,33 @@ let
         | xargs systemctl restart
     '';
     startAt = "*-*-* 01:00:00";
+    exclude = mkForce [ "re:^.*docker_storage_root/" ];
   }];
 
   ServerRemote = mkMerge [ Server {
-    repo = mkForce "ssh://u320463@u320463.your-storagebox.de:23/./Backup/BorgBackup/Server";
+    repo = mkForce "${remoteBackupRoot}/Server";
     startAt = mkForce "*-*-* 01:30:00";
   }];
 
   Rae = mkMerge [ defaults {
     paths = "/Volumes/Storage/Rae";
-    repo = "${BorgRootPath}/Rae";
+    repo = "${localBackupRoot}/Rae";
     startAt = "*-*-* 02:00:00";
   }];
 
   RaeRemote = mkMerge [ Rae {
-    repo = mkForce "ssh://u320463@u320463.your-storagebox.de:23/./Backup/BorgBackup/Rae";
+    repo = mkForce "${remoteBackupRoot}/Rae";
     startAt = mkForce "*-*-* 02:30:00";
   }];
 
   Cameron = mkMerge [ defaults {
     paths = "/Volumes/Storage/Cameron";
-    repo = "${BorgRootPath}/Cameron";
+    repo = "${localBackupRoot}/Cameron";
     startAt = "*-*-* 03:00:00";
   }];
 
   CameronRemote = mkMerge [ Cameron {
-    repo = mkForce "ssh://u320463@u320463.your-storagebox.de:23/./Backup/BorgBackup/Cameron";
+    repo = mkForce "${remoteBackupRoot}/Cameron";
     startAt = mkForce "*-*-* 03:30:00";
   }];
 
