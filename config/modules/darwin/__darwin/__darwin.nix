@@ -11,7 +11,7 @@ in {
         NSScrollAnimationEnabled = false;
         NSWindowResizeTime = "0.001";
         NSUseAnimatedFocusRing = false;
-        _HIHideMenuBar = true;
+        _HIHideMenuBar = false;
         "com.apple.swipescrolldirection" = false;
       };
 
@@ -31,7 +31,7 @@ in {
         expose-animation-duration = "0.00";
         minimize-to-application = true;
         mru-spaces = false;
-        tilesize = 16;
+        tilesize = 32;
         orientation = "left";
       };
 
