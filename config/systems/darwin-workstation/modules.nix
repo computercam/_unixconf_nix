@@ -13,5 +13,6 @@
     ../../modules/darwin/application-desktop/application-desktop.nix
 
     ./modules/development.nix
+    ./modules/software.nix
   ];
 }
