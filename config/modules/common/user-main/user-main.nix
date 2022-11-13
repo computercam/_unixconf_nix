@@ -3,7 +3,7 @@ with pkgs.stdenv;
 with lib; {
   imports = [ ./modules.nix ./options.nix ];
 
-  nix.allowedUsers = [ config.cfg.user.name ];
+  nix.settings.allowed-users = [ config.cfg.user.name ];
 
   users.users."${config.cfg.user.name}" = (mkMerge [
     (if config.cfg.os.unix == "linux" then {
@@ -32,6 +32,8 @@ with lib; {
   ]);
 
   home-manager.users."${config.cfg.user.name}" = {
+    home.stateVersion = config.cfg.os.version;
+    
     programs.git = {
       enable = true;
       userName = config.cfg.user.name;

@@ -78,7 +78,7 @@ in {
       location.latitude = config.cfg.localization.latitude;
       location.longitude = config.cfg.localization.longitude;
       
-      nix.allowedUsers =  [ "@wheel" ] ;
+      nix.settings.allowed-users =  [ "@wheel" ] ;
     } else {})
     (if unix == "darwin" then {
       nix.allowedUsers = [ "@staff" ];

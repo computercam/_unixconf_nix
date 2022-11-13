@@ -1,4 +1,4 @@
-{ lib, pkgs, options, ... }:
+{ config, lib, pkgs, options, ... }:
 with pkgs.stdenv;
 with lib; {
   options.cfg.networking = {
@@ -18,7 +18,7 @@ with lib; {
 
     hostname = mkOption {
       type = types.str;
-      default = cfg.os.unix;
+      default = config.cfg.os.unix;
       description = "System Hostname";
     };
 
