@@ -11,8 +11,8 @@
     boot.kernelModules = [ 
       # GPU
       "amdgpu" 
-      # hypervisor
-      "kvm-intel"
+      # # hypervisor
+      # "kvm-intel"
       # Sensors
       "nct6775"
       # RGB
@@ -26,9 +26,7 @@
     services.hardware.openrgb.motherboard = "intel";
 
 
-    services.xserver.videoDrivers = [ 
-      "amdgpu" 
-    ];
+    services.xserver.videoDrivers = [ "amdgpu" ];
 
     hardware.video.hidpi.enable = true;
     services.xserver.dpi = lib.mkForce 180;

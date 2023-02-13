@@ -11,21 +11,34 @@
 # - https://github.com/PassthroughPOST/VFIO-Tools/
 # - https://github.com/basharkey/nixos-desktop/blob/main/passthrough.nix
 
-{ config, lib, pkgs, options, ... }: {
+{ config, lib, pkgs, options, ... }:
+  let
+    cpuVendor = builtins.readFile (pkgs.runCommand "cpu-vendor.txt" {} ''
+      ((cat /proc/cpuinfo \
+        | grep vendor \
+        | head -n 1 \
+        | grep -i intel > /dev/null 2>&1) \
+          && echo -n 'intel' \
+          || echo -n 'amd') > $out
+    '');
+  in
+{
   imports = [ ./modules.nix ];
 
   config = {
+    boot.kernelPackages = pkgs.linuxPackages_latest;
+
     # Boot configuration
     boot.kernelModules = [ 
-      "kvm-amd" 
-      "vfio-pci" 
+      "kvm-${cpuVendor}" 
+      "vfio-pci"
     ];
     boot.kernelParams = [ 
       "iommu=pt" 
-      "amd_iommu=on"
+      "${cpuVendor}_iommu=on"
     ];
     boot.extraModprobeConfig = ''
-      options kvm_amd nested=1
+      options kvm_${cpuVendor} nested=1
       options kvm ignore_msrs=1
     '';
 
@@ -36,15 +49,14 @@
       dconf # needed for saving settings in virt-manager
       libguestfs # needed to virt-sparsify qcow2 files
       pciutils # for working with pci devices
+      python3
+      iproute2
     ];
 
     # Enable xrdp for remote control
     services.xrdp.enable = true; # use remote_logout and remote_unlock
     systemd.services.pcscd.enable = false;
     systemd.sockets.pcscd.enable = false;
-
-    # Power settings
-    powerManagement.cpuFreqGovernor = "performance";
 
     # libvirtd user permissions
     users.users."${config.cfg.user.name}".extraGroups = [ "libvirtd" ];
