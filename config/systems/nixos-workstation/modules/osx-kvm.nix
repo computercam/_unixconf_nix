@@ -3,16 +3,15 @@
     boot.initrd.availableKernelModules = [ "amdgpu" ];
     boot.kernelModules = [ "kvm-amd" ];
     boot.kernelPackages = pkgs.linuxPackages_latest;
-    boot.kerenlParams = [ 
-      "iommu=pt" 
-      "amd_iommu=on"
-    ];
-    boot.blacklistedKernelModules = [
-      "amdgpu"
-      "radeon"
-    ];
+    boot.kernelParams = [ "iommu=pt" "intel_iommu=on" ];
+
+    # boot.blacklistedKernelModules = [
+    #  "amdgpu"
+    #  "radeon"
+    # ];
+
     boot.extraModprobeConfig = ''
-      options kvm_amd nested=1
+      options kvm_intel nested=1
       options kvm ignore_msrs=1
     '';
 

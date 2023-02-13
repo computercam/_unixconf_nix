@@ -11,9 +11,6 @@ in {
   cfg.os.unix = "linux";
   cfg.os.version = "22.11";
 
-  hardware.cpu.amd.updateMicrocode = true;
-  hardware.enableRedistributableFirmware = true;
-
   nix.settings.auto-optimise-store = true;
   nix.settings.max-jobs = 16;
   nixpkgs.config.allowUnfree = true;

@@ -11,7 +11,6 @@
     # etcher
     # evince
     # filezilla
-    firefox-beta-bin
     # foliate
     # gimp-with-plugins
     # gparted
@@ -31,8 +30,9 @@
     # screenkey
     # spotify
     # transmission-gtk
-    vscode
     # wireshark
     # zeal
+    firefox-beta-bin
+    vscode
   ];
 }
