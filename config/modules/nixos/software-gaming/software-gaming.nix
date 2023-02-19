@@ -25,17 +25,17 @@
       steam-hardware.enable = true;
     };
 
-    # Increase ulimit for Lutris
-    systemd = {
-      extraConfig = "DefaultLimitNOFILE=524288";
-      user.extraConfig = "DefaultLimitNOFILE=524288";
-    };
+    # # Increase ulimit for Lutris
+    # systemd = {
+    #   extraConfig = "DefaultLimitNOFILE=524288";
+    #   user.extraConfig = "DefaultLimitNOFILE=524288";
+    # };
 
-    security.pam.loginLimits = [{
-      domain = "*";
-      type = "soft";
-      item = "nofile";
-      value = "524288";
-    }];
+    # security.pam.loginLimits = [{
+    #   domain = "*";
+    #   type = "soft";
+    #   item = "nofile";
+    #   value = "524288";
+    # }];
   };
 }

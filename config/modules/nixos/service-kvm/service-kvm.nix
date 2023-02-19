@@ -23,7 +23,7 @@
     '');
   in
 {
-  imports = [ ./modules.nix ];
+  imports = [ ./modules.nix ./options.nix ];
 
   config = {
     boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -41,6 +41,10 @@
       options kvm_${cpuVendor} nested=1
       options kvm ignore_msrs=1
     '';
+
+    # ENVIRONMENT VARIABLES FOR SCRIPTS
+    environment.variables.PASSTHROUGH_GPU_VIDEO = config.cfg.vfio.passthrough.gpu_video;
+    environment.variables.PASSTHROUGH_GPU_AUDIO = config.cfg.vfio.passthrough.gpu_audio;
 
     # VFIO Packages installed
     environment.systemPackages = with pkgs; [
@@ -60,6 +64,22 @@
 
     # libvirtd user permissions
     users.users."${config.cfg.user.name}".extraGroups = [ "libvirtd" ];
+
+    # libvirtd group memlock limits
+    security.pam.loginLimits = [
+      {
+        domain = "libvirtd";
+        type = "soft";
+        item = "memlock";
+        value = "unlimited";
+      }
+      {
+        domain = "libvirtd";
+        type = "hard";
+        item = "memlock";
+        value = "unlimited";
+      }
+    ];
     
     # Enable libvirtd
     virtualisation.libvirtd = {
@@ -68,8 +88,15 @@
       onShutdown = "shutdown";
       allowedBridges = [ "virbr0" ];
       qemu = {
-        ovmf.enable = true;
         runAsRoot = true;
+        swtpm.enable = true;
+        ovmf = {
+          enable = true;
+          packages = [(pkgs.OVMFFull.override {
+            secureBoot = true;
+            tpmSupport = true;
+          })];
+        };
       };
     };
 
@@ -87,31 +114,31 @@
         ];
       }; in [ env ];
 
-    # Link hooks to the correct directory
-    system.activationScripts.libvirt-hooks.text =
-      "ln -Tfs /etc/libvirt/hooks /var/lib/libvirt/hooks";
+    # # Link hooks to the correct directory
+    # system.activationScripts.libvirt-hooks.text =
+    #   "ln -Tfs /etc/libvirt/hooks /var/lib/libvirt/hooks";
 
-    environment.etc = {
-      "libvirt/hooks/qemu" = {
-        source = ./libvirt_hooks/qemu;
-        mode = "0755";
-      };
+    # environment.etc = {
+    #   "libvirt/hooks/qemu" = {
+    #     source = ./libvirt_hooks/qemu;
+    #     mode = "0755";
+    #   };
 
-      "libvirt/hooks/kvm.sh" = {
-        source = ./libvirt_hooks/kvm.sh;
-        mode = "0755";
-      };
+    #   "libvirt/hooks/kvm.sh" = {
+    #     source = ./libvirt_hooks/kvm.sh;
+    #     mode = "0755";
+    #   };
 
-      "libvirt/hooks/start.sh" = {
-        source = ./libvirt_hooks/start.sh;
-        mode = "0755";
-      };
+    #   "libvirt/hooks/start.sh" = {
+    #     source = ./libvirt_hooks/start.sh;
+    #     mode = "0755";
+    #   };
 
-      "libvirt/hooks/stop.sh" = {
-        source = ./libvirt_hooks/stop.sh;
-        mode = "0755";
-      };
-    };
+    #   "libvirt/hooks/stop.sh" = {
+    #     source = ./libvirt_hooks/stop.sh;
+    #     mode = "0755";
+    #   };
+    # };
 
     # Prevent sleep on libvirt hook execution
     systemd.services."libvirt-nosleep@" = {

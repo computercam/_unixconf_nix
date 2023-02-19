@@ -1,8 +1,8 @@
 declare -a PCI_DEVICES=(
   # lspci # - to list the pci devices
   # virsh nodedev-list --cap pci # - to find the full identifier
-  pci_0000_08_00_0 # GPU_VIDEO
-  pci_0000_08_00_1 # GPU_AUDIO
+  $PASSTHROUGH_GPU_VIDEO
+  $PASSTHROUGH_GPU_AUDIO
 )
 declare -a NVIDIA_GPU_MODULES=(
   nvidia_uvm

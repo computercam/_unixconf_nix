@@ -15,10 +15,13 @@
     ../../modules/nixos/service-networking/service-networking.nix
     ../../modules/nixos/service-ssh/service-ssh.nix
     ../../modules/nixos/service-sudo/service-sudo.nix
+    ../../modules/nixos/service-kvm/service-kvm.nix
+    ../../modules/nixos/software-gaming/software-gaming.nix
 
     ./modules/desktop-environment.nix
     ./modules/applications.nix
     ./modules/hardware.nix
-    ./modules/osx-kvm.nix
+    ./modules/osx-kvm/osx-kvm.nix
+    ./modules/networking.nix
   ];
 }
