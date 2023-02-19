@@ -12,7 +12,7 @@
     ../../modules/nixos/__nixos/__nixos.nix
     ../../modules/nixos/service-avahi/service-avahi.nix
     ../../modules/nixos/service-firewall/service-firewall.nix
-    ../../modules/nixos/service-networking/service-networking.nix
+    # ../../modules/nixos/service-networking/service-networking.nix
     ../../modules/nixos/service-ssh/service-ssh.nix
     ../../modules/nixos/service-sudo/service-sudo.nix
     ../../modules/nixos/service-kvm/service-kvm.nix
@@ -22,6 +22,6 @@
     ./modules/applications.nix
     ./modules/hardware.nix
     ./modules/osx-kvm/osx-kvm.nix
-    ./modules/networking.nix
+    # ./modules/networking.nix
   ];
 }
