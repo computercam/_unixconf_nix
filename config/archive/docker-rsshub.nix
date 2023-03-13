@@ -19,27 +19,10 @@
       rsshub-redis = {
         image = "redis:alpine";
         volumes = [
-          "/Volumes/Server/docker/rss/rsshub:/data"
+          "/Volumes/Server/docker/rsshub/data:/data"
         ];
         extraOptions = [ 
           "--network=${config.cfg.docker.networking.dockernet}"
-        ];
-      };
-
-      freshrss = {
-        image = "lscr.io/linuxserver/freshrss:latest";
-        # ports = [ 
-        #   "${config.cfg.networking.static.ip_address}:80:80" 
-        # ];
-        volumes = [ "/Volumes/Server/docker/rss/freshrss:/config" ];
-        environment = {
-          PUID = "1000";
-          PGID = "1000";
-          TZ = "America/Chicago";
-        };
-        extraOptions = [ 
-          "--network=${config.cfg.docker.networking.dockernet}" 
-          "--label=swag=enable" 
         ];
       };
     };

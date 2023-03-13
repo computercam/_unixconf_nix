@@ -1,6 +1,6 @@
 { config, lib, pkgs, options, ... }: {
   config = {
-    nix.allowedUsers = [ "work" ];
+    nix.settings.allowed-users = [ "work" ];
 
     users.groups.work.name = "work";
     users.users.work = {

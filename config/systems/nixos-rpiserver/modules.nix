@@ -15,6 +15,7 @@
     ./modules/desktop-environment.nix
     ./modules/docker.nix
     ./modules/docker-adguard.nix
+    ./modules/docker-homeassistant.nix
     ./modules/networking.nix
   ];
 }

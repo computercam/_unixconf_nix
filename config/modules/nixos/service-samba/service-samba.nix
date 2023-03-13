@@ -9,6 +9,7 @@
       openFirewall = true;
 
       extraConfig = ''
+        min protocol = SMB3
         aio read size = 16384
         aio write size = 16384
         allow insecure wide links = yes
@@ -37,7 +38,6 @@
         wide links = yes
 
         # OSX Specific Configurations
-        min protocol = SMB2
         vfs objects = catia fruit streams_xattr
         fruit:delete_empty_adfiles = yes
         fruit:metadata = stream
@@ -47,21 +47,5 @@
         fruit:wipe_intentionally_left_blank_rfork = yes
       '';
     };
-
-    # services.avahi = {
-    #   extraServiceFiles = {
-    #     smb = ''
-    #       <?xml version="1.0" standalone='no'?><!--*-nxml-*-->
-    #       <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
-    #       <service-group>
-    #         <name replace-wildcards="yes">%h</name>
-    #         <service>
-    #           <type>_smb._tcp</type>
-    #           <port>445</port>
-    #         </service>
-    #       </service-group>
-    #     '';
-    #   };
-    # };
   };
 }

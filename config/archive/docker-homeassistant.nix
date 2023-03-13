@@ -6,7 +6,7 @@
         ports = [
           "8123:8123" 
         ];
-        volumes = [ "/Volumes/Server/docker/homeassistant/config:/config" ];
+        volumes = [ "/root/docker/homeassistant/config:/config" ];
         environment = {
           PUID = "1000";
           PGID = "1000";
@@ -14,7 +14,6 @@
         };
         extraOptions = [ 
           "--network=host"
-          # "--label=swag=enable"
         ];
       };
     };

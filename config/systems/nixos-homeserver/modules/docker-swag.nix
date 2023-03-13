@@ -1,15 +1,39 @@
 { config, lib, pkgs, options, ... }: {
   config = {
+    age.secrets = {
+      cf_account_id.file = ../../../../secrets/cf_account_id.age;
+      cf_api_token.file = ../../../../secrets/cf_api_token.age;
+      cf_tunnel_password.file = ../../../../secrets/cf_tunnel_password.age;
+      cf_zone_id.file = ../../../../secrets/cf_zone_id.age;
+    };
+
+    systemd.services.docker-swag.preStart = '' 
+      ENV_FILE="/Volumes/Server/docker/swag/.env.secret"
+
+      CF_ACCOUNT_ID=`cat ${config.age.secrets.cf_account_id.path}`
+      CF_TUNNEL_PASSWORD=`cat ${config.age.secrets.cf_tunnel_password.path}`
+      CF_API_TOKEN=`cat ${config.age.secrets.cf_api_token.path}`
+      CF_ZONE_ID=`cat ${config.age.secrets.cf_zone_id.path}`
+
+      echo "CF_ACCOUNT_ID=$CF_ACCOUNT_ID" > $ENV_FILE
+      echo "CF_TUNNEL_PASSWORD=$CF_TUNNEL_PASSWORD" >> $ENV_FILE
+      echo "CF_API_TOKEN=$CF_API_TOKEN" >> $ENV_FILE
+      echo "CF_ZONE_ID=$CF_ZONE_ID" >> $ENV_FILE
+
+      chmod 600 $ENV_FILE
+      chown root.root $ENV_FILE
+    '';
+
     virtualisation.oci-containers.containers = {
       swag = {
         image = "lscr.io/linuxserver/swag";
-        ports = [ 
-          "${config.cfg.networking.static.ip_address}:443:443" 
+        volumes = [ 
+          "/Volumes/Server/docker/swag/config:/config"
+          "/Volumes/Server/docker/swag/secrets:/secrets"
         ];
-        volumes = [ "/Volumes/Server/docker/swag/config:/config" ];
         environment = {
           PUID = "1000";
-          PGID = "1000";
+          PGID = "992";
           TZ = "America/Chicago";
           URL = "cameron.computer";
           SUBDOMAINS = "wildcard";
@@ -18,13 +42,10 @@
           EMAIL = "csanders@protonmail.com";
           DOCKER_MODS= "linuxserver/mods:swag-auto-proxy|linuxserver/mods:universal-docker|linuxserver/mods:universal-cloudflared";
           DOCKER_HOST = "dockerproxy";
-          CF_ZONE_ID = "e181b1df3c7c326ed1a209d29965e4cc";
-          CF_ACCOUNT_ID = "d7e1bc7351685e6a73a8fe78882136af";
-          CF_API_TOKEN = "yWuAQ91nWhmRBZYhULlmKcwVivrFxGONMvkIdrKg";
           CF_TUNNEL_NAME = "cameron.computer";
-          CF_TUNNEL_PASSWORD = "sVz#p7Z01$u1$w#Le#FT&oicvvTZ4d%D";
           FILE__CF_TUNNEL_CONFIG = "/config/tunnelconfig.yml";
         };
+        environmentFiles = [ /Volumes/Server/docker/swag/.env.secret ];
         extraOptions = [ 
           "--network=${config.cfg.docker.networking.dockernet}"
           "--add-host=cameron.computer:127.0.0.1"
@@ -39,9 +60,7 @@
           CONTAINERS = "1";
           POST = "0"; 
         };
-        extraOptions = [ 
-          "--network=${config.cfg.docker.networking.dockernet}"
-        ];
+        extraOptions = [ "--network=${config.cfg.docker.networking.dockernet}" ];
       };
     };
 

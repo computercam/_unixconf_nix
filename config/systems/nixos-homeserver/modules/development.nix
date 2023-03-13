@@ -8,8 +8,7 @@
           nodePackages.npm
           cargo
           rustc
-          distrobox
-          vscode
+          # vscode
           yarn
         ];
     };
