@@ -14,6 +14,7 @@
     "darktable"
     "dash"
     "disk-drill"
+    "discord"
     "docker"
     "element"
     "firefox"
@@ -42,7 +43,6 @@
     "visual-studio-code"
     "vlc"
     "wireshark"
-    "xquartz"
     "zenmap"
   ];
 }

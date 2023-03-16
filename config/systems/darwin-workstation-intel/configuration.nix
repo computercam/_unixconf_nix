@@ -11,6 +11,6 @@
     programs.zsh.enable = true;
     environment.systemPath = [ "/run/current-system/sw/bin/" ];
     services.nix-daemon.enable = true;
-    nix.maxJobs = 10;
+    nix.settings.max-jobs = 16;
   };
 }

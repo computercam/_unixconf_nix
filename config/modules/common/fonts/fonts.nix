@@ -5,7 +5,7 @@
       fantasque-sans-mono # included in nerdfonts
       fira-code # included in nerdfonts
       victor-mono # included in nerdfonts
-      corefonts
+      # corefonts
       dejavu_fonts
       ubuntu_font_family
     ];

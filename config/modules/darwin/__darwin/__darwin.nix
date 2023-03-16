@@ -9,7 +9,7 @@ in {
         AppleTemperatureUnit = "Fahrenheit";
         NSAutomaticWindowAnimationsEnabled = false;
         NSScrollAnimationEnabled = false;
-        NSWindowResizeTime = "0.001";
+        NSWindowResizeTime = 0.001;
         NSUseAnimatedFocusRing = false;
         _HIHideMenuBar = false;
         "com.apple.swipescrolldirection" = false;
@@ -26,9 +26,9 @@ in {
 
       dock = {
         autohide = true;
-        autohide-delay = "0.00";
-        autohide-time-modifier = "0.00";
-        expose-animation-duration = "0.00";
+        autohide-delay = 0.00;
+        autohide-time-modifier = 0.00;
+        expose-animation-duration = 0.00;
         minimize-to-application = true;
         mru-spaces = false;
         tilesize = 32;

@@ -81,7 +81,7 @@ in {
       nix.settings.allowed-users =  [ "@wheel" ] ;
     } else {})
     (if unix == "darwin" then {
-      nix.allowedUsers = [ "@staff" ];
+      nix.settings.allowed-users = [ "@staff" ];
     } else {})
     ({
       environment.systemPackages = with pkgs; [ 

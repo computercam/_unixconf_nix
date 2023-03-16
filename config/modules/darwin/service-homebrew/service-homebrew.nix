@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }: {
   config.homebrew = {
     enable = true;
-    cleanup = "zap";
+    onActivation.cleanup = "zap";
+    onActivation.upgrade = true;
   };
 }
