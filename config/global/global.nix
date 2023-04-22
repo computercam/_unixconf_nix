@@ -77,18 +77,13 @@ in {
       i18n.defaultLocale = config.cfg.localization.lang;
       location.latitude = config.cfg.localization.latitude;
       location.longitude = config.cfg.localization.longitude;
-      
       nix.settings.allowed-users =  [ "@wheel" ] ;
     } else {})
     (if unix == "darwin" then {
       nix.settings.allowed-users = [ "@staff" ];
     } else {})
     ({
-      environment.systemPackages = with pkgs; [ 
-        git 
-        nixfmt
-        vim
-      ];
+      environment.systemPackages = with pkgs; [ git nixfmt vim ];
       environment.variables.LANG = config.cfg.localization.lang;
       nixpkgs.config.allowUnfree = true;
       time.timeZone = config.cfg.localization.timezone;

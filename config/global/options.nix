@@ -21,7 +21,7 @@ with lib; {
     version = mkOption {
       type = types.str;
       default = "latest";
-      description = "Operating System Type";
+      description = "Operating System Version";
     };
   };
 

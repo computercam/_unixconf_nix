@@ -6,6 +6,7 @@
       fira-code # included in nerdfonts
       victor-mono # included in nerdfonts
       # corefonts
+      inter
       dejavu_fonts
       ubuntu_font_family
     ];

@@ -8,6 +8,7 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
+  cfg.networking.hostname = "workstation";
   cfg.os.unix = "linux";
   cfg.os.version = "22.11";
 
