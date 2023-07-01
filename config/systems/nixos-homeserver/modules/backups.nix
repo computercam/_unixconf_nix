@@ -1,11 +1,12 @@
 { config, lib, pkgs, options, ... }: 
 with lib;
 let
-  remoteBackupUser = "u320463";
-  remoteBackupHost = "u320463.your-storagebox.de";
-  remoteBackupPort = "23";
-  remoteBackupRoot = "ssh://${remoteBackupUser}@${remoteBackupHost}:${remoteBackupPort}/./Backup/BorgBackup";
+  # remoteBackupUser = "u320463";
+  # remoteBackupHost = "u320463.your-storagebox.de";
+  # remoteBackupPort = "23";
+  # remoteBackupRoot = "ssh://${remoteBackupUser}@${remoteBackupHost}:${remoteBackupPort}/./Backup/BorgBackup";
   localBackupRoot = "/Volumes/Backup/BorgBackup";
+  localRedundantBackupRoot = "/Volumes/BulkStorage/BorgBackup";
 
   defaults = {
     encryption.mode = "repokey";
@@ -17,7 +18,7 @@ let
     environment.BORG_RSH = ''ssh -i ${builtins.toString (./../../../../_ + "/id_rsa.borgbackup")}'';
   };
   
-  Server = mkMerge [ defaults {
+  ServerLocal = mkMerge [ defaults {
     paths = "/Volumes/Server";
     repo = "${localBackupRoot}/Server";
     preHook = ''
@@ -38,46 +39,66 @@ let
     exclude = mkForce [ "re:^.*docker_storage_root/" ];
   }];
 
-  ServerRemote = mkMerge [ Server {
-    repo = mkForce "${remoteBackupRoot}/Server";
-    startAt = mkForce "*-*-* 01:30:00";
-  }];
-
-  Rae = mkMerge [ defaults {
+  RaeLocal = mkMerge [ defaults {
     paths = "/Volumes/Storage/Rae";
     repo = "${localBackupRoot}/Rae";
     startAt = "*-*-* 02:00:00";
   }];
 
-  RaeRemote = mkMerge [ Rae {
-    repo = mkForce "${remoteBackupRoot}/Rae";
-    startAt = mkForce "*-*-* 02:30:00";
-  }];
-
-  Cameron = mkMerge [ defaults {
+  CameronLocal = mkMerge [ defaults {
     paths = "/Volumes/Storage/Cameron";
     repo = "${localBackupRoot}/Cameron";
     startAt = "*-*-* 03:00:00";
   }];
 
-  CameronRemote = mkMerge [ Cameron {
-    repo = mkForce "${remoteBackupRoot}/Cameron";
+  ServerLocalRedundant = mkMerge [ ServerLocal {
+    repo = mkForce "${localRedundantBackupRoot}/Server";
+    startAt = mkForce "*-*-* 01:30:00";
+  }];
+
+  RaeLocalRedundant = mkMerge [ RaeLocal {
+    repo = mkForce "${localRedundantBackupRoot}/Rae";
+    startAt = mkForce "*-*-* 02:30:00";
+  }];
+
+  CameronLocalRedundant = mkMerge [ CameronLocal {
+    repo = mkForce "${localRedundantBackupRoot}/Cameron";
     startAt = mkForce "*-*-* 03:30:00";
   }];
+
+  # ServerRemote = mkMerge [ ServerLocal {
+  #   repo = mkForce "${remoteBackupRoot}/Server";
+  #   startAt = mkForce "*-*-* 01:30:00";
+  # }];
+
+  # RaeRemote = mkMerge [ RaeLocal {
+  #   repo = mkForce "${remoteBackupRoot}/Rae";
+  #   startAt = mkForce "*-*-* 02:30:00";
+  # }];
+
+  # CameronRemote = mkMerge [ CameronLocal {
+  #   repo = mkForce "${remoteBackupRoot}/Cameron";
+  #   startAt = mkForce "*-*-* 03:30:00";
+  # }];
 
 in {
   config = {
     age.identityPaths = [ ../../../../_/id_rsa.borgbackup ];
     age.secrets.borgbackup.file = ../../../../secrets/borgbackup.age;
 
+    # TODO: not sure if this is needed since these files almost never change
+    # services.cron.systemCronJobs = [
+    #   "0 5 * * 0  root   rsync -avh  --min-size=1  /Volumes/BulkStorage/ /Volumes/Backup/BulkStorage/"
+    # ]; 
+
     services.borgbackup = {
       jobs = {
-        Cameron = Cameron;
-        # CameronRemote = CameronRemote;
-        Rae = Rae;
-        # RaeRemote = RaeRemote;
-        Server = Server;
-        # ServerRemote = ServerRemote;
+        CameronLocal = CameronLocal;
+        CameronLocalRedundant = CameronLocalRedundant;
+        RaeLocal = RaeLocal;
+        RaeLocalRedundant = RaeLocalRedundant;
+        ServerLocal = ServerLocal;
+        ServerLocalRedundant = ServerLocalRedundant;
       };
     };
   };
