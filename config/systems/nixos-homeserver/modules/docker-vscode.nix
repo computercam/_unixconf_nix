@@ -22,7 +22,7 @@
         volumes = [ "/Volumes/Server/docker/vscode/config:/config" ];
         environment = {
           PUID = "1000";
-          PGID = "1000";
+          PGID = "996";
           TZ = "America/Chicago";
           # SUDO_PASSWORD_HASH= #optional
           # PROXY_DOMAIN = "code-server.cameron.computer"; #optional

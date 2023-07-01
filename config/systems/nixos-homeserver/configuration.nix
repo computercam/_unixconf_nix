@@ -4,17 +4,16 @@ let cfg = config.cfg;
 in {
   imports = [ ./hardware-configuration.nix ./modules.nix ];
   
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/nvme0n1";
 
   cfg.os.unix = "linux";
   cfg.os.version = "22.05";
 
-  hardware.cpu.amd.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
 
   nix.autoOptimiseStore = true;
-  nix.maxJobs = 16;
+  nix.maxJobs = 8;
   nixpkgs.config.allowUnfree = true;
   services.fstrim.enable = true;
 
@@ -22,4 +21,9 @@ in {
   system.stateVersion = cfg.os.version;
   
   programs.zsh.enable = true;
+  users.users.rae = {
+    group = "rae";
+    isNormalUser = true;
+  };
+  users.groups.rae.name = "rae";
 }

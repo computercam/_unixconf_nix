@@ -11,6 +11,8 @@
       name = "work";
       shell = pkgs.zsh;
       packages = with pkgs; [
+          nodejs-slim-14_x
+          nodejs-14_x
           nodejs-slim-10_x
           nodejs-10_x
           maven

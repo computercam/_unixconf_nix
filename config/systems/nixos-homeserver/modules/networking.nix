@@ -4,8 +4,8 @@
       hostname = "homeserver";
 
       domain_name_servers = {
-        primary = config.cfg.networking.static.default_gateway;
-        secondary = config.cfg.networking.static.default_gateway;
+        primary = "1.1.1.1";
+        secondary = "1.0.0.1";
       };
 
       static = {
@@ -13,7 +13,7 @@
         default_gateway = "192.168.0.1";
         ip_address = "192.168.0.169";
         prefix_length = 24;
-        interface = "enp3s0";
+        interface = "eno0";
       };
     };
   };

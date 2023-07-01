@@ -23,9 +23,10 @@
     ./modules/backups.nix
     # ./modules/desktop-environment.nix
     ./modules/development.nix
+    ./modules/docker-adguard.nix
     ./modules/docker-gitea.nix
     ./modules/docker-nextcloud.nix
-    ./modules/docker-penpot.nix
+    # ./modules/docker-penpot.nix
     ./modules/docker-resiliosync.nix
     ./modules/docker-swag.nix
     ./modules/docker-vscode.nix

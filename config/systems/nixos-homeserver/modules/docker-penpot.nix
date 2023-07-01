@@ -63,7 +63,7 @@ let
         volumes = [ "/Volumes/Server/docker/penpot/penpot_assets_data:/opt/data" ];
         environment = mkMerge [ PENPOT_ENV {
           PUID = "1000";
-          PGID = "992";
+          PGID = "996";
           TZ = "America/Chicago";
         }];
         extraOptions = [ "--network=${config.cfg.docker.networking.dockernet}" ];
@@ -78,7 +78,7 @@ let
         volumes = [ "/Volumes/Server/docker/penpot/penpot_assets_data:/opt/data" ];
         environment = mkMerge [ PENPOT_ENV {
           PUID = "1000";
-          PGID = "992";
+          PGID = "996";
           TZ = "America/Chicago";
         }];
         extraOptions = [ "--network=${config.cfg.docker.networking.dockernet}" ];
@@ -92,7 +92,7 @@ let
         image = "penpotapp/exporter:latest";
         environment = mkMerge [ PENPOT_ENV {
           PUID = "1000";
-          PGID = "992";
+          PGID = "996";
           TZ = "America/Chicago";
           PENPOT_PUBLIC_URI = mkForce "http://penpot-frontend";
         }];
@@ -103,7 +103,7 @@ let
         image = "postgres:13";
         environment = mkMerge [ PENPOT_ENV {
           PUID = "1000";
-          PGID = "992";
+          PGID = "996";
           TZ = "America/Chicago";
           POSTGRES_INITDB_ARGS = "--data-checksums";
           POSTGRES_DB = "penpot";
@@ -118,7 +118,7 @@ let
         image = "redis:6";
         environment = {
           PUID = "1000";
-          PGID = "992";
+          PGID = "996";
           TZ = "America/Chicago";
         };
         extraOptions = [ "--network=${config.cfg.docker.networking.dockernet}" ];

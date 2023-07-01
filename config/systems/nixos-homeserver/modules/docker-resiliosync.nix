@@ -14,7 +14,7 @@
         ];
         environment = {
           PUID = "1000";
-          PGID = "992";
+          PGID = "996";
           TZ = "America/Chicago";
         };
         extraOptions = [ 

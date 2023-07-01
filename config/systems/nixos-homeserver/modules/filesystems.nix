@@ -1,7 +1,6 @@
 { config, lib, pkgs, options, ... }: {
   config = {
     environment.systemPackages = with pkgs; [ 
-      btrfs-progs 
       mergerfs 
     ];
 
@@ -19,10 +18,9 @@
       };
 
       Server = {
-        device = "/dev/disk/by-uuid/76bc5abf-0185-41d0-8658-5038177def99";
+        device = "/dev/disk/by-label/SERVER";
         mountPoint = "/Volumes/Server";
-        fsType = "btrfs";
-        options = [ "subvol=Server" ];
+        fsType = "ext4";
       };
 
       Storage = {

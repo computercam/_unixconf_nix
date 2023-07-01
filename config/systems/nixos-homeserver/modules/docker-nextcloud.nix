@@ -28,7 +28,7 @@
         ];
         environment = {
           PUID = "1000";
-          PGID = "992";
+          PGID = "996";
           TZ = "America/Chicago";
         };
         extraOptions = [ 
@@ -43,7 +43,7 @@
         volumes = [ "/Volumes/Server/docker/nextcloud/mariadb:/config" ];
         environment = {
           PUID = "1000";
-          PGID = "992";
+          PGID = "996";
           TZ = "America/Chicago";
           MYSQL_DATABASE = "nextcloud_db";
           MYSQL_USER = "nextcloud_db";

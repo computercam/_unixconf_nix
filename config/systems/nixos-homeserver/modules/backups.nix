@@ -73,11 +73,11 @@ in {
     services.borgbackup = {
       jobs = {
         Cameron = Cameron;
-        CameronRemote = CameronRemote;
+        # CameronRemote = CameronRemote;
         Rae = Rae;
-        RaeRemote = RaeRemote;
+        # RaeRemote = RaeRemote;
         Server = Server;
-        ServerRemote = ServerRemote;
+        # ServerRemote = ServerRemote;
       };
     };
   };
