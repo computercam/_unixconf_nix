@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 
-with pkgs.stdenv;
-with lib; {
+with lib;
+
+{
   options.cfg.os = {
     arch = mkOption {
       type = types.str;
@@ -9,13 +10,10 @@ with lib; {
       description = "System Architecture";
     };
 
-    family = mkOption {
+    name = mkOption {
       type = types.str;
-      default =
-        if isLinux then "linux" 
-        else if isDarwin then "darwin" 
-        else "unix";
-      description = "Operating System Unix Family";
+      default = "nixos";
+      description = "Operating System Name";
     };
 
     version = mkOption {
@@ -23,12 +21,18 @@ with lib; {
       default = "latest";
       description = "Operating System Version";
     };
+
+    hostname = mkOption {
+      type = types.str;
+      default = config.cfg.os.name;
+      description = "System Hostname";
+    };
   };
 
   options.cfg.localization = {
     lang = mkOption {
       type = types.str;
-      default = "en_US.utf8";
+      default = "en_US.UTF-8";
       description = "System Language";
     };
 
@@ -54,6 +58,18 @@ with lib; {
       type = types.flt;
       default = -96.0;
       description = "Location Lat";
+    };
+
+    measurement = mkOption {
+      type = types.str;
+      default = "Inches";
+      description = "Measurement Units";
+    };
+
+    temperature = mkOption {
+      type = types.str;
+      default = "Fahrenheit";
+      description = "Temperature Units";
     };
   };
 }

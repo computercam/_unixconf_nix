@@ -1,8 +1,8 @@
 { config, lib, pkgs, options, ... }: {
   config = {
+    cfg.os.hostname = "homeserver";
+    
     cfg.networking = {
-      hostname = "homeserver";
-
       domain_name_servers = {
         primary = "1.1.1.1";
         secondary = "1.0.0.1";

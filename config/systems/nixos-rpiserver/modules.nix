@@ -4,7 +4,6 @@
     
     ../../modules/common/user-main/user-main.nix
 
-    ../../modules/nixos/__nixos/__nixos.nix
     ../../modules/nixos/service-avahi/service-avahi.nix
     ../../modules/nixos/service-docker/service-docker.nix
     ../../modules/nixos/service-firewall/service-firewall.nix

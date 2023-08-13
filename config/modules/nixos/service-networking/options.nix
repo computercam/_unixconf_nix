@@ -16,12 +16,6 @@ with lib; {
       };
     };
 
-    hostname = mkOption {
-      type = types.str;
-      default = config.cfg.os.unix;
-      description = "System Hostname";
-    };
-
     static = {
       enable = mkOption {
         type = types.bool;

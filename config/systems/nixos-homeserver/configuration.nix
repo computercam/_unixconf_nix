@@ -7,7 +7,6 @@ in {
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme0n1";
 
-  cfg.os.unix = "linux";
   cfg.os.version = "22.05";
 
   hardware.enableRedistributableFirmware = true;

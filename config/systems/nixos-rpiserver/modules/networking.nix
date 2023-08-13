@@ -1,8 +1,8 @@
 { config, lib, pkgs, options, ... }: {
   config = {
+    cfg.os.hostname = "rpiserver";
+    
     cfg.networking = {
-      hostname = "rpiserver";
-
       domain_name_servers = {
         primary = config.cfg.networking.static.default_gateway;
         secondary = config.cfg.networking.static.default_gateway;

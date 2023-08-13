@@ -6,14 +6,14 @@ with lib; {
   nix.settings.allowed-users = [ config.cfg.user.name ];
 
   users.users."${config.cfg.user.name}" = (mkMerge [
-    (if config.cfg.os.unix == "linux" then {
+    (if config.cfg.os.name == "nixos" then {
       createHome = true;
       extraGroups = [ "wheel" ];
       group = config.cfg.user.name;
       home = "/home/${config.cfg.user.name}";
       isNormalUser = true;
     } else {})
-    ( if config.cfg.os.unix == "darwin" then {
+    ( if config.cfg.os.name == "macos" then {
       home = "/Users/${config.cfg.user.name}";
     } else {})
     ({
@@ -23,10 +23,10 @@ with lib; {
   ]);
 
   users.groups."${config.cfg.user.name}" = (mkMerge [
-    (if config.cfg.os.unix == "linux" then { 
+    (if config.cfg.os.name == "nixos" then { 
       name = config.cfg.user.name; 
     } else {})
-    (if config.cfg.os.unix == "darwin" then { 
+    (if config.cfg.os.name == "macos" then { 
       name = "staff"; 
     } else {})
   ]);

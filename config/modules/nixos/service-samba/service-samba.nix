@@ -29,7 +29,7 @@
         preserve case = yes
         read only = no
         server role = standalone server
-        server string = ${config.cfg.networking.hostname} Samba Server
+        server string = ${config.cfg.os.hostname} Samba Server
         short preserve case = yes
         socket options = TCP_NODELAY IPTOS_LOWDELAY
         store dos attributes = yes

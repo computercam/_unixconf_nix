@@ -6,7 +6,6 @@
   ];
 
   config = {
-    cfg.os.unix = "darwin";
     cfg.os.version = "22.11";
     programs.zsh.enable = true;
     environment.systemPath = [ "/run/current-system/sw/bin/" ];

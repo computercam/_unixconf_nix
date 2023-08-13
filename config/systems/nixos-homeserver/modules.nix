@@ -10,7 +10,6 @@
     ../../modules/common/fonts/fonts.nix
     ../../modules/common/utils/utils.nix
 
-    ../../modules/nixos/__nixos/__nixos.nix
     ../../modules/nixos/service-avahi/service-avahi.nix
     ../../modules/nixos/service-cron/service-cron.nix
     ../../modules/nixos/service-docker/service-docker.nix

@@ -4,8 +4,6 @@ with lib; {
   imports = [ ./options.nix ];
 
   config.networking = mkMerge [
-    ({ hostName = config.cfg.networking.hostname; })
-
     (mkIf (config.cfg.networking.static.enable == true) {
       networkmanager.enable = mkForce false;
       dhcpcd.enable = mkForce false;

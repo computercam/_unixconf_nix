@@ -2,13 +2,13 @@
   imports = [ ./modules.nix ];
 
   config.home-manager.users."${config.cfg.user.name}".home.packages = with pkgs; 
-    (if config.cfg.os.unix == "linux" then [
+    (if config.cfg.os.name == "nixos" then [
       parted # filesystems
       nettools # networking
       openvpn # networking
       killall # processes
       lshw # system info
-    ] else if config.cfg.os.unix == "darwin" then [
+    ] else if config.cfg.os.name == "macos" then [
     ] else []) ++ [
       coreutils-full # generic
 

@@ -14,17 +14,17 @@
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/3dd400c0-65d9-484d-9455-1dceb44cbfb1";
+    { device = "/dev/disk/by-uuid/e5902517-ae23-4758-8190-eb80587db326";
       fsType = "ext4";
     };
 
-  fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-uuid/8F65-2C9A";
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/CBE4-BCC4";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/35ebe540-e62a-47c6-b0d6-08e44647a70c"; }
+    [ { device = "/dev/disk/by-uuid/7a950733-c4dd-4a12-b5c2-924c2ad77616"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -34,10 +34,9 @@
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp0s31f6.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp113s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
 }
