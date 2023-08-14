@@ -17,6 +17,8 @@ in
       gnomeExtensions.gsconnect
       gnomeExtensions.freon
       papirus-icon-theme
+      gnomeExtensions.dash-to-panel
+      gnomeExtensions.arcmenu
     ];
 
     systemd.tmpfiles.rules = [
