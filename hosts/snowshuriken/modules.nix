@@ -12,7 +12,7 @@
     ../../modules/nixos/service-docker/service-docker.nix
     ../../modules/nixos/service-phone/service-phone.nix
     ../../modules/nixos/service-printing/service-printing.nix
-    ./modules/desktop-environment.nix
+    ./modules/plasma.nix
     ./modules/software.nix
     ./modules/hardware.nix
     ./modules/graphics.nix

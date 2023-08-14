@@ -1,6 +1,6 @@
 { config, lib, pkgs, options, ... }: {
   config = {
-    services.xserver.videoDrivers = [ "nvidia" ]; # nvidia gtx 1060
+    services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia.modesetting.enable = true;
     hardware.nvidia.prime = {
       sync.enable = true;

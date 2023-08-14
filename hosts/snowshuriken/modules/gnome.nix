@@ -20,7 +20,7 @@ in
     ];
 
     systemd.tmpfiles.rules = [
-      "L+ /run/gdm/.config/monitors.xml - - - - ${monitorsConfig}"
+      "f+ /run/gdm/.config/monitors.xml - gdm gdm - ${monitorsConfig}"
     ];
 
     home-manager.users."${config.cfg.user.name}".dconf.settings = {
