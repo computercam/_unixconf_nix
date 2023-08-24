@@ -4,6 +4,7 @@ with lib; {
   imports = [ ./modules.nix ./options.nix ];
 
   nix.settings.allowed-users = [ config.cfg.user.name ];
+  nix.settings.trusted-users = [ config.cfg.user.name ];
 
   users.users."${config.cfg.user.name}" = (mkMerge [
     (if config.cfg.os.unix == "linux" then {
