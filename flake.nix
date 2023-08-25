@@ -11,7 +11,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, agenix, ... }@inputs: 
+  outputs = { self, nixpkgs, nix-darwin, home-manager, agenix, ... }@inputs: 
   let 
     globalModules = [ ./modules/global/global.nix ];
     globalModulesNixos = globalModules ++ [ 
@@ -39,12 +39,12 @@
       };
     };
     darwinConfigurations = {
-      hackinfrost = nixpkgs.lib.darwinSystem {
+      hackinfrost = nix-darwin.lib.darwinSystem {
         system = "x86_64-darwin";
         modules = globalModulesMacos
           ++ [ ./hosts/hackinfrost/configuration.nix ];
       };
-      silicontundra = nixpkgs.lib.darwinSystem {
+      silicontundra = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = globalModulesMacos
           ++ [ ./hosts/silicontundra/configuration.nix ];

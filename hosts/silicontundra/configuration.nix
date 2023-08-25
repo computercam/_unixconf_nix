@@ -5,4 +5,5 @@
   environment.systemPath = [ "/run/current-system/sw/bin/" ];
   services.nix-daemon.enable = true;
   nix.maxJobs = 10;
+  nixpkgs.hostPlatform = "aarch64-darwin";
 }
