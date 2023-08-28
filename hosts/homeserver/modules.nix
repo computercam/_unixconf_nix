@@ -1,10 +1,7 @@
 { config, pkgs, ... }: {
   imports = [
-    ../../modules/common/shell/shell.nix
-    ../../modules/common/user-main/user-main.nix
-    ../../modules/common/user-main/user-main-shell.nix
+    ../../modules/common/home/home.nix
     ../../modules/common/fonts/fonts.nix
-    ../../modules/common/utils/utils.nix
 
     ../../modules/nixos/service-avahi/service-avahi.nix
     ../../modules/nixos/service-cron/service-cron.nix

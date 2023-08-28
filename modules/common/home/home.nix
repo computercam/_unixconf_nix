@@ -1,4 +1,43 @@
-{ config, lib, pkgs, options, ... }: {
+{ config, lib, pkgs, options, ... }:
+with pkgs.stdenv;
+with lib;
+let
+  zshInitExtraConfig = import ./zshInitExtraConfig.nix;
+  getZshInitExtra = import ./getZshInitExtra.nix;
+in {
+  
+  # TODO need to scope this to the home environment
+  environment.systemPackages = with pkgs; [
+    zoxide
+    neovim
+  ];
+
+  home-manager.users."${config.cfg.user.name}" = {
+    home.stateVersion = config.cfg.os.version;
+
+    programs.git = {
+      enable = true;
+      userName = config.cfg.user.name;
+      userEmail = config.cfg.user.email;
+    };
+
+    programs.zsh.enable = true;
+    programs.zsh.initExtra = getZshInitExtra initExtraConfig;
+  };
+
+  # TODO need to make this optional with options
+  home-manager.users."${config.cfg.user.name}".home.packages = with pkgs; [
+    cmatrix 
+    cowsay
+    figlet
+    lolcat
+    pipes
+    toilet
+    pywal
+    colorz
+  ];
+
+  # TODO need to make this optional with options
   home-manager.users."${config.cfg.user.name}".home.packages = with pkgs; 
     (if config.cfg.os.name == "nixos" then [
       parted # filesystems
