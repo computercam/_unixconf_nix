@@ -14,21 +14,21 @@ in
       stateVersion = config.cfg.os.version;
       # file = (mkMerge (dotfiles ../../../modules/common/dotfiles/.dotfiles));
 
-      # packages = config
-      #   .home-manager
-      #   .users
-      #   ."${config.cfg.user.name}"
-      #   .home
-      #   .packages ++ (with pkgs; [
-      #     colima
-      #     docker
-      #     docker-compose
-      #     nodejs-slim
-      #     mavenjdk11
-      #     jdk11
-      #     slack
-      #     teams
-      #   ]);
+      packages = config
+        .home-manager
+        .users
+        ."${config.cfg.user.name}"
+        .home
+        .packages ++ (with pkgs; [
+          colima
+          docker
+          docker-compose
+          nodejs-slim
+          mavenjdk11
+          jdk11
+          slack
+          teams
+        ]);
     };
     
     programs = {
@@ -40,15 +40,15 @@ in
       zsh = {
         enable = true;
 
-        # initExtra = config
-        #   .home-manager
-        #   .users
-        #   ."${config.cfg.user.name}"
-        #   .programs
-        #   .zsh
-        #   .initExtra + ''
-        #     JAVA_HOME=${pkgs.jdk11.home}
-        #   '';
+        initExtra = config
+          .home-manager
+          .users
+          ."${config.cfg.user.name}"
+          .programs
+          .zsh
+          .initExtra + ''
+            JAVA_HOME=${pkgs.jdk11.home}
+          '';
       };
     };
   };
