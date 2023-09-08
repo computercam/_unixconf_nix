@@ -1,9 +1,7 @@
 { config, pkgs, ... }: {
   imports = [
     ../../modules/common/fonts/fonts.nix
-    ../../modules/common/user-main/user-main.nix
-    ../../modules/common/user-main/user-main-shell.nix
-    ../../modules/common/utils/utils.nix
+    ../../modules/common/home/home.nix
     ../../modules/nixos/service-avahi/service-avahi.nix
     ../../modules/nixos/service-firewall/service-firewall.nix
     ../../modules/nixos/service-networking/service-networking.nix
