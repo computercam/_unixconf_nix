@@ -70,7 +70,7 @@ in {
         };
 
         "org/gnome/shell/extensions/freon" = {
-          hot-sensors = [ "BYTE_TEMP0" ];
+          hot-sensors = [ "BYTE_TEMP0" "NVIDIA GeForce RTX 4090" ];
         };
 
         "org/gnome/shell/extensions/just-perfection" = {
