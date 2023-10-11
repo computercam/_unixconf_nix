@@ -13,7 +13,6 @@
     ./modules/desktop-environment.nix
     ./modules/software.nix
     ./modules/hardware.nix
-    ./modules/graphics.nix
     # ./modules/work.nix     
   ];
 }
