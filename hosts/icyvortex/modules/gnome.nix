@@ -1,6 +1,7 @@
 { config, lib, pkgs, options, ... }:
 let
-  monitorsConfig = ./monitors.xml;
+  monitorsXmlContent = builtins.readFile ./monitors.xml;
+  monitorsConfig = pkgs.writeText "gdm_monitors.xml" monitorsXmlContent;
   nixosLogoPath = ../../../assets/logo.svg;
   backgroundImage = ../../../assets/mountains.jpg;
   gtkCss = ./gtk.css;
@@ -24,9 +25,7 @@ in {
     ];
 
     systemd.tmpfiles.rules = [
-      "f+ /run/gdm/.config/monitors.xml - gdm gdm - ${
-        builtins.toString monitorsConfig
-      }"
+      "L+ /run/gdm/.config/monitors.xml - - - - ${monitorsConfig}"
     ];
 
     home-manager.users."${config.cfg.user.name}" = {
