@@ -11,9 +11,10 @@
     ../../modules/nixos/service-phone/service-phone.nix
     ../../modules/nixos/service-printing/service-printing.nix
     ../../modules/nixos/hardware-nvidia/hardware-nvidia.nix
-    ./modules/desktop-environment.nix
+    ./modules/gnome.nix
     ./modules/software.nix
     ./modules/hardware.nix
+    ./modules/software.nix
     # ./modules/work.nix     
   ];
 }
