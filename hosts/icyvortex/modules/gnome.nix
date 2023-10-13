@@ -18,10 +18,10 @@ in {
       gnomeExtensions.appindicator
       gnomeExtensions.gsconnect
       gnomeExtensions.freon
-      papirus-icon-theme
+      # papirus-icon-theme
       gnomeExtensions.dash-to-panel
       gnomeExtensions.arcmenu
-      yaru-theme
+      # yaru-theme
     ];
 
     systemd.tmpfiles.rules = [
@@ -47,8 +47,8 @@ in {
           font-antialiasing = "grayscale";
           font-hinting = "slight";
           font-name = "Inter 11";
-          # gtk-theme = "Adwaita-dark";
-          # icon-theme = "Papirus-Dark";
+          gtk-theme = "Adwaita-dark";
+          icon-theme = "Papirus-Dark";
           monospace-font-name = "Fantasque Sans Mono";
         };
 
@@ -138,21 +138,21 @@ in {
         "org/gnome/tweaks" = { show-extensions-notice = false; };
       };
 
-      gtk = {
-        enable = true;
-        cursorTheme.package = pkgs.bibata-cursors;
-        cursorTheme.name = "Bibata-Original-Classic";
+      # gtk = {
+      #   enable = true;
+      #   cursorTheme.package = pkgs.bibata-cursors;
+      #   cursorTheme.name = "Bibata-Original-Classic";
 
-        theme.package = pkgs.adw-gtk3;
-        theme.name = "adw-gtk3";
-      };
+      #   theme.package = pkgs.adw-gtk3;
+      #   theme.name = "adw-gtk3";
+      # };
 
 
 
-      # cd $(nix build nixpkgs\#yaru-theme --print-out-paths --no-link)
+      # # cd $(nix build nixpkgs\#yaru-theme --print-out-paths --no-link)
 
-      home.file.".config/gtk-4.0/gtk.css".source = builtins.toString gtkCss;
-      home.file.".config/gtk-4.0/gtk-dark.css".source = builtins.toString gtkCss;
+      # home.file.".config/gtk-4.0/gtk.css".source = builtins.toString gtkCss;
+      # home.file.".config/gtk-4.0/gtk-dark.css".source = builtins.toString gtkCss;
     };
 
   };

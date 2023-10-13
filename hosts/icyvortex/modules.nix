@@ -11,6 +11,7 @@
     ../../modules/nixos/service-phone/service-phone.nix
     ../../modules/nixos/service-printing/service-printing.nix
     ../../modules/nixos/hardware-nvidia/hardware-nvidia.nix
+    ../../modules/nixos/service-kvm/service-kvm.nix
     ./modules/gnome.nix
     ./modules/software.nix
     ./modules/hardware.nix
