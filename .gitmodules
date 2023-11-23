@@ -1,4 +1,4 @@
-[submodule "modules/common/dotfiles/.dotfiles"]
+[submodule "modules/common/home/.dotfiles"]
 	path = modules/common/home/.dotfiles
 	url = git@github.com:computercam/_unixconf_dotfiles.git
 [submodule "_"]
