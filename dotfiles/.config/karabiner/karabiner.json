@@ -16,14 +16,14 @@
                 },
                 "rules": [
                     {
-                        "description": "Control+Tab To Command+Tab",
+                        "description": "Option+Tab To Command+Tab",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "tab",
                                     "modifiers": {
                                         "mandatory": [
-                                            "left_control"
+                                            "left_option"
                                         ],
                                         "optional": [
                                             "any"
@@ -43,7 +43,7 @@
                                     "key_code": "tab",
                                     "modifiers": {
                                         "mandatory": [
-                                            "left_control",
+                                            "left_option",
                                             "left_shift"
                                         ],
                                         "optional": [
@@ -62,7 +62,7 @@
                         ]
                     },
                     {
-                        "description": "Command+Tab To Control+Tab",
+                        "description": "Command+Tab To Option+Tab",
                         "manipulators": [
                             {
                                 "from": {
@@ -79,7 +79,7 @@
                                 "to": [
                                     {
                                         "key_code": "tab",
-                                        "modifiers": "control"
+                                        "modifiers": "option"
                                     }
                                 ],
                                 "type": "basic"
@@ -100,7 +100,7 @@
                                 "to": [
                                     {
                                         "key_code": "tab",
-                                        "modifiers": [ "shift", "control" ]
+                                        "modifiers": [ "shift", "option" ]
                                     }
                                 ],
                                 "type": "basic"
