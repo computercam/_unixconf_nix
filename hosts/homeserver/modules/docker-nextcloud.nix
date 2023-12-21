@@ -1,8 +1,8 @@
 { config, lib, pkgs, options, ... }: {
   config = {
     age.secrets = {
-      nextcloud_mysql_password.file = ../../../../secrets/nextcloud_mysql_password.age;
-      nextcloud_mysql_root_password.file = ../../../../secrets/nextcloud_mysql_root_password.age;
+      nextcloud_mysql_password.file = ../../../secrets/nextcloud_mysql_password.age;
+      nextcloud_mysql_root_password.file = ../../../secrets/nextcloud_mysql_root_password.age;
     };
 
     systemd.services.docker-nextcloud_db.preStart = '' 

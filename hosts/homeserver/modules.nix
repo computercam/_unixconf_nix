@@ -1,7 +1,7 @@
 { config, pkgs, ... }: {
   imports = [
     ../../modules/common/home/home.nix
-    ../../modules/common/fonts/fonts.nix
+    # ../../modules/common/fonts/fonts.nix
 
     ../../modules/nixos/service-avahi/service-avahi.nix
     ../../modules/nixos/service-cron/service-cron.nix
@@ -12,9 +12,9 @@
     ../../modules/nixos/service-ssh/service-ssh.nix
     ../../modules/nixos/service-sudo/service-sudo.nix
 
-    ./modules/backups.nix
+    # ./modules/backups.nix
     # ./modules/desktop-environment.nix
-    ./modules/development.nix
+    # ./modules/development.nix
     ./modules/docker-adguard.nix
     ./modules/docker-gitea.nix
     ./modules/docker-nextcloud.nix
@@ -26,6 +26,6 @@
     ./modules/networking.nix
     ./modules/samba.nix
     ./modules/vscode-remote.nix
-    ./modules/work.nix
+    ./modules/zfs.nix
   ];
 }
