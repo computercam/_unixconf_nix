@@ -11,9 +11,11 @@
     ../../modules/nixos/service-phone/service-phone.nix
     ../../modules/nixos/service-printing/service-printing.nix
     ../../modules/nixos/hardware-nvidia/hardware-nvidia.nix
-    ./modules/desktop-environment.nix
+    ../../modules/nixos/service-audio/service-audio.nix
+    # ./modules/desktop-environment.nix
     ./modules/software.nix
     ./modules/hardware.nix
-    # ./modules/work.nix     
+    ./modules/service-stable-diffusion/service-stable-diffusion.nix     
+    ./modules/vscode-remote.nix
   ];
 }
