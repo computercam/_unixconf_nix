@@ -11,4 +11,6 @@ in {
   nix.settings.max-jobs = 16;
   programs.zsh.enable = true;
   services.fstrim.enable = true;
+
+
 }

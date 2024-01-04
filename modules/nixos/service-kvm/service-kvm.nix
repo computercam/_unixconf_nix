@@ -26,7 +26,7 @@
   imports = [ ./modules.nix ./options.nix ];
 
   config = {
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
 
     # Boot configuration
     boot.kernelModules = [ 
@@ -42,9 +42,14 @@
       options kvm ignore_msrs=1
     '';
 
+    services.cockpit = {
+      enable = true;
+      openFirewall = true;
+    };
+
     # ENVIRONMENT VARIABLES FOR SCRIPTS
-    environment.variables.PASSTHROUGH_GPU_VIDEO = config.cfg.vfio.passthrough.gpu_video;
-    environment.variables.PASSTHROUGH_GPU_AUDIO = config.cfg.vfio.passthrough.gpu_audio;
+    # environment.variables.PASSTHROUGH_GPU_VIDEO = config.cfg.vfio.passthrough.gpu_video;
+    # environment.variables.PASSTHROUGH_GPU_AUDIO = config.cfg.vfio.passthrough.gpu_audio;
 
     # VFIO Packages installed
     environment.systemPackages = with pkgs; [
@@ -58,9 +63,9 @@
     ];
 
     # Enable xrdp for remote control
-    services.xrdp.enable = true; # use remote_logout and remote_unlock
-    systemd.services.pcscd.enable = false;
-    systemd.sockets.pcscd.enable = false;
+    # services.xrdp.enable = true; # use remote_logout and remote_unlock
+    # systemd.services.pcscd.enable = false;
+    # systemd.sockets.pcscd.enable = false;
 
     # libvirtd user permissions
     users.users."${config.cfg.user.name}".extraGroups = [ "libvirtd" ];

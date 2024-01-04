@@ -8,5 +8,5 @@
   security.allowUserNamespaces = true;
   system.stateVersion = config.cfg.os.version;
   users.mutableUsers = true;
-  
+  programs.nix-ld.dev.enable = true;
 }

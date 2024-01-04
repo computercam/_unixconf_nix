@@ -5,7 +5,7 @@
     # services.xserver.dpi = lib.mkForce 180;
     services.xserver.videoDrivers = ["nvidia"];
     boot.kernelModules = [ "nct6775" "i2c-dev" "i2c-i801" ];
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    # boot.kernelPackages = pkgs.linuxPackages_latest;
     environment.systemPackages = with pkgs; [ lm_sensors ];
     hardware.cpu.intel.updateMicrocode = true;
     hardware.enableRedistributableFirmware = true;
