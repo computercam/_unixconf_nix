@@ -35,10 +35,10 @@
   in
   {
     nixosConfigurations = {
-      icyvortex = nixpkgs.lib.nixosSystem {
+      cryoxphere = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = globalModulesNixos
-          ++ [ ./hosts/icyvortex/configuration.nix ];
+          ++ [ ./hosts/cryroxphere/configuration.nix ];
       };
       homeserver = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
